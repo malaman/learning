@@ -8,7 +8,7 @@ define(function() {
     },
 
     alterObjects : function(constructor, greeting) {
-      
+
 
     },
 
