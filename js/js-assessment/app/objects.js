@@ -8,11 +8,18 @@ define(function() {
     },
 
     alterObjects : function(constructor, greeting) {
-
-
+      constructor.prototype.greeting = greeting
     },
 
     iterate : function(obj) {
+      var result = [];
+
+      for (var i in obj) {
+        if ( obj.hasOwnProperty(i) ) {
+          result.push(i +  ': '+ obj[i])
+        }
+      }
+      return result;
 
     }
   };
