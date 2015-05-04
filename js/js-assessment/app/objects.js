@@ -16,6 +16,7 @@ define(function() {
 
       for (var i in obj) {
         if ( obj.hasOwnProperty(i) ) {
+          
           result.push(i +  ': '+ obj[i])
         }
       }
