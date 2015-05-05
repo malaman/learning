@@ -3,30 +3,45 @@ if (typeof define !== 'function') { var define = require('amdefine')(module); }
 define(function() {
   return {
     argsAsArray : function(fn, arr) {
-      var result = '';
-      var last = arr.length - 1;
+      var greeting = arr[0];
+      var name = arr[1];
+      var punctuation = arr[2];
 
-
-      for (var i=0; i < last; i++ ) {
-        result += arr[i];
-        if ( i < last - 1) {
-          result += ', ';
-        }
-      }
-      result += arr[last];
-
-      return fn(result);
+      return fn(greeting, name, punctuation);
     },
 
     speak : function(fn, obj) {
+      return fn.call(obj);
 
     },
 
     functionFunction : function(str) {
 
+      var innerFunc = function(str2) {
+        return str + ', ' + str2;
+      }
+
+      return innerFunc;
+
+
     },
 
     makeClosures : function(arr, fn) {
+      var closureCounter = 0
+
+      var closure = function() {
+        var result =  fn(arr[closureCounter])
+        closureCounter += 1;
+        return result;
+
+      }
+
+      var result = [];
+      for ( var i in arr ) {
+        result.push(closure)
+      }
+
+      return result;
 
     },
 
