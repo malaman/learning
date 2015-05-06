@@ -30,7 +30,7 @@ define(function() {
       var closureCounter = 0
 
       var closure = function() {
-        var result =  fn(arr[closureCounter])
+        var result =  fn(arr[closureCounter]);
         closureCounter += 1;
         return result;
 
@@ -46,6 +46,10 @@ define(function() {
     },
 
     partial : function(fn, str1, str2) {
+
+      return function (str3) {
+        return fn.call(this, str1, str2, str3);
+      };
 
     },
 
