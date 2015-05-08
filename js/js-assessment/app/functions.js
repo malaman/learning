@@ -27,17 +27,18 @@ define(function() {
     },
 
     makeClosures : function(arr, fn) {
-      var closureCounter = 0
+      var closureCounter = 0,
+        closure = function() {
+          var result =  fn(arr[closureCounter]);
 
-      var closure = function() {
-        var result =  fn(arr[closureCounter]);
-        closureCounter += 1;
-        return result;
+          closureCounter += 1;
+          return result;
 
-      }
-
-      var result = [];
-      for ( var i in arr ) {
+        },
+        result = [],
+        i,
+        size = arr.length;
+      for ( i = 0; i < size; i++ ) {
         result.push(closure)
       }
 
@@ -46,7 +47,6 @@ define(function() {
     },
 
     partial : function(fn, str1, str2) {
-
       return function (str3) {
         return fn.call(this, str1, str2, str3);
       };
@@ -56,7 +56,10 @@ define(function() {
     useArguments : function() {
       var result = 0;
       for ( var i in arguments ) {
-        result += arguments[i];
+        if ( arguments.hasOwnProperty(i) ) {
+          result += arguments[i];
+        }
+
       }
       return result;
 

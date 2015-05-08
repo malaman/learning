@@ -8,8 +8,10 @@ define(function() {
     },
 
     sum : function(arr) {
-      var result = 0;
-      for ( var i in arr) {
+      var result = 0,
+          i,
+          size = arr.length;
+      for ( i = 0; i < size; i++  ) {
         result += arr[i];
 
       }
@@ -17,7 +19,10 @@ define(function() {
     },
 
     remove : function(arr, item) {
-      for ( var i in arr) {
+      var i,
+          size = arr.length;
+
+      for ( i=0; i < size; i++ ) {
         if ( arr[i] === item ) {
           arr.splice(i, 1);
         }
@@ -26,16 +31,21 @@ define(function() {
     },
 
     removeWithoutCopy : function(arr, item) {
-      var result = [];
-      for ( var i in arr) {
+      var result = [],
+        i,
+        size = arr.length,
+        resultSize
+      for ( i=0; i < size; i++ ) {
         if ( arr[i] !== item ) {
           result.push(arr[i])
         }
       }
-      for ( var i  in result ) {
+      resultSize = result.length;
+      for ( i =0; i < resultSize; i++ ) {
         arr[i] = result[i];
       }
-      arr.splice(result.length);
+
+      arr.splice(resultSize);
 
       return arr;
     },
@@ -71,8 +81,10 @@ define(function() {
     },
 
     count : function(arr, item) {
-      var count = 0;
-      for ( var i in arr) {
+      var count = 0,
+        i,
+        size = arr.length;
+      for (i = 0; i < size; i++ ) {
         if ( arr[i] === item ) {
           count += 1;
         }
@@ -83,10 +95,11 @@ define(function() {
     },
 
     duplicates : function(arr) {
-      var sorted_arr = arr.sort();
-
-      var results = [];
-      for (var i = 0; i < arr.length - 1; i++) {
+      var sorted_arr = arr.sort(),
+        results = [],
+        last = arr.length - 1,
+        i;
+      for ( i = 0; i < last; i++ ) {
         if (sorted_arr[i + 1] == sorted_arr[i] && sorted_arr[i] !== results[results.length - 1]) {
           results.push(sorted_arr[i]);
         }
@@ -96,16 +109,20 @@ define(function() {
     },
 
     square : function(arr) {
-      for ( var i in arr ) {
+      var i,
+        size = arr.length;
+
+      for ( i = 0; i < size; i++ ) {
         arr[i] = arr[i] * arr[i];
       }
       return arr;
     },
 
     findAllOccurrences : function(arr, target) {
-      var result = [];
+      var result = [],
+        size = arr.length;
 
-      for ( var i = 0; i < arr.length; i++ ) {
+      for ( var i = 0; i < size; i++ ) {
         if ( arr[i]  === target) {
           result.push(i);
         }
