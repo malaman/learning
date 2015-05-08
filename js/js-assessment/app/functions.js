@@ -16,12 +16,9 @@ define(function() {
     },
 
     functionFunction : function(str) {
-
-      var innerFunc = function(str2) {
+      return function(str2) {
         return str + ', ' + str2;
-      }
-
-      return innerFunc;
+      };
 
 
     },
