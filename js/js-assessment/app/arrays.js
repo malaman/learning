@@ -34,7 +34,7 @@ define(function() {
       var result = [],
         i,
         size = arr.length,
-        resultSize
+        resultSize;
       for ( i=0; i < size; i++ ) {
         if ( arr[i] !== item ) {
           result.push(arr[i])
