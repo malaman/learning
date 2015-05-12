@@ -11,11 +11,15 @@ define(function() {
     },
 
     endsWithVowel : function(str) {
-
+      return /[aeiouAEIOU]$/.test(str);
     },
 
     captureThreeNumbers : function(str) {
-
+      var result =  str.match(/[0-9]{3}/);
+      if ( result ) {
+        return result[0];
+      }
+      return false;
     },
 
     matchesPattern : function(str) {
