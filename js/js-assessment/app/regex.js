@@ -24,8 +24,10 @@ define(function() {
 
     matchesPattern : function(str) {
 
+
     },
     isUSD : function(str) {
+
 
     }
   };
