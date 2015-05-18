@@ -59,11 +59,12 @@ define(function() {
 
       }
       return result;
-
     },
 
     callIt : function(fn) {
-
+      var argsArray = Array.prototype.slice.call(arguments);
+      argsArray.shift();
+      return fn.apply(null, argsArray);
     },
 
     partialUsingArguments : function(fn) {
