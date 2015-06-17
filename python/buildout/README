@@ -1,0 +1,3 @@
+For building use versions setuptools and buildout
+python bootstrap.py --setuptools-version=3.8 -v 2.2.1
+bin/buildout

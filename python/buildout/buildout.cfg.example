@@ -1,0 +1,12 @@
+[buildout]
+extends = 
+#    profiles/run_prod_web.cfg
+#    profiles/run_devel_dev0.cfg
+#    profiles/run_devel_dev1.cfg
+#    profiles/run_devel_dev2.cfg
+#    profiles/run_devel_dev3.cfg
+#    profiles/run_devel_dev4.cfg
+#    profiles/run_devel_dev5.cfg
+#    profiles/run_devel_dev6.cfg
+#    profiles/run_devel_dev7.cfg
+#    profiles/run_devel_dev8.cfg
