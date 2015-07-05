@@ -10,16 +10,23 @@ class WidgetStore extends BaseStore {
     this.maxAge = null;
   }
 
+
   receiveManufacturersSuccess(manufacturers) {
     this.manufacturers = manufacturers;
+    this.emitChange();
   }
 
   getManufacturers() {
     return this.manufacturers;
+
   }
 
   myCustomActionHandler(payload) {
     console.log(payload);
+  }
+
+  getYears() {
+    return this.years;
   }
 
   setYears(depth) {
@@ -35,14 +42,11 @@ class WidgetStore extends BaseStore {
     this.years.reverse();
   }
 
-  getYears() {
-    return this.years;
-  }
-
   getMaxAgeSuccess(maxAge) {
     this.maxAge = parseInt(maxAge, 10);
     console.log(this.maxAge);
     this.setYears(this.maxAge);
+    this.emitChange();
   }
 
 }

@@ -12,6 +12,6 @@ const app = new Fluxible({
 // register stores
 app.registerStore(RouteStore);
 app.registerStore(ApplicationStore);
-app.registerStore(WidgetStore)
+app.registerStore(WidgetStore);
 
 module.exports = app;
