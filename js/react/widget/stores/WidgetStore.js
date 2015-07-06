@@ -1,4 +1,5 @@
 import BaseStore from 'fluxible/addons/BaseStore';
+import Actions from "../constants/Actions";
 
 class WidgetStore extends BaseStore {
   constructor(dispatcher) {
@@ -54,11 +55,11 @@ class WidgetStore extends BaseStore {
 WidgetStore.storeName = 'WidgetStore';
 
 WidgetStore.handlers = {
-  'RECEIVE_MANUFACTURERS_SUCCESS': 'receiveManufacturersSuccess',
-  'SELECT_MANUFACTURER_SUCCESS': 'selectManufacturerSuccess',
-  'RECEIVE_MODELS_SUCCESS': 'receiveModelsSuccess',
-  'MY_CUSTOM_ACTION_SUCCESS': 'myCustomActionHandler',
-  'GET_MAXAGE_SUCCESS': 'getMaxAgeSuccess'
+  [Actions.RECEIVE_MANUFACTURERS_SUCCESS]: 'receiveManufacturersSuccess',
+  [Actions.SELECT_MANUFACTURER_SUCCESS]: 'selectManufacturerSuccess',
+  [Actions.RECEIVE_MODELS_SUCCESS]: 'receiveModelsSuccess',
+  [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler',
+  [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess'
 };
 
 

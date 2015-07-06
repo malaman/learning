@@ -1,8 +1,8 @@
 'use strict';
 var React = require('react');
 var Select = require('./Select');
-var getManufacturersAction = require('../actions/getManufacturers');
-var getMaxAgeAction = require('../actions/getMaxAgeAction');
+
+import {getMaxAgeAction, getManufacturersAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 

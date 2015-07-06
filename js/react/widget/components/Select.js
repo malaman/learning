@@ -1,6 +1,6 @@
 'use strict';
 var React = require('react');
-var myCustomAction = require('../actions/myCustomAction');
+import {myCustomAction} from "../actions/WidgetActionsCreators";
 
 
 var Select = React.createClass({
@@ -9,6 +9,7 @@ var Select = React.createClass({
   contextTypes: {
    executeAction: React.PropTypes.func.isRequired
   },
+
   componentDidMount: function() {
     this.context.executeAction(myCustomAction, 'this is message for console');
   },
@@ -19,7 +20,6 @@ var Select = React.createClass({
     for (var item of this.props.options) {
       options.push(React.createElement("option", {key:item}, item));
     }
-
 
     return React.createElement("select", {className: "form-control", onChange: this.props.onChange,
         value: this.props.value},

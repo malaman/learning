@@ -45,9 +45,7 @@ export default handleHistory(provideContext(connectToStores(
         return {
             currentPageName: appStore.getCurrentPageName(),
             pageTitle: appStore.getPageTitle(),
-            pages: appStore.getPages(),
-            years: widgetStore.getYears(),
-            manufacturers: widgetStore.getManufacturers()
+            pages: appStore.getPages()
         };
     }
 )));
