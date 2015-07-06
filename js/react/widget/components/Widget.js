@@ -2,7 +2,7 @@
 var React = require('react');
 var Select = require('./Select');
 
-import {getMaxAgeAction, getManufacturersAction} from "../actions/WidgetActionsCreators";
+import {getMaxAgeAction, getManufacturersAction, changeYearAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 
@@ -14,7 +14,8 @@ var Widget = React.createClass({
   propTypes: function() {
     return {
       years: PropTypes.Array.isRequired,
-      manufacturers: PropTypes.Array.isRequired
+      manufacturers: PropTypes.Array.isRequired,
+      selectedYear: PropTypes.String.isRequired
     }
   },
 
@@ -25,42 +26,45 @@ var Widget = React.createClass({
 
 
   componentDidMount: function() {
-    this.context.executeAction(getManufacturersAction, { /*payload*/ });
     this.context.executeAction(getMaxAgeAction, {});
   },
 
   selectYearChangeHandler: function(event) {
-    this.setState({
-      selected: event.target.selected
-    });
+    this.context.executeAction(changeYearAction, event.target.value);
+    this.context.executeAction(getManufacturersAction, {year: event.target.value});
+  },
 
-    console.log(event.target.value);
+  selectManufacturerHandler: function(event) {
+
   },
 
   render: function() {
 
     const years = this.props.years;
     const manufacturers = this.props.manufacturers;
-    console.log('years ' + years);
+    const selectedYear = this.props.selectedYear;
+    const selectedManufacturer = this.props.selectedManufacturer;
+    console.log('manufacturers: ' +manufacturers);
 
     return React.createElement("div", {className: "container"},
       React.createElement("div", {className:"row"},
-        React.createElement("label", {"className": "horizontal-label"}, "Manufacturer"),
+        React.createElement("label", {"className": "horizontal-label"}, "Year"),
         React.createElement(Select, {
           className: "year",
           options: years,
+          value: selectedYear,
           onChange: this.selectYearChangeHandler
-        }),
-        React.createElement(Select, {
-          className: "manufacturer",
-          options: manufacturers,
-          onChange: this.selectYearChangeHandler,
-          value: manufacturers[0]
-        }),
-        React.createElement("div", null, years)
-      ))
-
-    ;
+        })),
+        React.createElement("div", {className:"row"},
+          React.createElement("label", {"className": "horizontal-label"}, "Manufacturer"),
+          React.createElement(Select, {
+            className: "year",
+            options: manufacturers,
+            value: selectedManufacturer,
+            onChange: this.selectManufacturerHandler
+          })
+      )
+    );
   }
 
 });
@@ -68,7 +72,9 @@ var Widget = React.createClass({
 Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
     return {
       years: stores.WidgetStore.getYears(),
-      manufacturers: stores.WidgetStore.getManufacturers()
+      manufacturers: stores.WidgetStore.getManufacturers(),
+      selectedYear: stores.WidgetStore.getSelectedYear(),
+      selectedManufacturer: stores.WidgetStore.getSelectedManufacturer()
     }
 });
 

@@ -5,11 +5,9 @@ import Nav from './Nav';
 import Home from './Home';
 import About from './About';
 import ApplicationStore from '../stores/ApplicationStore';
-import WidgetStore from '../stores/WidgetStore'
 import provideContext from 'fluxible/addons/provideContext';
 import connectToStores from 'fluxible/addons/connectToStores';
 import { handleHistory } from 'fluxible-router';
-import getManufacturersAction from '../actions/getManufacturers'
 
 class Application extends React.Component {
     render() {
@@ -38,10 +36,9 @@ class Application extends React.Component {
 
 export default handleHistory(provideContext(connectToStores(
     Application,
-    [ApplicationStore, WidgetStore],
+    [ApplicationStore],
     function (stores, props) {
         var appStore = stores.ApplicationStore;
-        var widgetStore = stores.WidgetStore;
         return {
             currentPageName: appStore.getCurrentPageName(),
             pageTitle: appStore.getPageTitle(),

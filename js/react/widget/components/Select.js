@@ -18,7 +18,7 @@ var Select = React.createClass({
   render: function() {
     var options = [];
     for (var item of this.props.options) {
-      options.push(React.createElement("option", {key:item}, item));
+      options.push(React.createElement("option", {key:item.key}, item.value));
     }
 
     return React.createElement("select", {className: "form-control", onChange: this.props.onChange,

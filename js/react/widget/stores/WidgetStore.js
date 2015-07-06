@@ -19,6 +19,14 @@ class WidgetStore extends BaseStore {
 
   getManufacturers() {
     return this.manufacturers;
+  }
+
+  getSelectedYear() {
+    return this.selectedYear;
+  }
+
+  getSelectedManufacturer() {
+    return this.seletedManufacturer;
 
   }
 
@@ -41,25 +49,50 @@ class WidgetStore extends BaseStore {
       this.years.push(i);
     }
     this.years.reverse();
+    this.years = this.years.map(item => {
+      return {key: item, value: item}
+    });
   }
 
   getMaxAgeSuccess(maxAge) {
     this.maxAge = parseInt(maxAge, 10);
     console.log(this.maxAge);
     this.setYears(this.maxAge);
+    if (this.selectedYear === null) {
+      this.selectedYear = this.years[0];
+    }
     this.emitChange();
   }
 
+  setSelectedYear(year) {
+    this.selectedYear = year;
+    this.emitChange();
+  }
+
+  setSelectedManufacturer(manufacturer) {
+    this.selectedManufacturer = manufacturer;
+    this.emitChange();
+  }
+
+  getManufacturersSuccess(manufacturers) {
+    var manufacturers = JSON.parse(manufacturers),
+        options = manufacturers.map(item => {
+          return {key: item.id, value: item.ru_name};
+        });
+    this.manufacturers = options;
+    this.emitChange();
+  }
 }
 
 WidgetStore.storeName = 'WidgetStore';
 
 WidgetStore.handlers = {
-  [Actions.RECEIVE_MANUFACTURERS_SUCCESS]: 'receiveManufacturersSuccess',
+  [Actions.GET_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
   [Actions.SELECT_MANUFACTURER_SUCCESS]: 'selectManufacturerSuccess',
   [Actions.RECEIVE_MODELS_SUCCESS]: 'receiveModelsSuccess',
   [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler',
-  [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess'
+  [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess',
+  [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear'
 };
 
 
