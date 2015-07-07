@@ -12,6 +12,12 @@ const WidgetActionCreators = {
     });
   },
 
+  getAllActiveManufacturers(actionContext, payload) {
+    return getAllActiveManufacturers().then(function(response) {
+      actionContext.dispatch(Actions.GET_ALL_ACTIVE_MANUFACTURERS_SUCCESS, response.text);
+    });
+  },
+
   getMaxAgeAction(actionContext, payload, done) {
     return getMaxAge().then(function (response) {
       actionContext.dispatch(Actions.GET_MAXAGE_SUCCESS, response.text);
@@ -41,6 +47,10 @@ function getMaxAge() {
 
 function getManufacturers(year)  {
   return request('GET', Settings.baseUrl + '/api/getManufacturer').query({year: year})
+}
+
+function getAllActiveManufacturers() {
+  return request('GET', Settings.baseUrl + '/api/getAllActiveManufacturers');
 }
 
 

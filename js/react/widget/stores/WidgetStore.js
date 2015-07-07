@@ -11,7 +11,6 @@ class WidgetStore extends BaseStore {
     this.maxAge = null;
   }
 
-
   receiveManufacturersSuccess(manufacturers) {
     this.manufacturers = manufacturers;
     this.emitChange();
@@ -26,7 +25,7 @@ class WidgetStore extends BaseStore {
   }
 
   getSelectedManufacturer() {
-    return this.seletedManufacturer;
+    return this.selectedManufacturer;
 
   }
 
@@ -80,6 +79,9 @@ class WidgetStore extends BaseStore {
           return {key: item.id, value: item.ru_name};
         });
     this.manufacturers = options;
+    if (this.selectedManufacturer === null) {
+      this.selectedManufacturer = this.manufacturers[0];
+    }
     this.emitChange();
   }
 }
@@ -88,11 +90,13 @@ WidgetStore.storeName = 'WidgetStore';
 
 WidgetStore.handlers = {
   [Actions.GET_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
+  [Actions.GET_ALL_ACTIVE_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
   [Actions.SELECT_MANUFACTURER_SUCCESS]: 'selectManufacturerSuccess',
   [Actions.RECEIVE_MODELS_SUCCESS]: 'receiveModelsSuccess',
   [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler',
   [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess',
-  [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear'
+  [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear',
+  [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer'
 };
 
 

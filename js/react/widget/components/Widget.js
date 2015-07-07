@@ -2,7 +2,8 @@
 var React = require('react');
 var Select = require('./Select');
 
-import {getMaxAgeAction, getManufacturersAction, changeYearAction} from "../actions/WidgetActionsCreators";
+import {getMaxAgeAction, getManufacturersAction,
+  changeYearAction, getAllActiveManufacturers, changeManufacturerAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 
@@ -27,6 +28,9 @@ var Widget = React.createClass({
 
   componentDidMount: function() {
     this.context.executeAction(getMaxAgeAction, {});
+    if (this.props.manufacturers.length === 0) {
+      this.context.executeAction(getAllActiveManufacturers, {});
+    }
   },
 
   selectYearChangeHandler: function(event) {
@@ -35,7 +39,7 @@ var Widget = React.createClass({
   },
 
   selectManufacturerHandler: function(event) {
-
+    this.context.executeAction(changeManufacturerAction, event.target.value);
   },
 
   render: function() {
