@@ -18,7 +18,7 @@ var Select = React.createClass({
   render: function() {
     var options = [];
     for (var item of this.props.options) {
-      options.push(React.createElement("option", {key:item.key}, item.value));
+      options.push(React.createElement("option", {key:item.value, value:item.value}, item.text));
     }
 
     return React.createElement("select", {className: "form-control", onChange: this.props.onChange,
@@ -28,5 +28,4 @@ var Select = React.createClass({
 
 });
 
-
-module.exports = Select;
+export default Select;

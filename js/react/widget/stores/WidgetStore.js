@@ -5,19 +5,25 @@ class WidgetStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
     this.years = [];
-    this.selectedYear = null;
     this.manufacturers = [];
-    this.selectedManufacturer = null;
+    this.models = [];
+
     this.maxAge = null;
+    this.selectedYear = null;
+    this.selectedManufacturer = null;
+    this.selectedModel = null;
   }
 
-  receiveManufacturersSuccess(manufacturers) {
-    this.manufacturers = manufacturers;
-    this.emitChange();
+  getYears() {
+    return this.years;
   }
 
   getManufacturers() {
     return this.manufacturers;
+  }
+
+  getModels() {
+    return this.models
   }
 
   getSelectedYear() {
@@ -26,16 +32,17 @@ class WidgetStore extends BaseStore {
 
   getSelectedManufacturer() {
     return this.selectedManufacturer;
+  }
 
+  getSelectedModel() {
+    return this.selectedModel;
   }
 
   myCustomActionHandler(payload) {
     console.log(payload);
   }
 
-  getYears() {
-    return this.years;
-  }
+
 
   setYears(depth) {
 
@@ -49,7 +56,7 @@ class WidgetStore extends BaseStore {
     }
     this.years.reverse();
     this.years = this.years.map(item => {
-      return {key: item, value: item}
+      return {value: item, text: item}
     });
   }
 
@@ -73,14 +80,22 @@ class WidgetStore extends BaseStore {
     this.emitChange();
   }
 
-  getManufacturersSuccess(manufacturers) {
-    var manufacturers = JSON.parse(manufacturers),
-        options = manufacturers.map(item => {
-          return {key: item.id, value: item.ru_name};
-        });
-    this.manufacturers = options;
+  getManufacturersSuccess(data) {
+     this.manufacturers = JSON.parse(data).map(item => {
+       return {value: item.id, text: item.ru_name};
+     });
     if (this.selectedManufacturer === null) {
       this.selectedManufacturer = this.manufacturers[0];
+    }
+    this.emitChange();
+  }
+
+  getModelsSuccess(data) {
+    this.models = JSON.parse(data).map(item => {
+      return {value: item.id, text: item.ru_name};
+    });
+    if (this.selectedModel === null) {
+      this.selectedModel = this.models[0];
     }
     this.emitChange();
   }
@@ -91,12 +106,12 @@ WidgetStore.storeName = 'WidgetStore';
 WidgetStore.handlers = {
   [Actions.GET_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
   [Actions.GET_ALL_ACTIVE_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
-  [Actions.SELECT_MANUFACTURER_SUCCESS]: 'selectManufacturerSuccess',
-  [Actions.RECEIVE_MODELS_SUCCESS]: 'receiveModelsSuccess',
-  [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler',
   [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess',
+  [Actions.GET_MODELS_SUCCESS]: 'getModelsSuccess',
   [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear',
-  [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer'
+  [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer',
+  [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel',
+  [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler'
 };
 
 
