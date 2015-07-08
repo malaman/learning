@@ -17,7 +17,7 @@ class Nav extends React.Component {
 
             return (
                 <li className={className} key={link.path}>
-                    <NavLink routeName={link.page} activeStyle={{backgroundColor: '#eee'}}>{link.title}</NavLink>
+                    <NavLink routeName={link.page} activeStyle={{backgroundColor: '#eee'}} navParams={{id: 1}}>{link.title}</NavLink>
                 </li>
             );
         });

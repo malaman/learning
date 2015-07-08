@@ -9,6 +9,7 @@ class ApplicationStore extends BaseStore {
         this.currentPage = null;
         this.pages = routesConfig;
         this.pageTitle = '';
+        this.id = null;
     }
     handlePageTitle(currentRoute) {
         var self = this;
@@ -16,6 +17,9 @@ class ApplicationStore extends BaseStore {
             if (currentRoute && currentRoute.get('title')) {
                 self.pageTitle = currentRoute.get('title');
                 self.emitChange();
+            }
+            if (currentRoute && currentRoute.get('params') && currentRoute.get('params').get('id')) {
+                self.id = currentRoute.get('params').get('id');
             }
         });
     }
@@ -27,6 +31,9 @@ class ApplicationStore extends BaseStore {
     }
     getPages() {
         return this.pages;
+    }
+    getId() {
+        return this.id;
     }
     dehydrate() {
         return {
