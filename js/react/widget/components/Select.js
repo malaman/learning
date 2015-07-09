@@ -22,7 +22,7 @@ var Select = React.createClass({
     }
 
     return React.createElement("select", {className: "form-control", onChange: this.props.onChange,
-        value: this.props.value},
+        value: this.props.value, disabled: this.props.disabled},
       options);
   }
 

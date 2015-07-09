@@ -1,5 +1,6 @@
 import BaseStore from 'fluxible/addons/BaseStore';
 import Actions from "../constants/Actions";
+import Settings from '../constants/Settings';
 
 class WidgetStore extends BaseStore {
   constructor(dispatcher) {
@@ -38,12 +39,6 @@ class WidgetStore extends BaseStore {
     return this.selectedModel;
   }
 
-  myCustomActionHandler(payload) {
-    console.log(payload);
-  }
-
-
-
   setYears(depth) {
 
     var currentYear = new Date().getFullYear(),
@@ -58,6 +53,10 @@ class WidgetStore extends BaseStore {
     this.years = this.years.map(item => {
       return {value: item, text: item}
     });
+    this.years.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_YEAR});
+
+    this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
+    this.selectedModel = this.models[0];
   }
 
   getMaxAgeSuccess(maxAge) {
@@ -80,10 +79,16 @@ class WidgetStore extends BaseStore {
     this.emitChange();
   }
 
+  setSelectedModel(model) {
+    this.selectedModel = model;
+    this.emitChange();
+  }
+
   getManufacturersSuccess(data) {
      this.manufacturers = JSON.parse(data).map(item => {
        return {value: item.id, text: item.ru_name};
      });
+    this.manufacturers.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MANUFACTURER});
     if (this.selectedManufacturer === null) {
       this.selectedManufacturer = this.manufacturers[0];
     }
@@ -94,9 +99,11 @@ class WidgetStore extends BaseStore {
     this.models = JSON.parse(data).map(item => {
       return {value: item.id, text: item.ru_name};
     });
+    this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
     if (this.selectedModel === null) {
       this.selectedModel = this.models[0];
     }
+
     this.emitChange();
   }
 }
@@ -110,8 +117,7 @@ WidgetStore.handlers = {
   [Actions.GET_MODELS_SUCCESS]: 'getModelsSuccess',
   [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear',
   [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer',
-  [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel',
-  [Actions.MY_CUSTOM_ACTION_SUCCESS]: 'myCustomActionHandler'
+  [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel'
 };
 
 

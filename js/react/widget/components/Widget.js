@@ -4,9 +4,10 @@ import Select from './Select';
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, changeManufacturerAction,
-  getModelsAction} from "../actions/WidgetActionsCreators";
+  getModelsAction, changeModelAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
+import Settings from '../constants/Settings';
 
 
 
@@ -48,8 +49,16 @@ var Widget = React.createClass({
     this.context.executeAction(changeManufacturerAction, event.target.value);
     this.context.executeAction(getModelsAction,{year: this.props.selectedYear, manufacturer: event.target.value});
   },
+  selectModelHandler: function(event) {
+    this.context.executeAction(changeModelAction, event.target.value);
+  },
+
+
 
   render: function() {
+    function isModelSelectorDisabled(models) {
+      return (models && models.length <= 1)
+    }
 
     const years = this.props.years;
     const manufacturers = this.props.manufacturers;
@@ -65,7 +74,8 @@ var Widget = React.createClass({
           className: "year",
           options: years,
           value: selectedYear,
-          onChange: this.selectYearChangeHandler
+          onChange: this.selectYearChangeHandler,
+          disabled: false
         })),
         React.createElement("div", {className:"row"},
           React.createElement("label", {"className": "horizontal-label"}, "Manufacturer"),
@@ -73,7 +83,8 @@ var Widget = React.createClass({
             className: "year",
             options: manufacturers,
             value: selectedManufacturer,
-            onChange: this.selectManufacturerHandler
+            onChange: this.selectManufacturerHandler,
+            disabled: false
           })
         ),
         React.createElement("div", {className:"row"},
@@ -82,7 +93,8 @@ var Widget = React.createClass({
             className: "year",
             options: models,
             value: selectedModel,
-            onChange: this.selectModelHandler
+            onChange: this.selectModelHandler,
+            disabled: isModelSelectorDisabled(models)
           })
         )
     );

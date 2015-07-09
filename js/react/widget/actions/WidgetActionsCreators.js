@@ -39,6 +39,11 @@ const WidgetActionCreators = {
     actionContext.dispatch(Actions.MANUFACTURER_CHANGED_SUCCESS, payload);
     done();
   },
+  changeModelAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.MODEL_CHANGED_SUCCESS, payload);
+    done();
+  },
+
 
   myCustomAction(actionContext, payload) {
     actionContext.dispatch(Actions.MY_CUSTOM_ACTION_SUCCESS, payload);
