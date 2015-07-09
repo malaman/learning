@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react';
 import Select from './Select';
+import Button from './Button';
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, changeManufacturerAction,
@@ -53,7 +54,9 @@ var Widget = React.createClass({
     this.context.executeAction(changeModelAction, event.target.value);
   },
 
-
+  step1ButtonClickHandler: function(event) {
+    console.log(event);
+  },
 
   render: function() {
     function isModelSelectorDisabled(models) {
@@ -96,7 +99,17 @@ var Widget = React.createClass({
             onChange: this.selectModelHandler,
             disabled: isModelSelectorDisabled(models)
           })
+        ),
+        React.createElement("div", {className:"row"},
+          React.createElement("br", null, null),
+          React.createElement(Button, {
+            onClick: this.step1ButtonClickHandler,
+            caption: "Submit",
+            disabled: false
+          }, null )
         )
+
+
     );
   }
 
