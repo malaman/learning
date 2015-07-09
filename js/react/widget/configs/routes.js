@@ -13,10 +13,10 @@ export default {
         title: 'About',
         handler: require('../components/About')
     },
-    widgetStep1: {
-        path: '/widget/step1',
+    widget: {
+        path: '/widget',
         method: 'get',
-        page: 'widgetStep1',
+        page: 'widget',
         title: 'Widget',
         handler: require('../components/Widget')
     },

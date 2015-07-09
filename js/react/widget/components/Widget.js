@@ -69,48 +69,58 @@ var Widget = React.createClass({
     const selectedYear = this.props.selectedYear;
     const selectedManufacturer = this.props.selectedManufacturer;
     const selectedModel = this.props.selectedModel;
-
-    return React.createElement("div", {className: "container"},
-      React.createElement("div", {className:"row"},
-        React.createElement("label", {"className": "horizontal-label"}, "Year"),
-        React.createElement(Select, {
-          className: "year",
-          options: years,
-          value: selectedYear,
-          onChange: this.selectYearChangeHandler,
-          disabled: false
-        })),
-        React.createElement("div", {className:"row"},
-          React.createElement("label", {"className": "horizontal-label"}, "Manufacturer"),
-          React.createElement(Select, {
-            className: "year",
-            options: manufacturers,
-            value: selectedManufacturer,
-            onChange: this.selectManufacturerHandler,
-            disabled: false
-          })
-        ),
-        React.createElement("div", {className:"row"},
-          React.createElement("label", {"className": "horizontal-label"}, "Model"),
-          React.createElement(Select, {
-            className: "year",
-            options: models,
-            value: selectedModel,
-            onChange: this.selectModelHandler,
-            disabled: isModelSelectorDisabled(models)
-          })
-        ),
-        React.createElement("div", {className:"row"},
-          React.createElement("br", null, null),
-          React.createElement(Button, {
-            onClick: this.step1ButtonClickHandler,
-            caption: "Submit",
-            disabled: false
-          }, null )
+    const step = this.props.step;
+    switch (step) {
+      case 1: {
+        return React.createElement("div", {className: "container"},
+          React.createElement("div", {className:"row"},
+            React.createElement("label", {"className": "horizontal-label"}, "Year"),
+            React.createElement(Select, {
+              className: "year",
+              options: years,
+              value: selectedYear,
+              onChange: this.selectYearChangeHandler,
+              disabled: false
+            })),
+            React.createElement("div", {className:"row"},
+              React.createElement("label", {"className": "horizontal-label"}, "Manufacturer"),
+              React.createElement(Select, {
+                className: "year",
+                options: manufacturers,
+                value: selectedManufacturer,
+                onChange: this.selectManufacturerHandler,
+                disabled: false
+              })
+            ),
+            React.createElement("div", {className:"row"},
+              React.createElement("label", {"className": "horizontal-label"}, "Model"),
+              React.createElement(Select, {
+                className: "year",
+                options: models,
+                value: selectedModel,
+                onChange: this.selectModelHandler,
+                disabled: isModelSelectorDisabled(models)
+              })
+            ),
+            React.createElement("div", {className:"row"},
+              React.createElement("br", null, null),
+              React.createElement(Button, {
+                onClick: this.step1ButtonClickHandler,
+                caption: "Submit",
+                disabled: false
+              }, null )
+            )
+        );
+      }
+      case 2: {
+        return (
+          <div>
+            This is step 2.
+          </div>
         )
+      }
+    }
 
-
-    );
   }
 
 });
@@ -122,7 +132,8 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       models: stores.WidgetStore.getModels(),
       selectedYear: stores.WidgetStore.getSelectedYear(),
       selectedManufacturer: stores.WidgetStore.getSelectedManufacturer(),
-      selectedModel: stores.WidgetStore.getSelectedModel()
+      selectedModel: stores.WidgetStore.getSelectedModel(),
+      step: stores.WidgetStore.getStep()
     }
 });
 

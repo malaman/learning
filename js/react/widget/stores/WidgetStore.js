@@ -5,6 +5,7 @@ import Settings from '../constants/Settings';
 class WidgetStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
+    this.step = 1;
     this.years = [];
     this.manufacturers = [];
     this.models = [];
@@ -15,6 +16,9 @@ class WidgetStore extends BaseStore {
     this.selectedModel = null;
   }
 
+  getStep() {
+    return this.step;
+  }
   getYears() {
     return this.years;
   }
