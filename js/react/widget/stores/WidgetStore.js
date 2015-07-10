@@ -100,14 +100,22 @@ class WidgetStore extends BaseStore {
     this.series = JSON.parse(data).map(item => {
       return {value: item.id, text: item.ru_name}
     });
-    this.series.unshift({value: 0, text: Settings.customStrings.SELECT_SERIES});
-    if (this.selectedSeries === null) {
-      this.selectedSeries = this.series[0];
+    this.series.unshift({value: 0, text: Settings.customStrings.SELECT_SERIA});
+    if (this.selectedSeria === null) {
+      this.selectedSeria = this.series[0];
     }
     this.emitChange();
   }
 
   getModificationsSuccess(data) {
+    this.modifications = JSON.parse(data).map(item => {
+      return {value: item.id, text: item.ru_name}
+    });
+    this.modifications.unshift({value: 0, text: Settings.customStrings.SELECT_MODIFICATION});
+    if (this.selectedModification === null) {
+      this.selectedModification = this.modifications[0];
+    }
+    this.emitChange();
 
   }
 

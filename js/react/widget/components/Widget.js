@@ -5,7 +5,8 @@ import Button from './Button';
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
-  getModelsAction, changeModelAction, changeStepAction, changeSeriesAction} from "../actions/WidgetActionsCreators";
+  getModelsAction, getModificationsAction, changeModelAction, changeStepAction,
+  changeSeriaAction, changeModificationAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 import Settings from '../constants/Settings';
@@ -60,6 +61,18 @@ var Widget = React.createClass({
 
   step1ButtonClickHandler: function(event) {
     this.context.executeAction(changeStepAction,2);
+    this.emitChange();
+  },
+
+  selectSeriaChangeHandler: function(event) {
+    this.context.executeAction(changeSeriaAction, event.target.value);
+    this.context.executeAction(getModificationsAction, {seria: event.target.value});
+    this.emitChange();
+  },
+
+  selectModificationChangeHandler: function(event) {
+    this.context.executeAction(changeModificationAction, event.target.value);
+    this.emitChange();
   },
 
   render: function() {
@@ -72,10 +85,12 @@ var Widget = React.createClass({
     const manufacturers = this.props.manufacturers;
     const models = this.props.models;
     const series = this.props.series;
+    const modifications = this.props.modifications;
     const selectedYear = this.props.selectedYear;
     const selectedManufacturer = this.props.selectedManufacturer;
     const selectedModel = this.props.selectedModel;
     const selectedSeria = this.props.selectedSeria;
+    const selectedModification = this.props.selectedMofication;
 
     switch (step) {
       case 1: {
@@ -127,15 +142,15 @@ var Widget = React.createClass({
               className: "Seria",
               options: series,
               value: selectedSeria,
-              onChange: this.selectYearChangeHandler,
+              onChange: this.selectSeriaChangeHandler,
               disabled: false
-            })),
-            React.createElement("label", {"className": "horizontal-label"}, "Seria"),
+            }),
+            React.createElement("label", {"className": "horizontal-label"}, "Modification"),
             React.createElement(Select, {
-              className: "Seria",
-              options: series,
-              value: selectedSeria,
-              onChange: this.selectYearChangeHandler,
+              className: "Modificaiton",
+              options: modifications,
+              value: selectedModification,
+              onChange: this.selectModificationChangeHandler,
               disabled: false
             }))
           );
@@ -153,10 +168,12 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       manufacturers: stores.WidgetStore.getManufacturers(),
       models: stores.WidgetStore.getModels(),
       series: stores.WidgetStore.getSeries(),
+      modifications: stores.WidgetStore.getModifications(),
       selectedYear: stores.WidgetStore.getSelectedYear(),
       selectedManufacturer: stores.WidgetStore.getSelectedManufacturer(),
       selectedModel: stores.WidgetStore.getSelectedModel(),
-      selectedSeria: stores.WidgetStore.getSelectedSeria()
+      selectedSeria: stores.WidgetStore.getSelectedSeria(),
+      selectedModification: stores.WidgetStore.getSelectedModification()
     }
 });
 

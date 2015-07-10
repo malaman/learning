@@ -11,7 +11,7 @@ const WidgetActionCreators = {
   },
 
   getManufacturersAction(actionContext, payload) {
-    return Api.getManufacturers(payload.year).then(response => {
+    return Api.getManufacturers(payload).then(response => {
       actionContext.dispatch(Actions.GET_MANUFACTURERS_SUCCESS, response.text);
     });
   },
@@ -31,7 +31,18 @@ const WidgetActionCreators = {
   getSeriesAction(actionContext, payload) {
     return Api.getSeries(payload).then(response => {
       actionContext.dispatch(Actions.GET_SERIES_SUCCESS, response.text);
-    })
+    });
+  },
+
+  getModificationsAction(actionContext, payload) {
+    return Api.getModifications(payload).then(response => {
+      actionContext.dispatch(Actions.GET_MODIFICATIONS_SUCCESS, response.text);
+    });
+  },
+
+  changeStepAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.STEP_CHANGED_SUCCESS, payload);
+    done();
   },
 
   changeYearAction(actionContext, payload, done) {
@@ -48,11 +59,15 @@ const WidgetActionCreators = {
     done();
   },
 
-  changeStepAction(actionContext, payload, done) {
-    actionContext.dispatch(Actions.STEP_CHANGED_SUCCESS, payload);
+  changeSeriaAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.SERIA_CHANGED_SUCCESS, payload);
+    done();
+  },
+
+  changeModificationAction(actionContext, payload, done) {
+    acitonContext.dispatch(Actions.MODIFICATION_CHANGED_SUCCESS, payload);
     done();
   }
-
 
 };
 

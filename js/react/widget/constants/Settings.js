@@ -6,7 +6,7 @@ const Settings = {
     PLEASE_SELECT_YEAR: 'Please select year',
     PLEASE_SELECT_MANUFACTURER: 'Please select manufacturer',
     PLEASE_SELECT_MODEL: 'Please select model',
-    SELECT_SERIES: 'Select series',
+    SELECT_SERIA: 'Select series',
     SELECT_MODIFICATION: 'Select modification'
   }
 };

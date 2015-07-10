@@ -8,7 +8,7 @@ const Api = {
     return request('GET', Settings.baseUrl + '/api/getMaxAge');
   },
   getManufacturers(year)  {
-    return request('GET', Settings.baseUrl + '/api/getManufacturer').query({year: year});
+    return request('GET', Settings.baseUrl + '/api/getManufacturer').query(year);
   },
   getAllActiveManufacturers() {
     return request('GET', Settings.baseUrl + '/api/getAllActiveManufacturers');
@@ -21,7 +21,7 @@ const Api = {
     return request('GET', Settings.baseUrl + '/api/getSeries').query({model, year});
   },
   getModifications(seria) {
-    return request('GET', Settings.baseUrl + '/api/getBody').query({seria});
+    return request('GET', Settings.baseUrl + '/api/getBody').query(seria);
   }
 };
 
