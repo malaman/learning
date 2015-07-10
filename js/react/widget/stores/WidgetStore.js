@@ -6,14 +6,19 @@ class WidgetStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
     this.step = 1;
+
     this.years = [];
     this.manufacturers = [];
     this.models = [];
+    this.series = [];
+    this.modifications = [];
 
     this.maxAge = null;
     this.selectedYear = null;
     this.selectedManufacturer = null;
     this.selectedModel = null;
+    this.selectedSeria = null;
+    this.selectedModification = null;
   }
 
   getStep() {
@@ -31,6 +36,14 @@ class WidgetStore extends BaseStore {
     return this.models
   }
 
+  getSeries() {
+    return this.series;
+  }
+
+  getModifications() {
+    return this.modifications;
+  }
+
   getSelectedYear() {
     return this.selectedYear;
   }
@@ -43,24 +56,12 @@ class WidgetStore extends BaseStore {
     return this.selectedModel;
   }
 
-  setYears(depth) {
+  getSelectedSeria() {
+    return this.selectedSeria;
+  }
 
-    var currentYear = new Date().getFullYear(),
-        firstYear = currentYear - depth,
-        last = currentYear + 1;
-
-    this.years = [];
-    for (var i = firstYear; i != last; i++) {
-      this.years.push(i);
-    }
-    this.years.reverse();
-    this.years = this.years.map(item => {
-      return {value: item, text: item}
-    });
-    this.years.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_YEAR});
-
-    this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
-    this.selectedModel = this.models[0];
+  getSelectedModification() {
+    return this.selectedModification;
   }
 
   getMaxAgeSuccess(maxAge) {
@@ -70,21 +71,6 @@ class WidgetStore extends BaseStore {
     if (this.selectedYear === null) {
       this.selectedYear = this.years[0];
     }
-    this.emitChange();
-  }
-
-  setSelectedYear(year) {
-    this.selectedYear = year;
-    this.emitChange();
-  }
-
-  setSelectedManufacturer(manufacturer) {
-    this.selectedManufacturer = manufacturer;
-    this.emitChange();
-  }
-
-  setSelectedModel(model) {
-    this.selectedModel = model;
     this.emitChange();
   }
 
@@ -107,9 +93,74 @@ class WidgetStore extends BaseStore {
     if (this.selectedModel === null) {
       this.selectedModel = this.models[0];
     }
-
     this.emitChange();
   }
+
+  getSeriesSuccess(data) {
+    this.series = JSON.parse(data).map(item => {
+      return {value: item.id, text: item.ru_name}
+    });
+    this.series.unshift({value: 0, text: Settings.customStrings.SELECT_SERIES});
+    if (this.selectedSeries === null) {
+      this.selectedSeries = this.series[0];
+    }
+    this.emitChange();
+  }
+
+  getModificationsSuccess(data) {
+
+  }
+
+  setStep(step) {
+    this.step = step;
+    this.emitChange()
+  }
+
+
+  setYears(depth) {
+    var currentYear = new Date().getFullYear(),
+        firstYear = currentYear - depth,
+        last = currentYear + 1;
+
+    this.years = [];
+    for (var i = firstYear; i != last; i++) {
+      this.years.push(i);
+    }
+    this.years.reverse();
+    this.years = this.years.map(item => {
+      return {value: item, text: item}
+    });
+    this.years.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_YEAR});
+
+    this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
+    this.selectedModel = this.models[0];
+  }
+
+  setSelectedYear(year) {
+    this.selectedYear = year;
+    this.emitChange();
+  }
+
+  setSelectedManufacturer(manufacturer) {
+    this.selectedManufacturer = manufacturer;
+    this.emitChange();
+  }
+
+  setSelectedModel(model) {
+    this.selectedModel = model;
+    this.emitChange();
+  }
+
+  setSelectedSeria(seria) {
+    this.selectedSeria = seria;
+    this.emitChange();
+  }
+
+  setSelectedModification(modification) {
+    this.selectedModification = modification;
+    this.emitChange();
+  }
+
 }
 
 WidgetStore.storeName = 'WidgetStore';
@@ -119,9 +170,14 @@ WidgetStore.handlers = {
   [Actions.GET_ALL_ACTIVE_MANUFACTURERS_SUCCESS]: 'getManufacturersSuccess',
   [Actions.GET_MAXAGE_SUCCESS]: 'getMaxAgeSuccess',
   [Actions.GET_MODELS_SUCCESS]: 'getModelsSuccess',
+  [Actions.GET_SERIES_SUCCESS]: 'getSeriesSuccess',
+  [Actions.GET_MODIFICATIONS_SUCCESS]: 'getModificationsSuccess',
   [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear',
   [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer',
-  [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel'
+  [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel',
+  [Actions.STEP_CHANGED_SUCCESS]: 'setStep',
+  [Actions.SERIA_CHANGED_SUCCESS]: 'setSelectedSeria',
+  [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification'
 };
 
 

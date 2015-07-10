@@ -5,9 +5,10 @@ const Settings = {
   customStrings: {
     PLEASE_SELECT_YEAR: 'Please select year',
     PLEASE_SELECT_MANUFACTURER: 'Please select manufacturer',
-    PLEASE_SELECT_MODEL: 'Please select model'
+    PLEASE_SELECT_MODEL: 'Please select model',
+    SELECT_SERIES: 'Select series',
+    SELECT_MODIFICATION: 'Select modification'
   }
-
 };
 
 

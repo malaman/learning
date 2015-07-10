@@ -4,8 +4,8 @@ import Select from './Select';
 import Button from './Button';
 
 import {getMaxAgeAction, getManufacturersAction,
-  changeYearAction, getAllActiveManufacturers, changeManufacturerAction,
-  getModelsAction, changeModelAction} from "../actions/WidgetActionsCreators";
+  changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
+  getModelsAction, changeModelAction, changeStepAction, changeSeriesAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 import Settings from '../constants/Settings';
@@ -17,12 +17,14 @@ var Widget = React.createClass({
 
   propTypes: function() {
     return {
-      years: React.PropTypes.Array.isRequired,
-      manufacturers: React.PropTypes.Array.isRequired,
-      models: React.PropTypes.Array.isRequired,
-      selectedYear: React.PropTypes.String.isRequired,
-      selectedManufacturer: React.PropTypes.String.isRequired,
-      selectedModel: React.PropTypes.String.isRequired
+      years: React.PropTypes.array.isRequired,
+      manufacturers: React.PropTypes.array.isRequired,
+      models: React.PropTypes.array.isRequired,
+      series: React.PropTypes.array.isRequired,
+      selectedYear: React.PropTypes.object.isRequired,
+      selectedManufacturer: React.PropTypes.object.isRequired,
+      selectedModel: React.PropTypes.object.isRequired,
+      selectedSeria: React.PropTypes.object.isRequired
     }
   },
 
@@ -48,14 +50,16 @@ var Widget = React.createClass({
 
   selectManufacturerHandler: function(event) {
     this.context.executeAction(changeManufacturerAction, event.target.value);
-    this.context.executeAction(getModelsAction,{year: this.props.selectedYear, manufacturer: event.target.value});
+    console.log(this.props.selectedYear);
+    this.context.executeAction(getModelsAction, {year: this.props.selectedYear, manufacturer: event.target.value});
   },
   selectModelHandler: function(event) {
     this.context.executeAction(changeModelAction, event.target.value);
+    this.context.executeAction(getSeriesAction, {year: this.props.selectedYear, model: event.target.value});
   },
 
   step1ButtonClickHandler: function(event) {
-    console.log(event);
+    this.context.executeAction(changeStepAction,2);
   },
 
   render: function() {
@@ -63,13 +67,16 @@ var Widget = React.createClass({
       return (models && models.length <= 1)
     }
 
+    const step = this.props.step;
     const years = this.props.years;
     const manufacturers = this.props.manufacturers;
     const models = this.props.models;
+    const series = this.props.series;
     const selectedYear = this.props.selectedYear;
     const selectedManufacturer = this.props.selectedManufacturer;
     const selectedModel = this.props.selectedModel;
-    const step = this.props.step;
+    const selectedSeria = this.props.selectedSeria;
+
     switch (step) {
       case 1: {
         return React.createElement("div", {className: "container"},
@@ -113,11 +120,25 @@ var Widget = React.createClass({
         );
       }
       case 2: {
-        return (
-          <div>
-            This is step 2.
-          </div>
-        )
+        return React.createElement("div", {className: "container"},
+          React.createElement("div", {className:"row"},
+            React.createElement("label", {"className": "horizontal-label"}, "Seria"),
+            React.createElement(Select, {
+              className: "Seria",
+              options: series,
+              value: selectedSeria,
+              onChange: this.selectYearChangeHandler,
+              disabled: false
+            })),
+            React.createElement("label", {"className": "horizontal-label"}, "Seria"),
+            React.createElement(Select, {
+              className: "Seria",
+              options: series,
+              value: selectedSeria,
+              onChange: this.selectYearChangeHandler,
+              disabled: false
+            }))
+          );
       }
     }
 
@@ -127,13 +148,15 @@ var Widget = React.createClass({
 
 Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
     return {
+      step: stores.WidgetStore.getStep(),
       years: stores.WidgetStore.getYears(),
       manufacturers: stores.WidgetStore.getManufacturers(),
       models: stores.WidgetStore.getModels(),
+      series: stores.WidgetStore.getSeries(),
       selectedYear: stores.WidgetStore.getSelectedYear(),
       selectedManufacturer: stores.WidgetStore.getSelectedManufacturer(),
       selectedModel: stores.WidgetStore.getSelectedModel(),
-      step: stores.WidgetStore.getStep()
+      selectedSeria: stores.WidgetStore.getSelectedSeria()
     }
 });
 
