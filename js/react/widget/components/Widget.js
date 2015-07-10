@@ -61,18 +61,19 @@ var Widget = React.createClass({
 
   step1ButtonClickHandler: function(event) {
     this.context.executeAction(changeStepAction,2);
-    this.emitChange();
   },
 
   selectSeriaChangeHandler: function(event) {
     this.context.executeAction(changeSeriaAction, event.target.value);
     this.context.executeAction(getModificationsAction, {seria: event.target.value});
-    this.emitChange();
   },
 
   selectModificationChangeHandler: function(event) {
     this.context.executeAction(changeModificationAction, event.target.value);
-    this.emitChange();
+  },
+
+  step2ButtonClickHandler: function(event) {
+    this.context.executeAction(changeStepAction,3);
   },
 
   render: function() {
@@ -144,7 +145,8 @@ var Widget = React.createClass({
               value: selectedSeria,
               onChange: this.selectSeriaChangeHandler,
               disabled: false
-            }),
+            })),
+          React.createElement("div", {className:"row"},
             React.createElement("label", {"className": "horizontal-label"}, "Modification"),
             React.createElement(Select, {
               className: "Modificaiton",
@@ -152,8 +154,19 @@ var Widget = React.createClass({
               value: selectedModification,
               onChange: this.selectModificationChangeHandler,
               disabled: false
-            }))
-          );
+            })),
+          React.createElement("div", {className:"row"},
+            React.createElement("br", null, null),
+            React.createElement(Button, {
+              onClick: this.step2ButtonClickHandler,
+              caption: "Submit",
+              disabled: false
+            }, null )
+          )
+        );
+      }
+      case 3: {
+        return React.createElement("div", null, "This is step 3");
       }
     }
 

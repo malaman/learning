@@ -101,6 +101,7 @@ class WidgetStore extends BaseStore {
       return {value: item.id, text: item.ru_name}
     });
     this.series.unshift({value: 0, text: Settings.customStrings.SELECT_SERIA});
+    this.modifications.unshift({value: 0, text: Settings.customStrings.SELECT_MODIFICATION});
     if (this.selectedSeria === null) {
       this.selectedSeria = this.series[0];
     }
@@ -139,7 +140,6 @@ class WidgetStore extends BaseStore {
       return {value: item, text: item}
     });
     this.years.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_YEAR});
-
     this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
     this.selectedModel = this.models[0];
   }
