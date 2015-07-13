@@ -5,8 +5,9 @@ import Button from './Button';
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
-  getModelsAction, getModificationsAction, changeModelAction, changeStepAction,
-  changeSeriaAction, changeModificationAction} from "../actions/WidgetActionsCreators";
+  getModelsAction, getModificationsAction, getAllRegionsAction,
+  changeModelAction, changeStepAction,
+  changeSeriaAction, changeModificationAction, changeRegionAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 import Settings from '../constants/Settings';
@@ -74,6 +75,7 @@ var Widget = React.createClass({
 
   step2ButtonClickHandler: function(event) {
     this.context.executeAction(changeStepAction,3);
+    this.context.executeAction(getAllRegionsAction, null);
   },
 
   render: function() {
@@ -87,11 +89,13 @@ var Widget = React.createClass({
     const models = this.props.models;
     const series = this.props.series;
     const modifications = this.props.modifications;
+    const regions = this.props.regions;
     const selectedYear = this.props.selectedYear;
     const selectedManufacturer = this.props.selectedManufacturer;
     const selectedModel = this.props.selectedModel;
     const selectedSeria = this.props.selectedSeria;
     const selectedModification = this.props.selectedMofication;
+    const selectedRegion = this.props.selectedRegion;
 
     switch (step) {
       case 1: {
@@ -166,7 +170,27 @@ var Widget = React.createClass({
         );
       }
       case 3: {
-        return React.createElement("div", null, "This is step 3");
+        return React.createElement("div", {className: "container"},
+          React.createElement("div", {className:"row"},
+            React.createElement("label", {"className": "horizontal-label"}, "Regions"),
+            React.createElement(Select, {
+              className: "Regions",
+              options: regions,
+              value: selectedRegion,
+              onChange: this.selectSeriaChangeHandler,
+              disabled: false
+            })),
+          React.createElement("div", {className:"row"},
+            React.createElement("br", null, null),
+            React.createElement(Button, {
+              onClick: this.step2ButtonClickHandler,
+              caption: "Submit",
+              disabled: false
+            }, null )
+          )
+        );
+
+
       }
     }
 
@@ -182,11 +206,14 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       models: stores.WidgetStore.getModels(),
       series: stores.WidgetStore.getSeries(),
       modifications: stores.WidgetStore.getModifications(),
+      regions: stores.WidgetStore.getRegions(),
+
       selectedYear: stores.WidgetStore.getSelectedYear(),
       selectedManufacturer: stores.WidgetStore.getSelectedManufacturer(),
       selectedModel: stores.WidgetStore.getSelectedModel(),
       selectedSeria: stores.WidgetStore.getSelectedSeria(),
-      selectedModification: stores.WidgetStore.getSelectedModification()
+      selectedModification: stores.WidgetStore.getSelectedModification(),
+      selectedRegion: stores.WidgetStore.getSelectedRegion()
     }
 });
 

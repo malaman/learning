@@ -22,6 +22,9 @@ const Api = {
   },
   getModifications(seria) {
     return request('GET', Settings.baseUrl + '/api/getBody').query(seria);
+  },
+  getAllRegions() {
+    return request('GET', Settings.baseUrl + '/api/getAllRegions')
   }
 };
 

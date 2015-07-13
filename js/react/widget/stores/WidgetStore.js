@@ -12,6 +12,7 @@ class WidgetStore extends BaseStore {
     this.models = [];
     this.series = [];
     this.modifications = [];
+    this.regions = [];
 
     this.maxAge = null;
     this.selectedYear = null;
@@ -19,6 +20,7 @@ class WidgetStore extends BaseStore {
     this.selectedModel = null;
     this.selectedSeria = null;
     this.selectedModification = null;
+    this.selectedRegion = null
   }
 
   getStep() {
@@ -48,6 +50,10 @@ class WidgetStore extends BaseStore {
     return this.selectedYear;
   }
 
+  getRegions() {
+    return this.regions;
+  }
+
   getSelectedManufacturer() {
     return this.selectedManufacturer;
   }
@@ -62,6 +68,10 @@ class WidgetStore extends BaseStore {
 
   getSelectedModification() {
     return this.selectedModification;
+  }
+
+  getSelectedRegion() {
+    return this.selectedRegion;
   }
 
   getMaxAgeSuccess(maxAge) {
@@ -117,8 +127,19 @@ class WidgetStore extends BaseStore {
       this.selectedModification = this.modifications[0];
     }
     this.emitChange();
-
   }
+
+  getAllRegionsSuccess(data) {
+    this.regions = JSON.parse(data).regions.map(item => {
+      return {value: item.id, text: item.ru_name}
+    });
+    this.regions.unshift({value: 0, text: Settings.customStrings.SELECT_REGION});
+    if (this.selectedRegion === null) {
+      this.selectedRegion = this.modifications[0];
+    }
+    this.emitChange();
+  }
+
 
   setStep(step) {
     this.step = step;
@@ -169,6 +190,10 @@ class WidgetStore extends BaseStore {
     this.emitChange();
   }
 
+  setSelectedRegion(region) {
+    this.selectedRegion = region;
+    this.emitChange();
+  }
 }
 
 WidgetStore.storeName = 'WidgetStore';
@@ -180,12 +205,14 @@ WidgetStore.handlers = {
   [Actions.GET_MODELS_SUCCESS]: 'getModelsSuccess',
   [Actions.GET_SERIES_SUCCESS]: 'getSeriesSuccess',
   [Actions.GET_MODIFICATIONS_SUCCESS]: 'getModificationsSuccess',
+  [Actions.GET_ALL_REGIONS_SUCCESS]: 'getAllRegionsSuccess',
   [Actions.YEAR_CHANGED_SUCCESS]: 'setSelectedYear',
   [Actions.MANUFACTURER_CHANGED_SUCCESS]: 'setSelectedManufacturer',
   [Actions.MODEL_CHANGED_SUCCESS]: 'setSelectedModel',
   [Actions.STEP_CHANGED_SUCCESS]: 'setStep',
   [Actions.SERIA_CHANGED_SUCCESS]: 'setSelectedSeria',
-  [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification'
+  [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification',
+  [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion'
 };
 
 

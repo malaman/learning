@@ -40,6 +40,12 @@ const WidgetActionCreators = {
     });
   },
 
+  getAllRegionsAction(actionContext, payload) {
+    return Api.getAllRegions().then(response => {
+      actionContext.dispatch(Actons.GET_ALL_REGIONS_SUCCESS, response.text);
+    })
+  },
+
   changeStepAction(actionContext, payload, done) {
     actionContext.dispatch(Actions.STEP_CHANGED_SUCCESS, payload);
     done();
@@ -65,7 +71,12 @@ const WidgetActionCreators = {
   },
 
   changeModificationAction(actionContext, payload, done) {
-    acitonContext.dispatch(Actions.MODIFICATION_CHANGED_SUCCESS, payload);
+    actionContext.dispatch(Actions.MODIFICATION_CHANGED_SUCCESS, payload);
+    done();
+  },
+
+  changeRegionAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.REGION_CHANGED_SUCCESS, payload);
     done();
   }
 
