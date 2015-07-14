@@ -88,6 +88,21 @@ var Widget = React.createClass({
 
   },
 
+  inputChangeHandler: function(component, event) {
+    let value;
+
+    if (event) {
+      value = event.target.value;
+    } else {
+      value = null;
+    }
+
+    if (component.validate(value)) {
+      component.setState({value: value});
+    }
+  },
+
+
 
   render: function() {
     function isModelSelectorDisabled(models) {
@@ -183,16 +198,18 @@ var Widget = React.createClass({
       case 3: {
         return React.createElement("div", {className: "container"},
           React.createElement("div", {className:"row"},
-            React.createElement("label", {"className": "horizontal-label"}, "Regions"),
+            React.createElement("label", {"className": "horizontal-label"}, "Odometer"),
             React.createElement(Input, {
-              className: "Regions",
+              className: "Odometer",
               value: null,
               placeholder: Settings.customStrings.FILL_ODOMETER,
-              type: "text",
+              type: "number",
+              pattern: '[0-9\.]+',
+              onChange: this.inputChangeHandler,
               disabled: false
             })),
           React.createElement("div", {className:"row"},
-            React.createElement("label", {"className": "horizontal-label"}, "Odometer"),
+            React.createElement("label", {"className": "horizontal-label"}, "Regions"),
             React.createElement(Select, {
               className: "Regions",
               options: regions,

@@ -11,11 +11,12 @@ var Input = React.createClass({
     };
   },
 
-  getDefaultProps: function() {
-    return {
-      pattern: '[0-9\.]+'
-    };
-  },
+  //getDefaultProps: function() {
+  //  return {
+  //    pattern: '[0-9\.]+',
+  //    type: number,
+  //  };
+  //},
 
   validate: function(value) {
     var match = value.match(new RegExp(this.props.pattern, 'g'));
@@ -23,15 +24,12 @@ var Input = React.createClass({
   },
 
   _onChange: function(event) {
-    let value = event.target.value;
 
-    if (this.validate(value)) {
-      this.setState({value: value});
-    }
   },
 
+
   render: function() {
-    return React.createElement("input", {className: "form-control", onChange: this._onChange,
+    return React.createElement("input", {className: "form-control", onChange: this.props.onChange.bind(null, this),
         value: this.state.value, disabled: this.props.disabled,
         type: this.props.type, placeholder: this.props.placeholder});
   }
