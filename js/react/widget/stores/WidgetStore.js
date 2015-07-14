@@ -21,6 +21,8 @@ class WidgetStore extends BaseStore {
     this.selectedSeria = null;
     this.selectedModification = null;
     this.selectedRegion = null
+
+    this.odometer = null;
   }
 
   getStep() {
@@ -73,6 +75,11 @@ class WidgetStore extends BaseStore {
   getSelectedRegion() {
     return this.selectedRegion;
   }
+
+  getOdometer() {
+    return this.odometer;
+  }
+
 
   getMaxAgeSuccess(maxAge) {
     this.maxAge = parseInt(maxAge, 10);
@@ -131,7 +138,7 @@ class WidgetStore extends BaseStore {
 
   getAllRegionsSuccess(data) {
     this.regions = JSON.parse(data).regions.map(item => {
-      return {value: item.id, text: item.ru_name}
+      return {value: item.id, text: item.ru}
     });
     this.regions.unshift({value: 0, text: Settings.customStrings.SELECT_REGION});
     if (this.selectedRegion === null) {
@@ -194,6 +201,11 @@ class WidgetStore extends BaseStore {
     this.selectedRegion = region;
     this.emitChange();
   }
+
+  setOdometer(odometer) {
+    this.odometer = odometer;
+    this.emitChange();
+  }
 }
 
 WidgetStore.storeName = 'WidgetStore';
@@ -212,7 +224,10 @@ WidgetStore.handlers = {
   [Actions.STEP_CHANGED_SUCCESS]: 'setStep',
   [Actions.SERIA_CHANGED_SUCCESS]: 'setSelectedSeria',
   [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification',
-  [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion'
+  [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion',
+  [Actions.ODOMETER_CHANGED_SUCCESS]: 'setOdometer'
+
+
 };
 
 

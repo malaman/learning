@@ -42,7 +42,7 @@ const WidgetActionCreators = {
 
   getAllRegionsAction(actionContext, payload) {
     return Api.getAllRegions().then(response => {
-      actionContext.dispatch(Actons.GET_ALL_REGIONS_SUCCESS, response.text);
+      actionContext.dispatch(Actions.GET_ALL_REGIONS_SUCCESS, response.text);
     })
   },
 

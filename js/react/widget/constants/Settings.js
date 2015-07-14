@@ -8,7 +8,8 @@ const Settings = {
     PLEASE_SELECT_MODEL: 'Please select model',
     SELECT_SERIA: 'Select series',
     SELECT_MODIFICATION: 'Select modification',
-    SELECT_REGION: 'Select region'
+    SELECT_REGION: 'Select region',
+    FILL_ODOMETER: 'Fill odometer in kilometers'
   }
 };
 

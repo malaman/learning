@@ -2,6 +2,7 @@
 import React from 'react';
 import Select from './Select';
 import Button from './Button';
+import Input from './Input';
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
@@ -26,7 +27,8 @@ var Widget = React.createClass({
       selectedYear: React.PropTypes.object.isRequired,
       selectedManufacturer: React.PropTypes.object.isRequired,
       selectedModel: React.PropTypes.object.isRequired,
-      selectedSeria: React.PropTypes.object.isRequired
+      selectedSeria: React.PropTypes.object.isRequired,
+      strangeVariable: React.PropTypes.object.isRequired
     }
   },
 
@@ -77,6 +79,15 @@ var Widget = React.createClass({
     this.context.executeAction(changeStepAction,3);
     this.context.executeAction(getAllRegionsAction, null);
   },
+
+  selectRegionChangeHandler: function(event) {
+    this.context.executeAction(changeRegionAction, event.target.value);
+  },
+
+  step3ButtonClickHandler: function(event) {
+
+  },
+
 
   render: function() {
     function isModelSelectorDisabled(models) {
@@ -173,17 +184,26 @@ var Widget = React.createClass({
         return React.createElement("div", {className: "container"},
           React.createElement("div", {className:"row"},
             React.createElement("label", {"className": "horizontal-label"}, "Regions"),
+            React.createElement(Input, {
+              className: "Regions",
+              value: null,
+              placeholder: Settings.customStrings.FILL_ODOMETER,
+              type: "text",
+              disabled: false
+            })),
+          React.createElement("div", {className:"row"},
+            React.createElement("label", {"className": "horizontal-label"}, "Odometer"),
             React.createElement(Select, {
               className: "Regions",
               options: regions,
               value: selectedRegion,
-              onChange: this.selectSeriaChangeHandler,
+              onChange: this.selectRegionChangeHandler,
               disabled: false
             })),
           React.createElement("div", {className:"row"},
             React.createElement("br", null, null),
             React.createElement(Button, {
-              onClick: this.step2ButtonClickHandler,
+              onClick: this.step3ButtonClickHandler,
               caption: "Submit",
               disabled: false
             }, null )
@@ -193,9 +213,7 @@ var Widget = React.createClass({
 
       }
     }
-
   }
-
 });
 
 Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
