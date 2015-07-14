@@ -14,17 +14,6 @@ import connectToStores from 'fluxible/addons/connectToStores';
 var WidgetStep2 = React.createClass({
   displayName: "WidgetStep2",
 
-  //propTypes: function() {
-  //  return {
-  //    years: React.PropTypes.Array.isRequired,
-  //    manufacturers: React.PropTypes.Array.isRequired,
-  //    models: React.PropTypes.Array.isRequired,
-  //    selectedYear: React.PropTypes.String.isRequired,
-  //    selectedManufacturer: React.PropTypes.String.isRequired,
-  //    selectedModel: React.PropTypes.String.isRequired
-  //  }
-  //},
-
   contextTypes: {
       executeAction: React.PropTypes.func.isRequired,
       getStore: React.PropTypes.func.isRequired

@@ -78,6 +78,11 @@ const WidgetActionCreators = {
   changeRegionAction(actionContext, payload, done) {
     actionContext.dispatch(Actions.REGION_CHANGED_SUCCESS, payload);
     done();
+  },
+
+  changeOdometerAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.ODOMETER_CHANGED_SUCCESS, payload);
+    done();
   }
 
 };

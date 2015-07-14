@@ -9,7 +9,8 @@ const Settings = {
     SELECT_SERIA: 'Select series',
     SELECT_MODIFICATION: 'Select modification',
     SELECT_REGION: 'Select region',
-    FILL_ODOMETER: 'Fill odometer in kilometers'
+    FILL_ODOMETER: 'Fill odometer in kilometers',
+    FILL_EMAIL: 'Fill email'
   }
 };
 

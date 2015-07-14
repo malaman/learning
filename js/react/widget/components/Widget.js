@@ -89,19 +89,12 @@ var Widget = React.createClass({
   },
 
   inputChangeHandler: function(component, event) {
-    let value;
-
-    if (event) {
-      value = event.target.value;
-    } else {
-      value = null;
-    }
+    let value = event.target.value;
 
     if (component.validate(value)) {
       component.setState({value: value});
     }
   },
-
 
 
   render: function() {
@@ -201,9 +194,9 @@ var Widget = React.createClass({
             React.createElement("label", {"className": "horizontal-label"}, "Odometer"),
             React.createElement(Input, {
               className: "Odometer",
-              value: null,
+              value: "",
               placeholder: Settings.customStrings.FILL_ODOMETER,
-              type: "number",
+              type: "text",
               pattern: '[0-9\.]+',
               onChange: this.inputChangeHandler,
               disabled: false
@@ -218,6 +211,16 @@ var Widget = React.createClass({
               disabled: false
             })),
           React.createElement("div", {className:"row"},
+            React.createElement("label", {"className": "horizontal-label"}, "email"),
+            React.createElement(Input, {
+              className: "Odometer",
+              value: "",
+              placeholder: Settings.customStrings.FILL_EMAIL,
+              type: "email",
+              onChange: this.inputChangeHandler,
+              disabled: false
+            })),
+          React.createElement("div", {className:"row"},
             React.createElement("br", null, null),
             React.createElement(Button, {
               onClick: this.step3ButtonClickHandler,
@@ -226,8 +229,6 @@ var Widget = React.createClass({
             }, null )
           )
         );
-
-
       }
     }
   }

@@ -5,28 +5,25 @@ var React = require('react');
 var Input = React.createClass({
   displayName: "Input",
 
+  getDefaultProps: function() {
+    return {
+      pattern: '.*'
+    }
+  },
+
   getInitialState: function() {
     return {
-      value: null
+      value: ''
     };
   },
 
-  //getDefaultProps: function() {
-  //  return {
-  //    pattern: '[0-9\.]+',
-  //    type: number,
-  //  };
-  //},
-
   validate: function(value) {
+    if (value.length === 0) {
+      return true
+    }
     var match = value.match(new RegExp(this.props.pattern, 'g'));
     return (match && match.join('') === value);
   },
-
-  _onChange: function(event) {
-
-  },
-
 
   render: function() {
     return React.createElement("input", {className: "form-control", onChange: this.props.onChange.bind(null, this),
