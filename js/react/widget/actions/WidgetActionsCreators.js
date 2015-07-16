@@ -83,6 +83,20 @@ const WidgetActionCreators = {
   changeOdometerAction(actionContext, payload, done) {
     actionContext.dispatch(Actions.ODOMETER_CHANGED_SUCCESS, payload);
     done();
+  },
+
+  changeEmailAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.EMAIL_CHANGED_SUCCESS, payload);
+    done();
+  },
+
+  determinePriceAction(actionContext, payload) {
+    return Api.determinePrice(payload).then((response) => {
+      console.log(response.text);
+      //actionContext.dispatch(Actions.GET_MODELS_SUCCESS, response.text);
+    });
+
+
   }
 
 };

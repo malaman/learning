@@ -1,7 +1,7 @@
 'use strict';
 
 const Settings = {
-  baseUrl: 'http://www.etachki.com',
+  baseUrl: 'http://www.dev3.etachki.com.ua',
   customStrings: {
     PLEASE_SELECT_YEAR: 'Please select year',
     PLEASE_SELECT_MANUFACTURER: 'Please select manufacturer',

@@ -8,7 +8,8 @@ import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
   getModelsAction, getModificationsAction, getAllRegionsAction,
   changeModelAction, changeStepAction,
-  changeSeriaAction, changeModificationAction, changeRegionAction} from "../actions/WidgetActionsCreators";
+  changeSeriaAction, changeModificationAction, changeRegionAction,
+  changeOdometerAction, changeEmailAction, determinePriceAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 import Settings from '../constants/Settings';
@@ -53,12 +54,12 @@ var Widget = React.createClass({
   },
 
   selectManufacturerHandler: function(event) {
-    this.context.executeAction(changeManufacturerAction, event.target.value);
+    this.context.executeAction(changeManufacturerAction, event.nativeEvent.target.selectedIndex);
     console.log(this.props.selectedYear);
     this.context.executeAction(getModelsAction, {year: this.props.selectedYear, manufacturer: event.target.value});
   },
   selectModelHandler: function(event) {
-    this.context.executeAction(changeModelAction, event.target.value);
+    this.context.executeAction(changeModelAction, event.nativeEvent.target.selectedIndex);
     this.context.executeAction(getSeriesAction, {year: this.props.selectedYear, model: event.target.value});
   },
 
@@ -67,12 +68,12 @@ var Widget = React.createClass({
   },
 
   selectSeriaChangeHandler: function(event) {
-    this.context.executeAction(changeSeriaAction, event.target.value);
+    this.context.executeAction(changeSeriaAction, event.nativeEvent.target.selectedIndex);
     this.context.executeAction(getModificationsAction, {seria: event.target.value});
   },
 
   selectModificationChangeHandler: function(event) {
-    this.context.executeAction(changeModificationAction, event.target.value);
+    this.context.executeAction(changeModificationAction, event.nativeEvent.target.selectedIndex);
   },
 
   step2ButtonClickHandler: function(event) {
@@ -81,18 +82,30 @@ var Widget = React.createClass({
   },
 
   selectRegionChangeHandler: function(event) {
-    this.context.executeAction(changeRegionAction, event.target.value);
+    this.context.executeAction(changeRegionAction, event.nativeEvent.target.selectedIndex);
   },
 
   step3ButtonClickHandler: function(event) {
-
+    this.context.executeAction(determinePriceAction, {year: this.props.selectedYear, maker:this.props.selectedManufacturer,
+    model: this.props.selectedModel, seria: this.props.selectedSeria, modification: this.props.selectedModification,
+    odometer: this.props.odometer, email: this.props.email, region: this.props.selectedRegion});
   },
 
-  inputChangeHandler: function(component, event) {
+  inputOdometerChangeHandler: function(component, event) {
     let value = event.target.value;
 
     if (component.validate(value)) {
       component.setState({value: value});
+      this.context.executeAction(changeOdometerAction, value);
+    }
+  },
+
+  inputEmailChangeHandler: function(component, event) {
+    let value = event.target.value;
+
+    if (component.validate(value)) {
+      component.setState({value: value});
+      this.context.executeAction(changeEmailAction, value);
     }
   },
 
@@ -110,11 +123,11 @@ var Widget = React.createClass({
     const modifications = this.props.modifications;
     const regions = this.props.regions;
     const selectedYear = this.props.selectedYear;
-    const selectedManufacturer = this.props.selectedManufacturer;
-    const selectedModel = this.props.selectedModel;
-    const selectedSeria = this.props.selectedSeria;
-    const selectedModification = this.props.selectedMofication;
-    const selectedRegion = this.props.selectedRegion;
+    const selectedManufacturer = this.props.selectedManufacturer.value;
+    const selectedModel = this.props.selectedModel.value;
+    const selectedSeria = this.props.selectedSeria.value;
+    const selectedModification = this.props.selectedModification.value;
+    const selectedRegion = this.props.selectedRegion.value;
 
     switch (step) {
       case 1: {
@@ -198,7 +211,7 @@ var Widget = React.createClass({
               placeholder: Settings.customStrings.FILL_ODOMETER,
               type: "text",
               pattern: '[0-9\.]+',
-              onChange: this.inputChangeHandler,
+              onChange: this.inputOdometerChangeHandler,
               disabled: false
             })),
           React.createElement("div", {className:"row"},
@@ -217,7 +230,7 @@ var Widget = React.createClass({
               value: "",
               placeholder: Settings.customStrings.FILL_EMAIL,
               type: "email",
-              onChange: this.inputChangeHandler,
+              onChange: this.inputEmailChangeHandler,
               disabled: false
             })),
           React.createElement("div", {className:"row"},
@@ -243,6 +256,8 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       series: stores.WidgetStore.getSeries(),
       modifications: stores.WidgetStore.getModifications(),
       regions: stores.WidgetStore.getRegions(),
+      odometer: stores.WidgetStore.getOdometer(),
+      email: stores.WidgetStore.getEmail(),
 
       selectedYear: stores.WidgetStore.getSelectedYear(),
       selectedManufacturer: stores.WidgetStore.getSelectedManufacturer(),
@@ -250,6 +265,7 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       selectedSeria: stores.WidgetStore.getSelectedSeria(),
       selectedModification: stores.WidgetStore.getSelectedModification(),
       selectedRegion: stores.WidgetStore.getSelectedRegion()
+
     }
 });
 

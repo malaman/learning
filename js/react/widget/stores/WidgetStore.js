@@ -13,14 +13,15 @@ class WidgetStore extends BaseStore {
     this.series = [];
     this.modifications = [];
     this.regions = [];
+    this.email = null;
 
     this.maxAge = null;
     this.selectedYear = null;
-    this.selectedManufacturer = null;
-    this.selectedModel = null;
-    this.selectedSeria = null;
-    this.selectedModification = null;
-    this.selectedRegion = null
+    this.selectedManufacturer = {value: null, text: null};
+    this.selectedModel = {value: null, text: null};
+    this.selectedSeria = {value: null, text: null};
+    this.selectedModification = {value: null, text: null};
+    this.selectedRegion = {value: null, text: null};
 
     this.odometer = null;
   }
@@ -80,6 +81,9 @@ class WidgetStore extends BaseStore {
     return this.odometer;
   }
 
+  getEmail() {
+    return this.email;
+  }
 
   getMaxAgeSuccess(maxAge) {
     this.maxAge = parseInt(maxAge, 10);
@@ -96,7 +100,7 @@ class WidgetStore extends BaseStore {
        return {value: item.id, text: item.ru_name};
      });
     this.manufacturers.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MANUFACTURER});
-    if (this.selectedManufacturer === null) {
+    if (this.selectedManufacturer.value === null) {
       this.selectedManufacturer = this.manufacturers[0];
     }
     this.emitChange();
@@ -107,7 +111,7 @@ class WidgetStore extends BaseStore {
       return {value: item.id, text: item.ru_name};
     });
     this.models.unshift({value: 0, text: Settings.customStrings.PLEASE_SELECT_MODEL});
-    if (this.selectedModel === null) {
+    if (this.selectedModel.value === null) {
       this.selectedModel = this.models[0];
     }
     this.emitChange();
@@ -119,7 +123,7 @@ class WidgetStore extends BaseStore {
     });
     this.series.unshift({value: 0, text: Settings.customStrings.SELECT_SERIA});
     this.modifications.unshift({value: 0, text: Settings.customStrings.SELECT_MODIFICATION});
-    if (this.selectedSeria === null) {
+    if (this.selectedSeria.value === null) {
       this.selectedSeria = this.series[0];
     }
     this.emitChange();
@@ -130,7 +134,7 @@ class WidgetStore extends BaseStore {
       return {value: item.id, text: item.ru_name}
     });
     this.modifications.unshift({value: 0, text: Settings.customStrings.SELECT_MODIFICATION});
-    if (this.selectedModification === null) {
+    if (this.selectedModification.value === null) {
       this.selectedModification = this.modifications[0];
     }
     this.emitChange();
@@ -141,7 +145,7 @@ class WidgetStore extends BaseStore {
       return {value: item.id, text: item.ru}
     });
     this.regions.unshift({value: 0, text: Settings.customStrings.SELECT_REGION});
-    if (this.selectedRegion === null) {
+    if (this.selectedRegion.value === null) {
       this.selectedRegion = this.modifications[0];
     }
     this.emitChange();
@@ -177,33 +181,38 @@ class WidgetStore extends BaseStore {
     this.emitChange();
   }
 
-  setSelectedManufacturer(manufacturer) {
-    this.selectedManufacturer = manufacturer;
+  setSelectedManufacturer(index) {
+    this.selectedManufacturer = this.manufacturers[index];
     this.emitChange();
   }
 
-  setSelectedModel(model) {
-    this.selectedModel = model;
+  setSelectedModel(index) {
+    this.selectedModel = this.models[index];
     this.emitChange();
   }
 
-  setSelectedSeria(seria) {
-    this.selectedSeria = seria;
+  setSelectedSeria(index) {
+    this.selectedSeria = this.series[index];
     this.emitChange();
   }
 
-  setSelectedModification(modification) {
-    this.selectedModification = modification;
+  setSelectedModification(index) {
+    this.selectedModification = this.modifications[index];
     this.emitChange();
   }
 
-  setSelectedRegion(region) {
-    this.selectedRegion = region;
+  setSelectedRegion(index) {
+    this.selectedRegion = this.regions[index];
     this.emitChange();
   }
 
   setOdometer(odometer) {
     this.odometer = odometer;
+    this.emitChange();
+  }
+
+  setEmail(email) {
+    this.email = email;
     this.emitChange();
   }
 }
@@ -225,9 +234,8 @@ WidgetStore.handlers = {
   [Actions.SERIA_CHANGED_SUCCESS]: 'setSelectedSeria',
   [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification',
   [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion',
-  [Actions.ODOMETER_CHANGED_SUCCESS]: 'setOdometer'
-
-
+  [Actions.ODOMETER_CHANGED_SUCCESS]: 'setOdometer',
+  [Actions.EMAIL_CHANGED_SUCCESS]: 'setEmail'
 };
 
 

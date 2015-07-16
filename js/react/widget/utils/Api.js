@@ -25,6 +25,31 @@ const Api = {
   },
   getAllRegions() {
     return request('GET', Settings.baseUrl + '/api/getAllRegions')
+  },
+
+  determinePrice({year, maker, model, seria, modification, odometer, email, region}) {
+    const query = {
+      id: null,
+      car: {
+        year: year,
+        maker: {ru_name: maker.text, id: maker.value},
+        model: {ru_name: model.text, id: model.value, show_price_range: false, ignore_price: false},
+        seria: {ru_name: seria.text, id: seria.value},
+        modification: {ru_name: modification.text, id: modification.value},
+        drivable: true,
+        damaged: false,
+        commercial_purposes: false,
+        loss_flood: false,
+        odometer_changed: false,
+        accident: false,
+        odometer: odometer
+      },
+      utm_source: "",
+      region: {id: region.value},
+      contact: {email: email, lang: "ru"},
+      clarification: false
+    };
+    return request('POST', Settings.baseUrl + '/api/determine_price').send(query);
   }
 };
 
