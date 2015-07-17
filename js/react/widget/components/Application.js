@@ -14,8 +14,10 @@ class Application extends React.Component {
         var Handler = this.props.currentRoute.get('handler');
         return (
             <div>
-                <Nav selected={this.props.currentPageName} links={this.props.pages} />
+              <Nav selected={this.props.currentPageName} links={this.props.pages} />
+              <div className="container">
                 <Handler/>
+              </div>
             </div>
         );
     }

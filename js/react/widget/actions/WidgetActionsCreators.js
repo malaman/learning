@@ -93,7 +93,7 @@ const WidgetActionCreators = {
   determinePriceAction(actionContext, payload) {
     return Api.determinePrice(payload).then((response) => {
       console.log(response.text);
-      //actionContext.dispatch(Actions.GET_MODELS_SUCCESS, response.text);
+      actionContext.dispatch(Actions.DETERMINE_PRICE_SUCCESS, response.text);
     });
 
 

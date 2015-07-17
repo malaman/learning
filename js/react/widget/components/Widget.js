@@ -3,6 +3,7 @@ import React from 'react';
 import Select from './Select';
 import Button from './Button';
 import Input from './Input';
+import Estimation from './Estimation.js'
 
 import {getMaxAgeAction, getManufacturersAction,
   changeYearAction, getAllActiveManufacturers, getSeriesAction, changeManufacturerAction,
@@ -89,7 +90,9 @@ var Widget = React.createClass({
     this.context.executeAction(determinePriceAction, {year: this.props.selectedYear, maker:this.props.selectedManufacturer,
     model: this.props.selectedModel, seria: this.props.selectedSeria, modification: this.props.selectedModification,
     odometer: this.props.odometer, email: this.props.email, region: this.props.selectedRegion});
+    this.context.executeAction(changeStepAction,4);
   },
+
 
   inputOdometerChangeHandler: function(component, event) {
     let value = event.target.value;
@@ -128,6 +131,8 @@ var Widget = React.createClass({
     const selectedSeria = this.props.selectedSeria.value;
     const selectedModification = this.props.selectedModification.value;
     const selectedRegion = this.props.selectedRegion.value;
+    const odometer = this.props.odometer;
+    const email = this.props.email;
 
     switch (step) {
       case 1: {
@@ -202,12 +207,12 @@ var Widget = React.createClass({
         );
       }
       case 3: {
-        return React.createElement("div", {className: "container"},
+        return React.createElement("div",null,
           React.createElement("div", {className:"row"},
             React.createElement("label", {"className": "horizontal-label"}, "Odometer"),
             React.createElement(Input, {
               className: "Odometer",
-              value: "",
+              value: odometer,
               placeholder: Settings.customStrings.FILL_ODOMETER,
               type: "text",
               pattern: '[0-9\.]+',
@@ -226,8 +231,8 @@ var Widget = React.createClass({
           React.createElement("div", {className:"row"},
             React.createElement("label", {"className": "horizontal-label"}, "email"),
             React.createElement(Input, {
-              className: "Odometer",
-              value: "",
+              className: "Email",
+              value: email,
               placeholder: Settings.customStrings.FILL_EMAIL,
               type: "email",
               onChange: this.inputEmailChangeHandler,
@@ -242,6 +247,9 @@ var Widget = React.createClass({
             }, null )
           )
         );
+      }
+      case 4: {
+        return React.createElement(Estimation, {estimation: this.props.estimation});
       }
     }
   }
@@ -264,7 +272,8 @@ Widget = connectToStores(Widget, [WidgetStore], function (stores, props) {
       selectedModel: stores.WidgetStore.getSelectedModel(),
       selectedSeria: stores.WidgetStore.getSelectedSeria(),
       selectedModification: stores.WidgetStore.getSelectedModification(),
-      selectedRegion: stores.WidgetStore.getSelectedRegion()
+      selectedRegion: stores.WidgetStore.getSelectedRegion(),
+      estimation: stores.WidgetStore.getEstimation()
 
     }
 });

@@ -22,6 +22,7 @@ class WidgetStore extends BaseStore {
     this.selectedSeria = {value: null, text: null};
     this.selectedModification = {value: null, text: null};
     this.selectedRegion = {value: null, text: null};
+    this.estimation = {};
 
     this.odometer = null;
   }
@@ -83,6 +84,10 @@ class WidgetStore extends BaseStore {
 
   getEmail() {
     return this.email;
+  }
+
+  getEstimation() {
+    return this.estimation;
   }
 
   getMaxAgeSuccess(maxAge) {
@@ -215,6 +220,11 @@ class WidgetStore extends BaseStore {
     this.email = email;
     this.emitChange();
   }
+
+  determinePrice(response) {
+    this.estimation = JSON.parse(response);
+    this.emitChange();
+  }
 }
 
 WidgetStore.storeName = 'WidgetStore';
@@ -235,7 +245,8 @@ WidgetStore.handlers = {
   [Actions.MODIFICATION_CHANGED_SUCCESS]: 'setSelectedModification',
   [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion',
   [Actions.ODOMETER_CHANGED_SUCCESS]: 'setOdometer',
-  [Actions.EMAIL_CHANGED_SUCCESS]: 'setEmail'
+  [Actions.EMAIL_CHANGED_SUCCESS]: 'setEmail',
+  [Actions.DETERMINE_PRICE_SUCCESS]: 'determinePrice'
 };
 
 
