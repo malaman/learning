@@ -95,9 +95,12 @@ const WidgetActionCreators = {
       console.log(response.text);
       actionContext.dispatch(Actions.DETERMINE_PRICE_SUCCESS, response.text);
     });
+  },
 
-
-  }
+  evaluateAgainAction(actionContext, payload, done) {
+    actionContext.dispatch(Actions.EVALUATE_AGAIN_SUCCESS, payload);
+    done();
+    }
 
 };
 

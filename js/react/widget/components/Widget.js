@@ -10,7 +10,8 @@ import {getMaxAgeAction, getManufacturersAction,
   getModelsAction, getModificationsAction, getAllRegionsAction,
   changeModelAction, changeStepAction,
   changeSeriaAction, changeModificationAction, changeRegionAction,
-  changeOdometerAction, changeEmailAction, determinePriceAction} from "../actions/WidgetActionsCreators";
+  changeOdometerAction, changeEmailAction, determinePriceAction,
+  evaluateAgainAction} from "../actions/WidgetActionsCreators";
 import WidgetStore from '../stores/WidgetStore';
 import connectToStores from 'fluxible/addons/connectToStores';
 import Settings from '../constants/Settings';
@@ -56,7 +57,6 @@ var Widget = React.createClass({
 
   selectManufacturerHandler: function(event) {
     this.context.executeAction(changeManufacturerAction, event.nativeEvent.target.selectedIndex);
-    console.log(this.props.selectedYear);
     this.context.executeAction(getModelsAction, {year: this.props.selectedYear, manufacturer: event.target.value});
   },
   selectModelHandler: function(event) {
@@ -111,6 +111,12 @@ var Widget = React.createClass({
       this.context.executeAction(changeEmailAction, value);
     }
   },
+
+  evaluateAgainButtonClick: function() {
+    this.context.executeAction(evaluateAgainAction, null);
+    this.forceUpdate();
+  },
+
 
 
   render: function() {
@@ -249,7 +255,8 @@ var Widget = React.createClass({
         );
       }
       case 4: {
-        return React.createElement(Estimation, {estimation: this.props.estimation});
+        return React.createElement(Estimation, {estimation: this.props.estimation,
+          onButtonClick: this.evaluateAgainButtonClick, buttonCaption: Settings.customStrings.EVALUATE_AGAIN});
       }
     }
   }

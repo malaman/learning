@@ -5,26 +5,34 @@ import Settings from '../constants/Settings';
 class WidgetStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
-    this.step = 1;
-
+    this.maxAge = null;
     this.years = [];
     this.manufacturers = [];
+    this.resetStore();
+  }
+
+  resetStore() {
+    this.step = 1;
+
     this.models = [];
     this.series = [];
     this.modifications = [];
     this.regions = [];
     this.email = null;
-
-    this.maxAge = null;
     this.selectedYear = null;
     this.selectedManufacturer = {value: null, text: null};
     this.selectedModel = {value: null, text: null};
     this.selectedSeria = {value: null, text: null};
     this.selectedModification = {value: null, text: null};
     this.selectedRegion = {value: null, text: null};
-    this.estimation = {};
+    this.estimation = {
+      year: null,
+      price: null,
+      vehicle_information: null
+    };
 
     this.odometer = null;
+
   }
 
   getStep() {
@@ -92,7 +100,6 @@ class WidgetStore extends BaseStore {
 
   getMaxAgeSuccess(maxAge) {
     this.maxAge = parseInt(maxAge, 10);
-    console.log(this.maxAge);
     this.setYears(this.maxAge);
     if (this.selectedYear === null) {
       this.selectedYear = this.years[0];
@@ -225,6 +232,13 @@ class WidgetStore extends BaseStore {
     this.estimation = JSON.parse(response);
     this.emitChange();
   }
+
+  evaluateAgain() {
+    this.resetStore();
+    this.setYears(this.maxAge);
+    this.emitChange();
+
+  }
 }
 
 WidgetStore.storeName = 'WidgetStore';
@@ -246,7 +260,8 @@ WidgetStore.handlers = {
   [Actions.REGION_CHANGED_SUCCESS]: 'setSelectedRegion',
   [Actions.ODOMETER_CHANGED_SUCCESS]: 'setOdometer',
   [Actions.EMAIL_CHANGED_SUCCESS]: 'setEmail',
-  [Actions.DETERMINE_PRICE_SUCCESS]: 'determinePrice'
+  [Actions.DETERMINE_PRICE_SUCCESS]: 'determinePrice',
+  [Actions.EVALUATE_AGAIN_SUCCESS]: 'evaluateAgain'
 };
 
 
