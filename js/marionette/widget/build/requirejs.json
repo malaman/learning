@@ -9,7 +9,8 @@
         "text": "<%= path %>bower_components/requirejs-text/text",
         "handlebars" : "<%= path %>bower_components/handlebars/handlebars",
         "when" : "<%= path %>bower_components/when",
-        "Lumberman" : "<%= path %>bower_components/lumberman/src"
+        "Lumberman" : "<%= path %>bower_components/lumberman/src",
+        "twitter.bootstrap" : "<%= path %>bower_components/bootstrap/dist"
     },
     "shim": {
         "handlebars" : {

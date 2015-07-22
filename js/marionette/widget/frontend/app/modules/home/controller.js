@@ -12,7 +12,7 @@ define(function (require) {
         },
         index : function () {
             this.app.container.show(new IndexView({
-                message : 'Hello!'
+                message : 'Hello !'
             }));
         }
     });

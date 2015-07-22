@@ -12,7 +12,8 @@
         "requirejs-text": "2.0.12",
         "handlebars": "1.3.0",
         "when" : "3.2.3",
-        "lumberman" : "0.0.3"
+        "lumberman" : "0.0.3",
+        "bootstrap" : "3.3.5"
     },
     "ignore": [
         "**/.*",

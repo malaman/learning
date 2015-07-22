@@ -22,7 +22,7 @@ define(function (require) {
 
     app.on('initialize:after', function (options) {
         if (!Backbone.history.start({ pushState : options.pushState })) {
-            Backbone.history.navigate('home', { trigger : true });
+            Backbone.history.navigate('widget', { trigger : true });
         }
     });
 

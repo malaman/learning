@@ -5,6 +5,7 @@ define(function (require) {
         /** Autoload modules */
 
         require('modules/home/module')(app);
+        require('modules/widget/widget_module')(app);
     };
 
 });
