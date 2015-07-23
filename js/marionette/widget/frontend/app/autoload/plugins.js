@@ -4,6 +4,7 @@ define(function (require) {
     return function (app) {
         /** Autoload plugins */
         require('plugins/logger')(app);
+        require('plugins/api')(app);
     };
 
 });
