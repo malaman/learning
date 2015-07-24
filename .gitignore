@@ -85,5 +85,5 @@ acceptance_tests_logs
 etc
 src
 js/marionette/widget/node_modules
-js/marionette/widget/bower_components
+js/marionette/widget/frontend/bower_components
 js/marionette/widget/scripts/vendor
