@@ -15,7 +15,7 @@ define(function (require) {
     require('autoload/vendors')(app);
     require('autoload/plugins')(app);
     require('autoload/modules')(app);
-    //require('autoload/models')(app);
+    require('autoload/models')(app);
 
     app.addRegions({
         'container' : '#container'

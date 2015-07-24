@@ -1,10 +1,20 @@
 <div class="container">
-    <h1>{{context.message}} </h1>
-    {{log items}}
-  <select>
-    {{#each items}}
-        <option value="{{id}}">{{ru_name}}</option>
-    {{/each}}
-  </select>
+    <div class="row">
+        <div class="horizontal-label">
+            Year
+        </div>
+        <select class="form-control">
 
+        </select>
+    </div>
+    <div class="row" id="manufacturer">
+        <div class="horizontal-label">
+            Manufacturer
+        </div>
+        <select class="form-control">
+            {{#each items}}
+                <option value="{{id}}">{{ru_name}}</option>
+            {{/each}}
+        </select>
+    </div>
 </div>
