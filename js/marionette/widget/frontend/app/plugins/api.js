@@ -10,16 +10,28 @@ define(function () {
          */
         app.api = {
           baseUrl: 'http://www.etachki.com',
-          getMaxAge: function() {
-            var deferred = $.defer();
-            $.ajax(this.baseUrl + '/api/getMaxAge', {})
-              .done(function(result) {
-                deferred.resolve(result.data);
-              })
-              .fail(function(data) {
-                deferred.reject(data);
-              });
-            return deferred.promise;
+          getYears: function() {
+
+          var _setYears = function (depth) {
+            var currentYear = new Date().getFullYear(),
+            firstYear = currentYear - depth,
+            last = currentYear + 1;
+
+            var years = [];
+            for (var i = firstYear; i != last; i = i + 1) {
+              years.push(i);
+            }
+            years.reverse();
+            return years;
+          };
+          var deffered = $.Deferred();
+
+           $.ajax(this.baseUrl + '/api/getMaxAge')
+            .then(function(result) {
+              var years = _setYears(parseInt(result, 10));
+              deffered.resolve(years);
+            });
+          return deffered.promise();
           }
         };
     };

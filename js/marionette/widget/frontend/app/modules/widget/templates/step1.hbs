@@ -4,6 +4,9 @@
             Year
         </div>
         <select class="form-control">
+            {{#each years}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
 
         </select>
     </div>
@@ -12,7 +15,7 @@
             Manufacturer
         </div>
         <select class="form-control">
-            {{#each items}}
+            {{#each manufacturers}}
                 <option value="{{id}}">{{ru_name}}</option>
             {{/each}}
         </select>

@@ -18,7 +18,7 @@ define(function (require) {
              * This modules controller
              * @type {*|exports}
              */
-            var controller = this.controller = new Controller({ app : app, logger : this.logger, api: this.api, models: this.models});
+            var controller = this.controller = new Controller({ app : app, logger : this.logger});
 
             /**
              * This modules router

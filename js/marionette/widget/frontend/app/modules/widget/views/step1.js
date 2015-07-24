@@ -16,12 +16,14 @@ define(function (require) {
         },
 
         serializeData : function () {
-            console.log(this);
-            var items = this.collection.toJSON();
-            console.log(items);
-            return {
-                'items' : items
-            };
+          var manufacturers = this.options.manufacturers.toJSON();
+          var years = this.options.years;
+          console.log(this);
+
+          return {
+            'manufacturers' : manufacturers,
+            'years': years
+          };
         }
     });
 

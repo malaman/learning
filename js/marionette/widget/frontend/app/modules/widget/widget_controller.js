@@ -10,12 +10,26 @@ define(function (require) {
       this.logger = options.logger;
     },
       index : function () {
-        this.initialize(this.options);
-        var manufacturers = this.app.request('manufacturer:entities');
         var self = this;
-        $.when(manufacturers).done(function(manufacturers) {
+        var years;
+        var manufacturers;
+        var yearsPromise = this.app.request('widget:years');
+        var manufacturersPromise = this.app.request('widget:manufacturers');
+        var promises = [yearsPromise, manufacturersPromise];
+        this.initialize(this.options);
+
+        $.when(yearsPromise).done(function(data) {
+          console.log('years: ', data);
+          years = data;
+        });
+
+        $.when(manufacturersPromise).done(function(data) {
+          manufacturers = data;
+        });
+        $.when.apply($, promises).then(function() {
           var Step1View = new WidgetView({
-            collection: manufacturers
+            manufacturers: manufacturers,
+            years: years
           });
           Step1View.on('step1:event', function(params) {
             console.log(params);

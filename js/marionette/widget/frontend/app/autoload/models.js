@@ -3,7 +3,7 @@ define(function (require) {
 
     return function (app) {
         /** Autoload models */
-        require('models/manufacturer')(app);
+        require('models/widget_models')(app);
     };
 
 });
