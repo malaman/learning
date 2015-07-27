@@ -17,8 +17,11 @@ define(function (require) {
     require('autoload/modules')(app);
     require('autoload/models')(app);
 
+
     app.addRegions({
-        'container' : '#container'
+        'first' : '#first-region',
+        'second' : '#second-region',
+        'third' : '#third-region'
     });
 
     app.on('initialize:after', function (options) {

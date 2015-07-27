@@ -7,10 +7,17 @@ define(function (require) {
 
     app.module('models', function() {
 
+      var Year = Backbone.Model.extend({
+      });
+
+      var YearCollection = Backbone.Collection.extend({
+        model: Year
+      });
+
       var Manufacturer = Backbone.Model.extend({
         defaults: {
           id: null,
-        ru_name: ''
+          ru_name: ''
         }
       });
 
@@ -27,6 +34,9 @@ define(function (require) {
             defer.resolve(data);
           }});
           return defer.promise();
+        },
+        getYears: function() {
+          return new YearCollection([{id: 2015}, {id: 2014}, {id: 2013}, {id: 2012}]);
         }
       };
 
@@ -35,13 +45,18 @@ define(function (require) {
         return API.getAllActiveManufacturers();
       });
 
-      app.reqres.setHandler('widget:years', function() {
-        return app.api.getYears();
+      app.reqres.setHandler('widget:getYears', function() {
+        return API.getYears();
       });
 
-      app.reqres.setHandler('widget:getManufacturer', function(params) {
-        return app.api.getManufacturer(params);
+      app.reqres.setHandler('widget:getManufacturers', function(params) {
+        return app.api.getManufacturers(params);
       });
+
+      app.reqres.setHandler('widget:getModels', function(params) {
+        return app.api.getModels(params);
+      });
+
     });
 
   };

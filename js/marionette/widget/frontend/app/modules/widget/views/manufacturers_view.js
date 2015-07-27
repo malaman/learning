@@ -5,10 +5,9 @@ define(function (require) {
 
     return Marionette.ItemView.extend({
 
-      template : require('text!./../templates/step1.hbs'),
+      template : require('text!./../templates/manufacturers.hbs'),
 
       events: {
-        'change .js-year': 'yearChanged',
         'change .js-manufacturer': 'manufacturerChanged'
       },
 
@@ -20,10 +19,6 @@ define(function (require) {
 
       },
 
-      yearChanged: function(event) {
-        this.trigger('step1:yearChanged', event);
-      },
-
       manufacturerChanged: function(event) {
         this.trigger('step1:manufacturerChanged', event);
       },
@@ -33,15 +28,12 @@ define(function (require) {
       },
 
       serializeData : function () {
-        console.log(this.model);
+        console.log(this);
+        console.log(this.collection.toJSON());
+
 
         return {
-          'years': this.options.years,
-          'manufacturers' : this.options.manufacturers.toJSON(),
-          'models': this.options.models,
-          'selectedYear': this.options.selectedYear,
-          'selectedManufacturer': this.options.selectedManufacturer,
-          'selectedModel': this.options.selectedModel
+          'manufacturers': this.collection.toJSON()
         };
       }
   });

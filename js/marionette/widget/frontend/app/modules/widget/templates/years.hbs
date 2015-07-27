@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="horizontal-label">
+        Year
+    </div>
+    <select class="form-control js-year">
+        {{#each years}}
+            <option value="{{this.id}}" name="{{this.id}}"
+                {{#selectedValue this ../selectedYear }} selected="selected" {{/selectedValue}}>{{this.id}}
+            </option>
+        {{/each}}
+    </select>
+</div>
