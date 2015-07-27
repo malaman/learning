@@ -3,20 +3,27 @@
         <div class="horizontal-label">
             Year
         </div>
-        <select class="form-control">
+        <select class="form-control js-year">
             {{#each years}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{this}}" name="{{this}}"
+                {{#selectedValue this ../selectedYear }} selected="selected" {{/selectedValue}}>{{this}}
+            </option>
             {{/each}}
 
         </select>
     </div>
-    <div class="row" id="manufacturer">
+    <div class="row">
         <div class="horizontal-label">
             Manufacturer
         </div>
-        <select class="form-control">
+
+        <select class="form-control js-manufacturer">
             {{#each manufacturers}}
-                <option value="{{id}}">{{ru_name}}</option>
+                <option value="{{id}}" name="{{ru_name}}"
+                    {{#selectedValue id }} selected="selected" {{/selectedValue}}
+                    >{{ru_name}}
+                </option>
+
             {{/each}}
         </select>
     </div>

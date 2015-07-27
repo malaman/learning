@@ -20,7 +20,7 @@ define(function (require) {
       });
 
       var API = {
-        getManufacturerEntitiesNet: function() {
+        getAllActiveManufacturers: function() {
           var manufacturers = new ManufacturerCollection();
           var defer = $.Deferred();
           manufacturers.fetch({ success: function(data) {
@@ -32,10 +32,15 @@ define(function (require) {
 
 
       app.reqres.setHandler('widget:manufacturers', function() {
-        return API.getManufacturerEntitiesNet();
+        return API.getAllActiveManufacturers();
       });
+
       app.reqres.setHandler('widget:years', function() {
         return app.api.getYears();
+      });
+
+      app.reqres.setHandler('widget:getManufacturer', function(params) {
+        return app.api.getManufacturer(params);
       });
     });
 

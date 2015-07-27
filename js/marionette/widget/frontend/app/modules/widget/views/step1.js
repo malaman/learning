@@ -8,21 +8,30 @@ define(function (require) {
         template : require('text!./../templates/step1.hbs'),
 
         events: {
-          'change': 'selectChanged'
+          'change .js-year': 'yearChanged',
+          'change .js-manufacturer': 'manufacturerChanged'
         },
 
-        selectChanged: function(event) {
-          this.trigger('step1:event', event.target.value);
+        modelEvents: {
+        'change': 'render'
+        },
+
+        yearChanged: function(event) {
+          this.trigger('step1:yearChanged', event);
+        },
+
+        manufacturerChanged: function(event) {
+          this.trigger('step1:manufacturerChanged', event);
         },
 
         serializeData : function () {
-          var manufacturers = this.options.manufacturers.toJSON();
-          var years = this.options.years;
-          console.log(this);
+          console.log(this.options);
 
           return {
-            'manufacturers' : manufacturers,
-            'years': years
+            'years': this.options.years,
+            'manufacturers' : this.options.manufacturers.toJSON(),
+            'selectedYear': this.options.selectedYear
+
           };
         }
     });

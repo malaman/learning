@@ -9,7 +9,7 @@ define(function () {
          * @type {{}}
          */
         app.api = {
-          baseUrl: 'http://www.etachki.com',
+          baseUrl: 'http://www.dev3.etachki.com.ua',
           getYears: function() {
 
           var _setYears = function (depth) {
@@ -32,7 +32,17 @@ define(function () {
               deffered.resolve(years);
             });
           return deffered.promise();
+          },
+
+          getManufacturer: function(params) {
+            var deffered = $.Deferred();
+           $.ajax({url: this.baseUrl + '/api/getManufacturer',
+             data: {year: params.year}})
+            .then(function(result) {
+              deffered.resolve(result);
+            });
           }
+
         };
     };
 });
