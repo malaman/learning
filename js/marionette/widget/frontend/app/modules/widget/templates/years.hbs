@@ -3,7 +3,7 @@
         Year
     </div>
     <select class="form-control js-year">
-        {{#each years}}
+        {{#each items}}
             <option value="{{this.id}}" name="{{this.id}}"
                 {{#selectedValue this ../selectedYear }} selected="selected" {{/selectedValue}}>{{this.id}}
             </option>

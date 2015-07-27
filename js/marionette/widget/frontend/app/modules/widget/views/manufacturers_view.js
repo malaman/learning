@@ -7,35 +7,32 @@ define(function (require) {
 
       template : require('text!./../templates/manufacturers.hbs'),
 
+      collectionEvents: {
+        'reset': 'render'
+      },
+
       events: {
         'change .js-manufacturer': 'manufacturerChanged'
       },
 
-      collectionEvents: {
-      'change': 'render'
-      },
-
-      initialize: function() {
-
-      },
 
       manufacturerChanged: function(event) {
         this.trigger('step1:manufacturerChanged', event);
       },
 
       onRender: function() {
-        console.log(this.model);
-      },
-
-      serializeData : function () {
-        console.log(this);
-        console.log(this.collection.toJSON());
-
-
-        return {
-          'manufacturers': this.collection.toJSON()
-        };
+        console.log(this.collection);
       }
+
+      //serializeData : function () {
+      //  console.log(this.model.length);
+      //  console.log(this.model.toJSON());
+      //
+      //
+      //  return {
+      //    'manufacturers': this.model.toJSON()
+      //  };
+      //}
   });
 
 });

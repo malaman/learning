@@ -9,7 +9,7 @@ define(function () {
        * @type {{}}
        */
       app.api = {
-        baseUrl: 'http://www.dev3.etachki.com.ua',
+        baseUrl: 'http://www.etachki.com',
         getYears: function () {
 
           var _setYears = function (depth) {
@@ -19,7 +19,7 @@ define(function () {
 
             var years = [];
             for (var i = firstYear; i != last; i = i + 1) {
-              years.push(i);
+              years.push({id:i});
             }
             years.reverse();
             return years;

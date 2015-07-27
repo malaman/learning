@@ -7,7 +7,8 @@ define(function (require) {
 
     app.module('models', function() {
 
-      var Year = Backbone.Model.extend({
+
+      this.Year = Backbone.Model.extend({
       });
 
 
@@ -25,8 +26,8 @@ define(function (require) {
         }
       });
 
-      var YearCollection = Backbone.Collection.extend({
-        model: Year
+      this.YearCollection = Backbone.Collection.extend({
+        model: this.Year
       });
 
 
@@ -54,16 +55,20 @@ define(function (require) {
           var manufacturers = new ManufacturerCollection();
           var defer = $.Deferred();
           manufacturers.fetch({
-            url: app.api.baseUrl + '/api/Manufacturers',
+            url: app.api.baseUrl + '/api/getManufacturer',
             data: $.param(params),
             success: function(data) {
+              //manufacturers.reset(data);
               defer.resolve(data);
           }});
           return defer.promise();
 
         },
         getYears: function() {
-          return new YearCollection([{id: 2015}, {id: 2014}, {id: 2013}, {id: 2012}]);
+          return new this.YearCollection([{id: 2015}, {id: 2014}, {id: 2013}, {id: 2012}, {id: 2000}]);
+        },
+        getModels: function(params) {
+          return new ModelCollection(params);
         }
       };
 
@@ -73,7 +78,7 @@ define(function (require) {
       });
 
       app.reqres.setHandler('widget:getYears', function() {
-        return API.getYears();
+        return app.api.getYears();
       });
 
       app.reqres.setHandler('widget:getManufacturers', function(params) {

@@ -4,7 +4,7 @@ define(function (require) {
   //var WidgetView = require('./views/step1');
   var YearsView = require('./views/years_view');
   var ManufacturersView = require('./views/manufacturers_view');
-  //var $ = require('jquery');
+  var $ = require('jquery');
 
   return Marionette.Controller.extend({
     initialize: function (options) {
@@ -13,46 +13,73 @@ define(function (require) {
 
       this.selectedYear = null;
       this.selectedManufacturer = null;
-      this.years = [];
-      this.manufacturers = [{id: 0, ru_name: 'Please select manufacturer'}];
       this.models = [{id: 0, ru_name: 'Please select model'}];
     },
       index : function () {
-        var self = this;
-        this.years = this.app.request('widget:getYears');
-        var yearsView = new YearsView({collection: self.years});
-        this.app.first.show(yearsView);
-
-        var manufacturersPromise = this.app.request('widget:manufacturers');
-        $.when(manufacturersPromise).done(function(data) {
-          self.manufacturers = data;
-          var manufacturersView = new ManufacturersView({collection:self.manufacturers});
-          self.app.second.show(manufacturersView);
-        });
-
-
         //var self = this;
-        //var yearsPromise = this.app.request('widget:years');
-        //var manufacturersPromise = this.app.request('widget:manufacturers');
-        //var promises = [yearsPromise, manufacturersPromise];
-        //this.initialize(this.options);
+        //this.years = this.app.request('widget:getYears');
         //
-        //$.when(yearsPromise).done(function(data) {
-        //  self.years = data;
-        //});
+        //var yearsView = new YearsView({collection: self.years});
+        //this.app.first.show(yearsView);
+        //var manufacturersView;
+        //
+        //var manufacturersPromise = this.app.request('widget:manufacturers');
         //
         //$.when(manufacturersPromise).done(function(data) {
-        //  self.manufacturers = data;
-        //});
-        //$.when.apply($, promises).then(function() {
-        //  var Step1View = new WidgetView( {
-        //    years: self.years,
-        //    manufacturers: self.manufacturers,
-        //    models: self.models,
-        //    selectedYear: self.selectedYear,
-        //    selectedManufacturer: self.selectedManufacturer,
-        //    selectedModel: self.selectedModel
+        //  self.manufacturers =  data;
+        //  manufacturersView = new ManufacturersView( {collection:
+        //    self.manufacturers});
+        //  yearsView.on('step1:yearChanged', function(event) {
+        //    self.selectedYear = event.target.value;
+        //    var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
+        //
+        //    $.when(manufacturersPromise).done(function(data) {
+        //      console.log(data.toJSON());
+        //      self.manufacturers.reset(data.toJSON());
+        //    });
         //  });
+        //self.app.second.show(manufacturersView);
+        //});
+
+
+
+        var self = this;
+        var yearsPromise = this.app.request('widget:getYears');
+        var manufacturersPromise = this.app.request('widget:manufacturers');
+        var promises = [yearsPromise, manufacturersPromise];
+        this.initialize(this.options);
+
+        $.when(yearsPromise).done(function(data) {
+          self.years = new app.models.YearCollection(data);
+        });
+        //
+        $.when(manufacturersPromise).done(function(data) {
+          self.manufacturers = data;
+        });
+        $.when.apply($, promises).then(function() {
+
+          var yearsView = new YearsView( {
+            collection: self.years
+          });
+          self.app.first.show(yearsView);
+          var manufacturersView = new ManufacturersView( {
+            collection:self.manufacturers
+          });
+          self.app.second.show(manufacturersView);
+
+          yearsView.on('step1:yearChanged', function(event) {
+            self.selectedYear = event.target.value;
+            var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
+
+            $.when(manufacturersPromise).done(function(data) {
+              console.log(data.toJSON());
+              self.manufacturers.reset(data.toJSON());
+            });
+          });
+
+
+
+
         //
         //  Step1View.on('step1:yearChanged', function(event) {
         //    self.selectedYear = event.target.value;
@@ -84,7 +111,7 @@ define(function (require) {
         //  });
         //
         //  self.app.first.show(Step1View);
-        //});
+        });
       }
   });
 
