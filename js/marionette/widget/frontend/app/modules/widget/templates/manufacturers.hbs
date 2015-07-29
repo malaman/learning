@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="horizontal-label">
+        Manufacturer
+    </div>
+
+    <select class="form-control js-manufacturer">
+        {{#each items}}
+            <option value="{{id}}" name="{{ru_name}}"
+                {{#selectedValue id ../selectedManufacturer.id}} selected="selected" {{/selectedValue}}
+                >{{ru_name}}
+            </option>
+
+        {{/each}}
+    </select>
+</div>

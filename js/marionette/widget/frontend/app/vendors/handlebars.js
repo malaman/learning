@@ -19,6 +19,11 @@ define(function (require) {
         Handlebars.registerHelper('staticFile', function (file) {
             return window.application.paths.staticFiles + file;
         });
+        Handlebars.registerHelper('selectedValue', function(value1, value2, options) {
+          if (value1== value2) {
+            return options.fn(this);
+          }
+        });
 
     };
 });
