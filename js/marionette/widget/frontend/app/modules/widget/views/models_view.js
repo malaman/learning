@@ -25,17 +25,17 @@ define(function (require) {
 
       onRender: function() {
         console.log(this.model);
-      },
-
-      serializeData : function () {
-        console.log(this);
-        console.log(this.collection.toJSON());
-
-
-        return {
-          'manufacturers': this.collection.toJSON()
-        };
       }
+
+      //serializeData : function () {
+      //  console.log(this);
+      //  console.log(this.collection.toJSON());
+      //
+      //
+      //  return {
+      //    'manufacturers': this.collection.toJSON()
+      //  };
+      //}
   });
 
 });

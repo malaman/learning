@@ -4,6 +4,7 @@ define(function (require) {
   //var WidgetView = require('./views/step1');
   var YearsView = require('./views/years_view');
   var ManufacturersView = require('./views/manufacturers_view');
+  var ModelsView = require('./views/models_view');
   var $ = require('jquery');
 
   return Marionette.Controller.extend({
@@ -13,46 +14,19 @@ define(function (require) {
 
       this.selectedYear = null;
       this.selectedManufacturer = null;
-      this.models = [{id: 0, ru_name: 'Please select model'}];
+      console.log(this.app);
     },
       index : function () {
-        //var self = this;
-        //this.years = this.app.request('widget:getYears');
-        //
-        //var yearsView = new YearsView({collection: self.years});
-        //this.app.first.show(yearsView);
-        //var manufacturersView;
-        //
-        //var manufacturersPromise = this.app.request('widget:manufacturers');
-        //
-        //$.when(manufacturersPromise).done(function(data) {
-        //  self.manufacturers =  data;
-        //  manufacturersView = new ManufacturersView( {collection:
-        //    self.manufacturers});
-        //  yearsView.on('step1:yearChanged', function(event) {
-        //    self.selectedYear = event.target.value;
-        //    var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
-        //
-        //    $.when(manufacturersPromise).done(function(data) {
-        //      console.log(data.toJSON());
-        //      self.manufacturers.reset(data.toJSON());
-        //    });
-        //  });
-        //self.app.second.show(manufacturersView);
-        //});
-
-
-
+        //console.log(this);
         var self = this;
         var yearsPromise = this.app.request('widget:getYears');
         var manufacturersPromise = this.app.request('widget:manufacturers');
         var promises = [yearsPromise, manufacturersPromise];
-        this.initialize(this.options);
+        self.models = new self.app.models.ModelCollection([{id: 0, ru_name: 'Please select model'}]);
 
         $.when(yearsPromise).done(function(data) {
-          self.years = new app.models.YearCollection(data);
+          self.years = new self.app.models.YearCollection(data);
         });
-        //
         $.when(manufacturersPromise).done(function(data) {
           self.manufacturers = data;
         });
@@ -63,18 +37,24 @@ define(function (require) {
           });
           self.app.first.show(yearsView);
           var manufacturersView = new ManufacturersView( {
-            collection:self.manufacturers
+            collection: self.manufacturers
+          });
+          var modelsView = new ModelsView({
+            collection: self.models
           });
           self.app.second.show(manufacturersView);
+          self.app.third.show(modelsView);
 
           yearsView.on('step1:yearChanged', function(event) {
             self.selectedYear = event.target.value;
             var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
 
             $.when(manufacturersPromise).done(function(data) {
-              console.log(data.toJSON());
               self.manufacturers.reset(data.toJSON());
             });
+          yearsView.on('step1:manufacturerChanged', function(event) {
+            console.log(event);
+          });
           });
 
 

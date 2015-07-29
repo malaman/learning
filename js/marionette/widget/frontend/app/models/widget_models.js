@@ -6,9 +6,9 @@ define(function (require) {
   return function(app) {
 
     app.module('models', function() {
+      var self = this;
 
-
-      this.Year = Backbone.Model.extend({
+      self.Year = Backbone.Model.extend({
       });
 
 
@@ -26,17 +26,17 @@ define(function (require) {
         }
       });
 
-      this.YearCollection = Backbone.Collection.extend({
+      self.YearCollection = Backbone.Collection.extend({
         model: this.Year
       });
 
 
-      var ManufacturerCollection = Backbone.Collection.extend({
+      self.ManufacturerCollection = Backbone.Collection.extend({
         url: app.api.baseUrl + '/api/getAllActiveManufacturers',
         model: Manufacturer
       });
 
-      var ModelCollection = Backbone.Collection.extend({
+      self.ModelCollection = Backbone.Collection.extend({
         baseUrl: app.api.baseUrl + '/api/getModels',
         model: Model
       });
@@ -44,7 +44,7 @@ define(function (require) {
 
       var API = {
         getAllActiveManufacturers: function() {
-          var manufacturers = new ManufacturerCollection();
+          var manufacturers = new self.ManufacturerCollection();
           var defer = $.Deferred();
           manufacturers.fetch({ success: function(data) {
             defer.resolve(data);
@@ -52,13 +52,12 @@ define(function (require) {
           return defer.promise();
         },
         getManufacturers: function(params) {
-          var manufacturers = new ManufacturerCollection();
+          var manufacturers = new self.ManufacturerCollection();
           var defer = $.Deferred();
           manufacturers.fetch({
             url: app.api.baseUrl + '/api/getManufacturer',
             data: $.param(params),
             success: function(data) {
-              //manufacturers.reset(data);
               defer.resolve(data);
           }});
           return defer.promise();
@@ -68,7 +67,7 @@ define(function (require) {
           return new this.YearCollection([{id: 2015}, {id: 2014}, {id: 2013}, {id: 2012}, {id: 2000}]);
         },
         getModels: function(params) {
-          return new ModelCollection(params);
+          return new self.ModelCollection(params);
         }
       };
 
