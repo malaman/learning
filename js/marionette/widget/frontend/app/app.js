@@ -21,7 +21,8 @@ define(function (require) {
     app.addRegions({
         'first' : '#first-region',
         'second' : '#second-region',
-        'third' : '#third-region'
+        'third' : '#third-region',
+        'fourth' : '#fourth-region'
     });
 
     app.on('initialize:after', function (options) {

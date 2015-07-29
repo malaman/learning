@@ -12,7 +12,7 @@ define(function (require) {
       },
 
       collectionEvents: {
-      'change': 'render'
+      'reset': 'render'
       },
 
       initialize: function() {
@@ -20,22 +20,11 @@ define(function (require) {
       },
 
       modelChanged: function(event) {
-        this.trigger('step1:manufacturerChanged', event);
+        this.trigger('step1:modelChanged', event);
       },
 
       onRender: function() {
-        console.log(this.model);
       }
-
-      //serializeData : function () {
-      //  console.log(this);
-      //  console.log(this.collection.toJSON());
-      //
-      //
-      //  return {
-      //    'manufacturers': this.collection.toJSON()
-      //  };
-      //}
   });
 
 });

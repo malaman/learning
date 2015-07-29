@@ -23,17 +23,6 @@ define(function (require) {
         this.trigger('step1:yearChanged', event);
       }
 
-
-      //serializeData : function () {
-      //  console.log(this);
-      //  console.log(this.collection.toJSON());
-      //
-      //
-      //  return {
-      //    'years': this.collection.toJSON(),
-      //    'selectedYear': this.options.selectedYear
-      //  };
-      //}
   });
 
 });

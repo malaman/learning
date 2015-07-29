@@ -81,7 +81,7 @@ define(function (require) {
       });
 
       app.reqres.setHandler('widget:getManufacturers', function(params) {
-        return API.getManufacturers(params);
+        return app.api.getManufacturers(params);
       });
 
       app.reqres.setHandler('widget:getModels', function(params) {

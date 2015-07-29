@@ -21,18 +21,8 @@ define(function (require) {
       },
 
       onRender: function() {
-        console.log(this.collection);
       }
 
-      //serializeData : function () {
-      //  console.log(this.model.length);
-      //  console.log(this.model.toJSON());
-      //
-      //
-      //  return {
-      //    'manufacturers': this.model.toJSON()
-      //  };
-      //}
   });
 
 });
