@@ -6,6 +6,7 @@ define(function (require) {
   var ManufacturersView = require('./views/manufacturers_view');
   var ModelsView = require('./views/models_view');
   var ButtonView = require('./views/button_view');
+  var WidgetSelectView = require('./views/widget_select_view');
   var $ = require('jquery');
 
   return Marionette.Controller.extend({
@@ -13,9 +14,13 @@ define(function (require) {
       this.app = options.app;
       this.logger = options.logger;
 
+      this.years = [];
+      this.manufacturers = [];
+      this.models = [];
+      this.series = [];
       this.selectedYear = null;
       this.selectedManufacturer = null;
-      console.log(this.app);
+      this.selectedModel = null;
     },
 
     step1: function() {
@@ -55,7 +60,7 @@ define(function (require) {
           var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
 
           $.when(manufacturersPromise).done(function(data) {
-            self.manufacturers.reset(data);
+            self.manufacturers.reset(data.models);
           });
         });
 
@@ -78,17 +83,34 @@ define(function (require) {
             id:event.target.value,
             ru_name: $(event.target).find('option:selected').text()
           };
+          var seriesPromise = self.app.request('widget:getSeries', {
+            model: self.selectedModel.id,
+            year: self.selectedYear
+          });
+          $.when(seriesPromise).done(function(data) {
+            self.series = new self.app.models.SeriaCollection(data);
+            console.log('series');
+            console.log(self.series);
+          });
+
         });
+
 
         buttonView.on('step1:buttonClicked', function() {
           self.step2();
-        })
+        });
 
       });
     },
 
     step2: function() {
       var self = this;
+      var seriesView = new WidgetSelectView({
+        collection: self.series,
+        caption: 'seria',
+        step: 'step2'
+      });
+      self.app.first.show(seriesView);
 
       console.log(self.selectedYear);
       console.log(self.selectedManufacturer);

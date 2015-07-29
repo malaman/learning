@@ -1,7 +1,6 @@
 define(function (require) {
   'use strict';
   var Backbone = require('backbone');
-  var $ = require('jquery');
 
   return function(app) {
 
@@ -10,7 +9,6 @@ define(function (require) {
 
       self.Year = Backbone.Model.extend({
       });
-
 
       var Manufacturer = Backbone.Model.extend({
         defaults: {
@@ -41,39 +39,12 @@ define(function (require) {
         model: Model
       });
 
-
-      var API = {
-        getAllActiveManufacturers: function() {
-          var manufacturers = new self.ManufacturerCollection();
-          var defer = $.Deferred();
-          manufacturers.fetch({ success: function(data) {
-            defer.resolve(data);
-          }});
-          return defer.promise();
-        },
-        getManufacturers: function(params) {
-          var manufacturers = new self.ManufacturerCollection();
-          var defer = $.Deferred();
-          manufacturers.fetch({
-            url: app.api.baseUrl + '/api/getManufacturer',
-            data: $.param(params),
-            success: function(data) {
-              defer.resolve(data);
-          }});
-          return defer.promise();
-
-        },
-        getYears: function() {
-          return new this.YearCollection([{id: 2015}, {id: 2014}, {id: 2013}, {id: 2012}, {id: 2000}]);
-        },
-        getModels: function(params) {
-          return new self.ModelCollection(params);
-        }
-      };
-
+      self.SeriaCollection = Backbone.Collection.extend({
+        model: Model
+      });
 
       app.reqres.setHandler('widget:manufacturers', function() {
-        return API.getAllActiveManufacturers();
+        return app.api.getAllActiveManufacturers();
       });
 
       app.reqres.setHandler('widget:getYears', function() {
@@ -86,6 +57,10 @@ define(function (require) {
 
       app.reqres.setHandler('widget:getModels', function(params) {
         return app.api.getModels(params);
+      });
+
+      app.reqres.setHandler('widget:getSeries', function(params) {
+        return app.api.getSeries(params);
       });
 
     });

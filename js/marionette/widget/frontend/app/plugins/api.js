@@ -33,21 +33,39 @@ define(function () {
             });
           return deffered.promise();
         },
+        getAllActiveManufacturers: function() {
+          var manufacturers = new app.models.ManufacturerCollection();
+          var defer = $.Deferred();
+          manufacturers.fetch({ success: function(data) {
+            defer.resolve(data);
+          }});
+          return defer.promise();
+        },
+        getManufacturers: function(params) {
+          var manufacturers = new app.models.ManufacturerCollection();
+          var defer = $.Deferred();
+          manufacturers.fetch({
+            url: app.api.baseUrl + '/api/getManufacturer',
+            data: $.param(params),
+            success: function(data) {
+              defer.resolve(data);
+          }});
+          return defer.promise();
+        },
 
-        getManufacturers: function (params) {
+        getModels: function(params) {
           var deffered = $.Deferred();
-          $.ajax({
-            url: this.baseUrl + '/api/getManufacturer',
-            data: params
+          $.ajax({url: this.baseUrl + '/api/getModels',
+           data: params
           })
-            .then(function (result) {
+            .then(function(result) {
               deffered.resolve(result);
             });
           return deffered.promise();
         },
-        getModels: function(params) {
+        getSeries: function(params) {
           var deffered = $.Deferred();
-          $.ajax({url: this.baseUrl + '/api/getModels',
+          $.ajax({url: this.baseUrl + '/api/getSeries',
            data: params
           })
             .then(function(result) {
