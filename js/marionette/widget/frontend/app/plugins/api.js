@@ -72,6 +72,16 @@ define(function () {
               deffered.resolve(result);
             });
           return deffered.promise();
+        },
+        getModifications: function(params) {
+          var deffered = $.Deferred();
+          $.ajax({url: this.baseUrl + '/api/getBody',
+           data: params
+          })
+            .then(function(result) {
+              deffered.resolve(result);
+            });
+          return deffered.promise();
         }
       };
     };

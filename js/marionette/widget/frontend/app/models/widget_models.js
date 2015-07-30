@@ -7,6 +7,13 @@ define(function (require) {
     app.module('models', function() {
       var self = this;
 
+      self.Step = Backbone.Model.extend({
+        defaults: {
+          step: 'step1',
+          buttonCaption: 'Next'
+        }
+      });
+
       self.Year = Backbone.Model.extend({
       });
 
@@ -43,6 +50,11 @@ define(function (require) {
         model: Model
       });
 
+      self.ModificationCollection = Backbone.Collection.extend({
+        model: Model
+      });
+
+
       app.reqres.setHandler('widget:manufacturers', function() {
         return app.api.getAllActiveManufacturers();
       });
@@ -62,6 +74,11 @@ define(function (require) {
       app.reqres.setHandler('widget:getSeries', function(params) {
         return app.api.getSeries(params);
       });
+
+      app.reqres.setHandler('widget:getModifications', function(params) {
+        return app.api.getModifications(params);
+      });
+
 
     });
 
