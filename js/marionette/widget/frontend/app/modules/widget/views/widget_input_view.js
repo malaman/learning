@@ -5,9 +5,9 @@ define(function (require) {
 
     return Marionette.ItemView.extend({
 
-      template : require('text!./../templates/widget_select.hbs'),
+      template : require('text!./../templates/widget_input.hbs'),
 
-      collectionEvents: {
+      modelEvents: {
         'reset': 'render'
       },
 
@@ -28,7 +28,7 @@ define(function (require) {
         return {
           step     : this.options.step,
           caption  : this.options.caption.charAt(0).toUpperCase() + this.options.caption.slice(1),
-          items    : this.options.collection.toJSON()
+          placeholder    : this.options.placeholder || ''
         };
       }
   });

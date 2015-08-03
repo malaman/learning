@@ -11,14 +11,20 @@ define(function (require) {
         'click': 'buttonClicked'
       },
 
+      modelEvents: {
+        'change': 'render'
+      },
+
 
       buttonClicked: function(event) {
-        this.trigger('step1:buttonClicked', event);
+        var eventName = '' + this.model.attributes.step + ':buttonClicked';
+        this.trigger(eventName, event);
       },
 
       serializeData : function () {
         return {
-          'buttonCaption': this.options.buttonCaption
+          'buttonCaption': this.model.attributes.buttonCaption,
+          'step': this.model.attributes.step
         };
       }
   });
