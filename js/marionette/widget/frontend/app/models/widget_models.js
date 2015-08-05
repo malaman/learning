@@ -1,6 +1,7 @@
 define(function (require) {
   'use strict';
   var Backbone = require('backbone');
+  var _ = require('underscore');
 
   return function(app) {
 
@@ -31,6 +32,14 @@ define(function (require) {
         }
       });
 
+      //var Region = Backbone.Model.extend({
+      //  defaults: {
+      //    id: null,
+      //    ru: '',
+      //    uk: ''
+      //  }
+      //});
+
       self.YearCollection = Backbone.Collection.extend({
         model: this.Year
       });
@@ -52,6 +61,24 @@ define(function (require) {
 
       self.ModificationCollection = Backbone.Collection.extend({
         model: Model
+      });
+
+      self.RegionCollection = Backbone.Collection.extend({
+        url: app.api.baseUrl + '/api/getAllRegions',
+        model: Model,
+
+        parse: function(data) {
+          var items = [];
+          _.each(data.regions, function(item) {
+            var newItem = new Model({
+              id: item.id,
+              ru_name: item.ru,
+              uk_name: item.uk
+            });
+            return items.push(newItem);
+          });
+          return items;
+        }
       });
 
 
@@ -79,7 +106,9 @@ define(function (require) {
         return app.api.getModifications(params);
       });
 
-
+      app.reqres.setHandler('widget:getRegions', function() {
+        return app.api.getRegions();
+      });
     });
 
   };

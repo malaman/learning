@@ -82,7 +82,17 @@ define(function () {
               deffered.resolve(result);
             });
           return deffered.promise();
+        },
+        getRegions: function() {
+          var manufacturers = new app.models.RegionCollection();
+          var defer = $.Deferred();
+          manufacturers.fetch({
+            success: function(data) {
+              defer.resolve(data);
+          }});
+          return defer.promise();
         }
+
       };
     };
 });

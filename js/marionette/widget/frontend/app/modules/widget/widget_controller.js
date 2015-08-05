@@ -5,6 +5,7 @@ define(function (require) {
   var ManufacturersView = require('./views/manufacturers_view');
   var ModelsView = require('./views/models_view');
   var ButtonView = require('./views/button_view');
+  var WidgetInputView = require('./views/widget_input_view');
   var WidgetSelectView = require('./views/widget_select_view');
   var $ = require('jquery');
 
@@ -148,9 +149,31 @@ define(function (require) {
         };
       });
       self.buttonView.on('step2:buttonClicked', function() {
-        console.log(self.selectedSeria);
-        console.log(self.selectedModification);
+        self.step3();
+      });
 
+    },
+
+
+
+    step3: function() {
+      var self = this;
+      self.currentStep.set({step: 'step3'});
+      var regionPromise = self.app.request('widget:getRegions');
+      $.when(regionPromise ).done(function(data) {
+        self.regions = data;
+        var odometerView = new WidgetInputView({
+          caption: 'odometer',
+          step: 'step3'
+        });
+        var regionsView = new WidgetSelectView({
+          collection:self.regions,
+          caption: 'region',
+          step: 'step3'
+        });
+
+        self.app.first.show(odometerView);
+        self.app.second.show(regionsView);
       });
 
     },
