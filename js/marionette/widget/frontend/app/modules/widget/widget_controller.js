@@ -8,6 +8,7 @@ define(function (require) {
   var WidgetInputView = require('./views/widget_input_view');
   var WidgetSelectView = require('./views/widget_select_view');
   var $ = require('jquery');
+  var _ = require('underscore');
 
   return Marionette.Controller.extend({
     initialize: function (options) {
@@ -32,13 +33,16 @@ define(function (require) {
       var promises = [yearsPromise, manufacturersPromise];
       self.currentStep = new this.app.models.Step({});
       self.models = new self.app.models.ModelCollection([{id: 0, ru_name: 'Please select model'}]);
+      self.manufacturers = new self.app.models.ManufacturerCollection([{id: 0, ru_name: 'Please select manufacturer'}]);
       self.modifications = new self.app.models.ModificationCollection([{id: 0, ru_name: 'Please select model'}]);
 
       $.when(yearsPromise).done(function(data) {
         self.years = new self.app.models.YearCollection(data);
       });
       $.when(manufacturersPromise).done(function(data) {
-        self.manufacturers = data;
+        _.each(data.models, function(item) {
+          self.manufacturers.add(item);
+        });
       });
       $.when.apply($, promises).then(function() {
 
@@ -46,11 +50,15 @@ define(function (require) {
           collection: self.years
         });
         self.app.first.show(yearsView);
-        var manufacturersView = new ManufacturersView( {
-          collection: self.manufacturers
+        var manufacturersView = new WidgetSelectView( {
+          collection: self.manufacturers,
+          caption: 'manufacturer',
+          step: 'step1'
         });
-        var modelsView = new ModelsView({
-          collection: self.models
+        var modelsView = new WidgetSelectView({
+          collection: self.models,
+          caption: 'model',
+          step: 'step1'
         });
         self.buttonView = new ButtonView({
           model: self.currentStep
@@ -64,6 +72,7 @@ define(function (require) {
           var manufacturersPromise = self.app.request('widget:getManufacturers', {year: self.selectedYear});
 
           $.when(manufacturersPromise).done(function(data) {
+            data.models.unshift(new self.app.models.Manufacturer({id: 0, ru_name: 'Please select manufacturer'}));
             self.manufacturers.reset(data.models);
           });
         });
@@ -76,6 +85,7 @@ define(function (require) {
           var modelsPromise = self.app.request('widget:getModels', {manufacturer: self.selectedManufacturer.id,
             year: self.selectedYear});
           $.when(modelsPromise).done(function(data) {
+            data.unshift({id: 0, ru_name: 'Please select model'});
             self.models.reset(data);
             if (self.models.length === 1) {
               self.selectedModel = self.models.models[0].attributes;
@@ -98,6 +108,7 @@ define(function (require) {
               seria: self.selectedSeria.id
             });
             $.when(modificationPromise).done(function(data) {
+
               self.modifications.reset(data);
               self.selectedModification = self.modifications.models[0].attributes;
             });
@@ -171,9 +182,34 @@ define(function (require) {
           caption: 'region',
           step: 'step3'
         });
+        var emailView = new WidgetInputView({
+          caption: 'email',
+          step: 'step3',
+          placeholder: 'Please enter your email'
+        });
+        self.selectedRegion = self.regions.models[0].attributes;
+        regionsView.on('step3:regionChanged', function(event) {
+          self.selectedRegion = {
+            id:event.target.value,
+            ru: $(event.target).find('option:selected').text()
+          };
+        });
+        odometerView.on('step3:odometerChanged', function(event) {
+          self.odometer = event.target.value;
+        });
+
+        emailView.on('step3:emailChanged', function(event) {
+          self.email = event.target.value;
+        });
+        self.buttonView.on('step3:buttonClicked', function() {
+          console.log(self.odometer);
+          console.log(self.selectedRegion);
+          console.log(self.email);
+        });
 
         self.app.first.show(odometerView);
         self.app.second.show(regionsView);
+        self.app.third.show(emailView);
       });
 
     },
