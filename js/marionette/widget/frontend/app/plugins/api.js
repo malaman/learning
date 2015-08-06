@@ -9,7 +9,7 @@ define(function () {
        * @type {{}}
        */
       app.api = {
-        baseUrl: 'http://www.dev3.etachki.com.ua',
+        baseUrl: 'http://www.etachki.com',
         getYears: function () {
 
           var _setYears = function (depth) {
