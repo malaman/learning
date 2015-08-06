@@ -1,12 +1,10 @@
 define(function (require) {
   'use strict';
   var Marionette = require('marionette');
-  var YearsView = require('./views/years_view');
-  var ManufacturersView = require('./views/manufacturers_view');
-  var ModelsView = require('./views/models_view');
   var ButtonView = require('./views/button_view');
   var WidgetInputView = require('./views/widget_input_view');
   var WidgetSelectView = require('./views/widget_select_view');
+  var EstimationView = require('./views/estimation_view');
   var $ = require('jquery');
   var _ = require('underscore');
 
@@ -24,6 +22,9 @@ define(function (require) {
       this.selectedManufacturer = null;
       this.selectedModel = null;
       this.selectedModification = null;
+      this.odometer = null;
+      this.email = null;
+      this.regions = [];
     },
 
     step1: function() {
@@ -31,13 +32,17 @@ define(function (require) {
       var yearsPromise = this.app.request('widget:getYears');
       var manufacturersPromise = this.app.request('widget:manufacturers');
       var promises = [yearsPromise, manufacturersPromise];
-      self.currentStep = new this.app.models.Step({});
+      self.currentStep = new this.app.models.Step({
+        step: 'step1',
+        isButtonEnabled: false
+      });
       self.models = new self.app.models.ModelCollection([{id: 0, ru_name: 'Please select model'}]);
       self.manufacturers = new self.app.models.ManufacturerCollection([{id: 0, ru_name: 'Please select manufacturer'}]);
       self.modifications = new self.app.models.ModificationCollection([{id: 0, ru_name: 'Please select model'}]);
 
       $.when(yearsPromise).done(function(data) {
         self.years = new self.app.models.YearCollection(data);
+        self.selectedYear = self.years.models[0].attributes.id;
       });
       $.when(manufacturersPromise).done(function(data) {
         _.each(data.models, function(item) {
@@ -46,8 +51,10 @@ define(function (require) {
       });
       $.when.apply($, promises).then(function() {
 
-        var yearsView = new YearsView( {
-          collection: self.years
+        var yearsView = new WidgetSelectView( {
+          collection: self.years,
+          caption: 'year',
+          step: 'step1'
         });
         self.app.first.show(yearsView);
         var manufacturersView = new WidgetSelectView( {
@@ -97,22 +104,28 @@ define(function (require) {
             id:event.target.value,
             ru_name: $(event.target).find('option:selected').text()
           };
-          var seriesPromise = self.app.request('widget:getSeries', {
-            model: self.selectedModel.id,
-            year: self.selectedYear
-          });
-          $.when(seriesPromise).done(function(data) {
-            self.series = new self.app.models.SeriaCollection(data);
-            self.selectedSeria = self.series.models[0].attributes;
-            var modificationPromise = self.app.request('widget:getModifications', {
-              seria: self.selectedSeria.id
+          if ( parseInt(self.selectedModel.id, 10) !== 0) {
+            var seriesPromise = self.app.request('widget:getSeries', {
+              model: self.selectedModel.id,
+              year: self.selectedYear
             });
-            $.when(modificationPromise).done(function(data) {
+            $.when(seriesPromise).done(function(data) {
+              self.currentStep.set({
+                step: 'step1',
+                isButtonEnabled: true
+              });
+              self.series = new self.app.models.SeriaCollection(data);
+              self.selectedSeria = self.series.models[0].attributes;
+              var modificationPromise = self.app.request('widget:getModifications', {
+                seria: self.selectedSeria.id
+              });
+              $.when(modificationPromise).done(function(data) {
 
-              self.modifications.reset(data);
-              self.selectedModification = self.modifications.models[0].attributes;
+                self.modifications.reset(data);
+                self.selectedModification = self.modifications.models[0].attributes;
+              });
             });
-          });
+          }
         });
 
         self.buttonView.on('step1:buttonClicked', function() {
@@ -165,17 +178,30 @@ define(function (require) {
 
     },
 
+    checkStep3Button: function(self) {
+      if (self.odometer !== null && self.email !== null && self.selectedRegion.id !== 0) {
+        self.currentStep.set({
+          step: 'step3',
+          isButtonEnabled: true
+        });
+      }
+    },
 
 
     step3: function() {
       var self = this;
-      self.currentStep.set({step: 'step3'});
+      self.currentStep.set({
+        step: 'step3',
+        isButtonEnabled: false
+      });
       var regionPromise = self.app.request('widget:getRegions');
       $.when(regionPromise ).done(function(data) {
+        data.models.unshift(new self.app.models.Model({id: 0, ru_name: 'Please select region'}));
         self.regions = data;
         var odometerView = new WidgetInputView({
-          caption: 'odometer',
-          step: 'step3'
+          caption: 'odometer, km.',
+          step: 'step3',
+          placeholder: 'Please fill odometer info'
         });
         var regionsView = new WidgetSelectView({
           collection:self.regions,
@@ -190,27 +216,84 @@ define(function (require) {
         self.selectedRegion = self.regions.models[0].attributes;
         regionsView.on('step3:regionChanged', function(event) {
           self.selectedRegion = {
-            id:event.target.value,
+            id: parseInt(event.target.value, 10),
             ru: $(event.target).find('option:selected').text()
           };
+          self.checkStep3Button(self);
         });
-        odometerView.on('step3:odometerChanged', function(event) {
+        odometerView.on('step3:odometer, km.Changed', function(event) {
           self.odometer = event.target.value;
+          self.checkStep3Button(self);
         });
 
         emailView.on('step3:emailChanged', function(event) {
           self.email = event.target.value;
+          self.checkStep3Button(self);
         });
         self.buttonView.on('step3:buttonClicked', function() {
-          console.log(self.odometer);
-          console.log(self.selectedRegion);
-          console.log(self.email);
+          self.step4();
         });
 
         self.app.first.show(odometerView);
         self.app.second.show(regionsView);
         self.app.third.show(emailView);
       });
+    },
+
+    step4: function() {
+      var self = this;
+      var params = {
+        id: null,
+        car: {
+          year: self.selectedYear,
+          maker: {ru_name: self.selectedManufacturer.ru_name.replace(/\n$/, ''), id: self.selectedManufacturer.id},
+          model: {
+            ru_name: self.selectedModel.ru_name.replace(/\n$/, ''),
+            id: self.selectedModel.id,
+            show_price_range: false,
+            ignore_price: false},
+          seria: {
+            ru_name: self.selectedSeria.ru_name,
+            id: self.selectedSeria.id
+          },
+          modification: {ru_name: self.selectedModification.ru_name, id: self.selectedModification.id},
+          drivable: true,
+          damaged: false,
+          commercial_purposes: false,
+          loss_flood: false,
+          odometer_changed: false,
+          accident: false,
+          odometer: self.odometer
+        },
+        utm_source: '',
+        region: {id: self.selectedRegion.id},
+        contact: {email: self.email, lang: 'ru'},
+        clarification: false
+      };
+      var pricePromise = self.app.api.determinePrice(params);
+      $.when(pricePromise).done(function(data) {
+        self.estimation = data;
+        self.showEstimation();
+      });
+    },
+
+    showEstimation: function() {
+      var self = this;
+      var estimationView = new EstimationView({
+        estimation: self.estimation
+      });
+      self.currentStep.set({
+        step: 'step5',
+        buttonCaption: 'Evaluate Again',
+        isButtonEnabled: true
+      });
+      self.buttonView.on('step5:buttonClicked', function() {
+        self.index();
+      });
+
+      self.app.first.show(estimationView);
+      self.app.second.close();
+      self.app.third.close();
 
     },
 

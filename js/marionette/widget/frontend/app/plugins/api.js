@@ -9,7 +9,7 @@ define(function () {
        * @type {{}}
        */
       app.api = {
-        baseUrl: 'http://www.etachki.com',
+        baseUrl: 'http://www.dev3.etachki.com.ua',
         getYears: function () {
 
           var _setYears = function (depth) {
@@ -19,7 +19,7 @@ define(function () {
 
             var years = [];
             for (var i = firstYear; i != last; i = i + 1) {
-              years.push({id:i});
+              years.push({id:i, ru_name: i, uk_name: i});
             }
             years.reverse();
             return years;
@@ -91,6 +91,20 @@ define(function () {
               defer.resolve(data);
           }});
           return defer.promise();
+        },
+        determinePrice: function(params) {
+          var deffered = $.Deferred();
+          $.ajax({
+            url: this.baseUrl + '/api/determine_price',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(params)
+          })
+            .then(function(result) {
+              deffered.resolve(result);
+            });
+          return deffered.promise();
         }
 
       };

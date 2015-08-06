@@ -12,7 +12,7 @@ define(function (require) {
         defaults: {
           step: 'step1',
           buttonCaption: 'Next',
-          isButtonEnabled: false
+          isButtonEnabled: true
         }
       });
 
@@ -71,7 +71,7 @@ define(function (require) {
         parse: function(data) {
           var items = [];
           _.each(data.regions, function(item) {
-            var newItem = new Model({
+            var newItem = new self.Model({
               id: item.id,
               ru_name: item.ru,
               uk_name: item.uk
