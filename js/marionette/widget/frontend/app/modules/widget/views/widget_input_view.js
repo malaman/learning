@@ -12,12 +12,12 @@ define(function (require) {
       },
 
       events: {
-        'change': 'itemChanged'
+        'change': 'itemChanged',
+        'keypress' : 'itemChanged'
       },
 
       itemChanged: function(event) {
         var eventName = ''+ this.options.step + ':' + this.options.caption + 'Changed';
-        console.log(eventName);
         this.trigger(eventName, event);
       },
 

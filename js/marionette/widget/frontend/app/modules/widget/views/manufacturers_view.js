@@ -8,7 +8,8 @@ define(function (require) {
       template : require('text!./../templates/manufacturers.hbs'),
 
       collectionEvents: {
-        'reset': 'render'
+        'reset': 'render',
+        'add': 'render'
       },
 
       events: {

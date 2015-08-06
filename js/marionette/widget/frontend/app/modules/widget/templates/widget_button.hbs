@@ -1,6 +1,12 @@
 <br>
 <div class="row">
-    <button class="btn btn-success btn-group">
+    <button class="btn btn-success btn-group"
+        {{#if isEnabled}}
+            enabled
+        {{else}}
+            disabled
+        {{/if}}
+            >
         {{buttonCaption}}
     </button>
 </div>

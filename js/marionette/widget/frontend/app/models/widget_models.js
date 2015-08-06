@@ -1,6 +1,7 @@
 define(function (require) {
   'use strict';
   var Backbone = require('backbone');
+  var _ = require('underscore');
 
   return function(app) {
 
@@ -10,26 +11,35 @@ define(function (require) {
       self.Step = Backbone.Model.extend({
         defaults: {
           step: 'step1',
-          buttonCaption: 'Next'
+          buttonCaption: 'Next',
+          isButtonEnabled: true
         }
       });
 
       self.Year = Backbone.Model.extend({
       });
 
-      var Manufacturer = Backbone.Model.extend({
+      self.Manufacturer = Backbone.Model.extend({
         defaults: {
           id: null,
           ru_name: ''
         }
       });
 
-      var Model = Backbone.Model.extend({
+      self.Model = Backbone.Model.extend({
         defaults: {
           id: null,
           ru_name: ''
         }
       });
+
+      //var Region = Backbone.Model.extend({
+      //  defaults: {
+      //    id: null,
+      //    ru: '',
+      //    uk: ''
+      //  }
+      //});
 
       self.YearCollection = Backbone.Collection.extend({
         model: this.Year
@@ -38,20 +48,38 @@ define(function (require) {
 
       self.ManufacturerCollection = Backbone.Collection.extend({
         url: app.api.baseUrl + '/api/getAllActiveManufacturers',
-        model: Manufacturer
+        model: this.Manufacturer
       });
 
       self.ModelCollection = Backbone.Collection.extend({
         baseUrl: app.api.baseUrl + '/api/getModels',
-        model: Model
+        model: this.Model
       });
 
       self.SeriaCollection = Backbone.Collection.extend({
-        model: Model
+        model: this.Model
       });
 
       self.ModificationCollection = Backbone.Collection.extend({
-        model: Model
+        model: this.Model
+      });
+
+      self.RegionCollection = Backbone.Collection.extend({
+        url: app.api.baseUrl + '/api/getAllRegions',
+        model: this.Model,
+
+        parse: function(data) {
+          var items = [];
+          _.each(data.regions, function(item) {
+            var newItem = new self.Model({
+              id: item.id,
+              ru_name: item.ru,
+              uk_name: item.uk
+            });
+            return items.push(newItem);
+          });
+          return items;
+        }
       });
 
 
@@ -79,7 +107,9 @@ define(function (require) {
         return app.api.getModifications(params);
       });
 
-
+      app.reqres.setHandler('widget:getRegions', function() {
+        return app.api.getRegions();
+      });
     });
 
   };

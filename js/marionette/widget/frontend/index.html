@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marionette Frontend</title>
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+    <link rel="shortcut icon" href="static_files/favicon.ico" type="image/x-icon" />
+
+</head>
+<body lang="en">
+   <div class="container">
+        <span id="app-container"></span>
+            <span id="first-region"></span>
+            <span id="second-region"></span>
+            <span id="third-region"></span>
+            <span id="fourth-region"></span>
+        </div>
+    <script>
+        var application = {"paths":{"staticFiles":"static_files"},"pushState":false};
+    </script>
+    
+    <script>
+        var requirejs = {
+    "paths": {
+        "jquery": "../bower_components/jquery/dist/jquery",
+        "underscore": "../bower_components/underscore/underscore",
+        "backbone": "../bower_components/backbone/backbone",
+        "marionette": "../bower_components/backbone.marionette/lib/core/amd/backbone.marionette",
+        "backbone.babysitter": "../bower_components/backbone.babysitter/lib/backbone.babysitter",
+        "backbone.wreqr": "../bower_components/backbone.wreqr/lib/backbone.wreqr",
+        "text": "../bower_components/requirejs-text/text",
+        "handlebars" : "../bower_components/handlebars/handlebars",
+        "when" : "../bower_components/when",
+        "Lumberman" : "../bower_components/lumberman/src",
+        "twitter.bootstrap" : "../bower_components/bootstrap/dist"
+    },
+    "shim": {
+        "handlebars" : {
+            "exports": "Handlebars"
+        }
+    }
+};
+    </script>
+    <script data-main="/app/bootstrap.js" src="/bower_components/requirejs/require.js"></script>
+    
+
+</body>
+</html>

@@ -24,7 +24,8 @@ define(function (require) {
       serializeData : function () {
         return {
           'buttonCaption': this.model.attributes.buttonCaption,
-          'step': this.model.attributes.step
+          'step': this.model.attributes.step,
+          'isEnabled': this.model.attributes.isButtonEnabled
         };
       }
   });

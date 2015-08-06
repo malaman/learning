@@ -1,0 +1,13 @@
+<div clas="row">
+    <H1>{{estimation.vehicle_information}} {{estimation.year}}</H1>
+    <H2>
+        Price: $
+        {{#if estimation.price}}
+            {{estimation.price}}
+        {{else}}
+            Unable to define price
+        {{/if}}
+    </H2>
+    <h3>Client email: {{estimation.email}}</h3>
+    <h3>Odometer: {{estimation.odometer}} km.</h3>
+</div>

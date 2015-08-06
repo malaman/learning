@@ -19,7 +19,7 @@ define(function () {
 
             var years = [];
             for (var i = firstYear; i != last; i = i + 1) {
-              years.push({id:i});
+              years.push({id:i, ru_name: i, uk_name: i});
             }
             years.reverse();
             return years;
@@ -82,7 +82,31 @@ define(function () {
               deffered.resolve(result);
             });
           return deffered.promise();
+        },
+        getRegions: function() {
+          var manufacturers = new app.models.RegionCollection();
+          var defer = $.Deferred();
+          manufacturers.fetch({
+            success: function(data) {
+              defer.resolve(data);
+          }});
+          return defer.promise();
+        },
+        determinePrice: function(params) {
+          var deffered = $.Deferred();
+          $.ajax({
+            url: this.baseUrl + '/api/determine_price',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(params)
+          })
+            .then(function(result) {
+              deffered.resolve(result);
+            });
+          return deffered.promise();
         }
+
       };
     };
 });
