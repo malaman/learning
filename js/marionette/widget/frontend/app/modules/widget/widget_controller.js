@@ -246,9 +246,9 @@ define(function (require) {
         id: null,
         car: {
           year: self.selectedYear,
-          maker: {ru_name: self.selectedManufacturer.ru_name.replace(/\n$/, ''), id: self.selectedManufacturer.id},
+          maker: {ru_name: self.selectedManufacturer.ru_name.replace(/^\s+|\s+$/g, ''), id: self.selectedManufacturer.id},
           model: {
-            ru_name: self.selectedModel.ru_name.replace(/\n$/, ''),
+            ru_name: self.selectedModel.ru_name.replace(/^\s+|\s+$/g, ''),
             id: self.selectedModel.id,
             show_price_range: false,
             ignore_price: false},
