@@ -13,12 +13,33 @@ import debugLib from 'debug';
 import React from 'react';
 import app from './app';
 import HtmlComponent from './components/Html';
+import pg from 'pg';
+import {conString} from './configs/secret';
+
 const htmlComponent = React.createFactory(HtmlComponent);
-
 const debug = debugLib('catalog');
-
 const server = express();
+let   makers = [];
+
 server.set('state namespace', 'App');
+
+
+pg.connect(conString, function(err, client, done) {
+
+  if (err) {
+    return console.error('error fetching client from pool', err);
+  }
+  client.query('SELECT * from "etachka_maker" limit 10', null, function(err, result) {
+    done();
+    if (err) {
+      return console.error('error running query', err);
+    }
+    makers = result.rows;
+  });
+});
+
+
+
 server.use('/public', express.static(path.join(__dirname, '/build')));
 
 server.use((req, res, next) => {
@@ -44,7 +65,8 @@ server.use((req, res, next) => {
         const html = React.renderToStaticMarkup(htmlComponent({
             context: context.getComponentContext(),
             state: exposed,
-            markup: React.renderToString(context.createElement())
+            markup: React.renderToString(context.createElement()),
+            makers: makers
         }));
 
         debug('Sending markup');
