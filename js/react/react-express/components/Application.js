@@ -8,16 +8,18 @@ import ApplicationStore from '../stores/ApplicationStore';
 import provideContext from 'fluxible/addons/provideContext';
 import connectToStores from 'fluxible/addons/connectToStores';
 import { handleHistory } from 'fluxible-router';
+import Page from './Page';
+import Footer from './Footer';
 
 class Application extends React.Component {
-    render() {
-        var Handler = this.props.currentRoute.get('handler');
 
+
+    render() {
+        let Handler = this.props.currentRoute.get('handler');
         return (
-            <div>
-                <Nav selected={this.props.currentPageName} links={this.props.pages} />
+            <Page selected={this.props.currentPageName} links={this.props.pages}>
                 <Handler />
-            </div>
+            </Page>
         );
     }
 

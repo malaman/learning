@@ -14,7 +14,11 @@ import React from 'react';
 import app from './app';
 import HtmlComponent from './components/Html';
 import pg from 'pg';
+import bodyParser from "body-parser";
 import {conString} from './configs/secret';
+import Fetcher from 'fetchr';
+import bodyParser from 'body-parser';
+
 
 const htmlComponent = React.createFactory(HtmlComponent);
 const debug = debugLib('catalog');
@@ -39,8 +43,11 @@ pg.connect(conString, function(err, client, done) {
 });
 
 
-
+app.use(bodyParser.json());
 server.use('/public', express.static(path.join(__dirname, '/build')));
+
+app.use('/myCustomAPIEndpoint', Fetcher.middleware());
+
 
 server.use((req, res, next) => {
     let context = app.createContext();
