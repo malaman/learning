@@ -14,9 +14,7 @@ import React from 'react';
 import app from './app';
 import HtmlComponent from './components/Html';
 import pg from 'pg';
-import bodyParser from "body-parser";
 import {conString} from './configs/secret';
-import Fetcher from 'fetchr';
 import bodyParser from 'body-parser';
 
 
@@ -43,10 +41,17 @@ pg.connect(conString, function(err, client, done) {
 });
 
 
-app.use(bodyParser.json());
+server.use(bodyParser.json());
+// Get access to the fetchr plugin instance
+var fetchrPlugin = app.getPlugin('FetchrPlugin');
+// Register our messages REST service
+fetchrPlugin.registerService(require('./services/getMakers'));
+// Set up the fetchr middleware
+server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
+
+
 server.use('/public', express.static(path.join(__dirname, '/build')));
 
-app.use('/myCustomAPIEndpoint', Fetcher.middleware());
 
 
 server.use((req, res, next) => {
