@@ -26,19 +26,19 @@ let   makers = [];
 server.set('state namespace', 'App');
 
 
-pg.connect(conString, function(err, client, done) {
-
-  if (err) {
-    return console.error('error fetching client from pool', err);
-  }
-  client.query('SELECT * from "etachka_maker" limit 10', null, function(err, result) {
-    done();
-    if (err) {
-      return console.error('error running query', err);
-    }
-    makers = result.rows;
-  });
-});
+//pg.connect(conString, function(err, client, done) {
+//
+//  if (err) {
+//    return console.error('error fetching client from pool', err);
+//  }
+//  client.query('SELECT * from "etachka_maker" limit 10', null, function(err, result) {
+//    done();
+//    if (err) {
+//      return console.error('error running query', err);
+//    }
+//    makers = result.rows;
+//  });
+//});
 
 
 server.use(bodyParser.json());
