@@ -10,6 +10,7 @@ const api = {
     const url = `${apiRoot}${endpoint}`;
     debug("Sending GET request to %s", url, query);
 
+
     request.get(url)
       .query(query)
       .end((err, res) => {

@@ -22,9 +22,10 @@ app.rehydrate(dehydratedState, function (err, context) {
     }
     window.context = context;
     const mountNode = document.getElementById('app');
+    const Application = app.getComponent();
 
     debugClient('React Rendering');
-    React.render(context.createElement(), mountNode, function () {
+    React.render(<Application context={context.getComponentContext()} />, mountNode, function () {
         debugClient('React Rendered');
     });
 });

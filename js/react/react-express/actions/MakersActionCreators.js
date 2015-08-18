@@ -7,11 +7,12 @@ const debug = debugLib('catalog');
 const MakersActionCreators = {
     getMakersAction(actionContext, payload, done) {
       actionContext.service.read("makers", {}, {timeout: TIMEOUT}, (err, data) => {
-        debug('Received data: ' + data);
+        if (err) {
+          return done(err);
+        }
         actionContext.dispatch(Actions.LOAD_MAKERS_LIST, data);
         done();
       });
-      done();
     }
 };
 

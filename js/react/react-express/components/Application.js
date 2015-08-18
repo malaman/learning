@@ -32,7 +32,7 @@ class Application extends React.Component {
     }
 }
 
-export default handleHistory(provideContext(connectToStores(
+export default provideContext(handleHistory(connectToStores(
     Application,
     [ApplicationStore],
     function (stores, props) {
@@ -40,7 +40,8 @@ export default handleHistory(provideContext(connectToStores(
         return {
             currentPageName: appStore.getCurrentPageName(),
             pageTitle: appStore.getPageTitle(),
-            pages: appStore.getPages()
+            pages: appStore.getPages(),
+            makers: appStore.getMakers()
         };
     }
 )));

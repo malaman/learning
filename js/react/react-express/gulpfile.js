@@ -27,5 +27,6 @@ gulp.task('webpack:dev', ['clean'], function() {
 
 
 gulp.task('build-cli-dev', ['webpack:dev'], function() {
-    gulp.watch(['stores/**/*.js', 'components/**/*.js'], ['webpack:dev']);
+    gulp.watch(['stores/**/*.js', 'components/**/*.js', 'pages/**/*.js', 'actions/**/*.js',
+    'services/**/*.js', 'utils/**/*.js'], ['webpack:dev']);
 });

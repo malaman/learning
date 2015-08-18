@@ -1,47 +1,29 @@
 /**
- * This leverages Express to create and run the http server.
- * A Fluxible context is created and executes the navigateAction
- * based on the URL. Once completed, the store state is dehydrated
- * and the application is rendered via React.
+ * Copyright 2014, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
+require('babel/register');
+var express = require('express');
+var favicon = require('serve-favicon');
+var serialize = require('serialize-javascript');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var csrf = require('csurf');
+var debug = require('debug')('Example');
+var React = require('react');
+var app = require('./app');
+var HtmlComponent = React.createFactory(require('./components/Html'));
+var navigateAction = require('fluxible-router').navigateAction;
+import {getMakersAction} from './actions/MakersActionCreators';
+//var createElement = require('fluxible-addons-react').createElementWithContext;
 
-import express from 'express';
-import path from 'path';
-import serialize from 'serialize-javascript';
-import {navigateAction} from 'fluxible-router';
-import debugLib from 'debug';
-import React from 'react';
-import app from './app';
-import HtmlComponent from './components/Html';
-import pg from 'pg';
-import {conString} from './configs/secret';
-import bodyParser from 'body-parser';
-
-
-const htmlComponent = React.createFactory(HtmlComponent);
-const debug = debugLib('catalog');
-const server = express();
-let   makers = [];
-
+var server = express();
 server.set('state namespace', 'App');
-
-
-//pg.connect(conString, function(err, client, done) {
-//
-//  if (err) {
-//    return console.error('error fetching client from pool', err);
-//  }
-//  client.query('SELECT * from "etachka_maker" limit 10', null, function(err, result) {
-//    done();
-//    if (err) {
-//      return console.error('error running query', err);
-//    }
-//    makers = result.rows;
-//  });
-//});
-
-
+server.use('/public', express.static(__dirname + '/build'));
+server.use(cookieParser());
 server.use(bodyParser.json());
+server.use(csrf({cookie: true}));
+
 // Get access to the fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
 // Register our messages REST service
@@ -49,47 +31,48 @@ fetchrPlugin.registerService(require('./services/getMakers'));
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
+function renderPage(req, res, context) {
+    debug('Exposing context state');
+    var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
-server.use('/public', express.static(path.join(__dirname, '/build')));
+    var mainMarkup;
+    if ('0' === req.query.render) {
+        mainMarkup = '';
+    } else {
+        mainMarkup = React.renderToString(context.createElement());
+    }
 
+    debug('Rendering Application component into html');
+    var html = React.renderToStaticMarkup(HtmlComponent({
+        state: exposed,
+        markup: mainMarkup
+    }));
 
+    debug('Sending markup');
+    res.send(html);
+}
 
-server.use((req, res, next) => {
-    let context = app.createContext();
-
-    debug('Executing navigate action');
-    context.getActionContext().executeAction(navigateAction, {
-        url: req.url
-    }, (err) => {
-        if (err) {
-            if (err.statusCode && err.statusCode === 404) {
-                next();
-            } else {
-                next(err);
-            }
-            return;
+server.use(function (req, res, next) {
+    var context = app.createContext({
+        req: req, // The fetchr plugin depends on this
+        xhrContext: {
+            _csrf: req.csrfToken() // Make sure all XHR requests have the CSRF token
         }
-
-        debug('Exposing context state');
-        const exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
-
-        debug('Rendering Application component into html');
-        const html = React.renderToStaticMarkup(htmlComponent({
-            context: context.getComponentContext(),
-            state: exposed,
-            markup: React.renderToString(context.createElement()),
-            makers: makers
-        }));
-
-        debug('Sending markup');
-        res.type('html');
-        res.write('<!DOCTYPE html>' + html);
-        res.end();
     });
+    Promise.all([
+      context.executeAction(navigateAction, { url: req.url })
+    ]).then(() => renderPage(req, res, context, next))
+      .catch((err) => {
+        if (!err.statusCode || !err.status) {
+          next(err);
+        }
+        else {
+          renderPage(req, res, context);
+        }
+      });
+
 });
 
-const port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 server.listen(port);
 console.log('Listening on port ' + port);
-
-export default server;

@@ -8,7 +8,6 @@ class Page extends Component {
 
   render() {
     const { footer } = this.props;
-    console.log(this.props);
 
     return (
       <div className="Page">
