@@ -12,7 +12,6 @@ class ApplicationStore extends BaseStore {
         this.currentPage = null;
         this.pages = routesConfig;
         this.pageTitle = '';
-        this.makers = [];
     }
 
     handlePageTitle(currentRoute) {
@@ -33,14 +32,6 @@ class ApplicationStore extends BaseStore {
     getPages() {
         return this.pages;
     }
-    getMakers() {
-        return this.makers;
-    }
-    handleMakersList(data) {
-      this.makers = data;
-      debug('Store received data');
-      this.emitChange();
-    }
 
     dehydrate() {
         return {
@@ -48,7 +39,6 @@ class ApplicationStore extends BaseStore {
             currentPage: this.currentPage,
             pages: this.pages,
             pageTitle: this.pageTitle,
-            makers: this.makers
         };
     }
     rehydrate(state) {
@@ -56,7 +46,6 @@ class ApplicationStore extends BaseStore {
         this.currentPage = state.currentPage;
         this.pages = state.pages;
         this.pageTitle = state.pageTitle;
-        this.makers = state.makers;
     }
 
 }
@@ -64,7 +53,6 @@ class ApplicationStore extends BaseStore {
 ApplicationStore.storeName = 'ApplicationStore';
 ApplicationStore.handlers = {
     'NAVIGATE_SUCCESS': 'handlePageTitle',
-    'LOAD_MAKERS_LIST': 'handleMakersList'
 };
 
 export default ApplicationStore;

@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationStore from '../stores/ApplicationStore';
+import CatalogStore from '../stores/CatalogStore';
 import provideContext from 'fluxible/addons/provideContext';
 import connectToStores from 'fluxible/addons/connectToStores';
 import { handleHistory } from 'fluxible-router';
@@ -16,24 +16,22 @@ var MakersPage = React.createClass({
     },
 
     render() {
-        debug('info from render' + this.context.getStore(ApplicationStore).getMakers());
-
         return (
             <div>
                 <h2>Makers page</h2>
                 <p>This is Makers Page.</p>
-            {this.context.getStore(ApplicationStore).getMakers()}
+            {this.props.makers}
             </div>
         );
     }
 });
 
 
-//MakersPage = provideContext(connectToStores(MakersPage, [ApplicationStore], function (stores, props) {
-//    return {
-//        makers: stores.ApplicationStore.getMakers()
-//    }
-//}));
+MakersPage = connectToStores(MakersPage, [CatalogStore], function (stores, props) {
+    return {
+        makers: stores.CatalogStore.getMakers()
+    }
+});
 
 
 export default MakersPage;

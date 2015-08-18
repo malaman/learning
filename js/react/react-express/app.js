@@ -2,7 +2,7 @@ import Fluxible from 'fluxible';
 import Application from './components/Application';
 import ApplicationStore from './stores/ApplicationStore';
 import RouteStore from './stores/RouteStore';
-//import CatalogStore from './stores/CatalogStore';
+import CatalogStore from './stores/CatalogStore';
 import fetchrPlugin from "fluxible-plugin-fetchr";
 
 // create new fluxible instance
@@ -17,6 +17,6 @@ app.plug(fetchrPlugin({ xhrPath: "/api" }));
 // register stores
 app.registerStore(RouteStore);
 app.registerStore(ApplicationStore);
-//app.registerStore(CatalogStore);
+app.registerStore(CatalogStore);
 
 module.exports = app;
