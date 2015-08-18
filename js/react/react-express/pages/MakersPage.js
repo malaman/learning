@@ -16,11 +16,17 @@ var MakersPage = React.createClass({
     },
 
     render() {
+        let {makers} = this.props;
+        makers = makers.map(maker => {
+          return (<li> {maker.ru_name} </li>)
+        });
         return (
             <div>
                 <h2>Makers page</h2>
                 <p>This is Makers Page.</p>
-            {this.props.makers}
+            <ul>
+              {makers}
+            </ul>
             </div>
         );
     }
