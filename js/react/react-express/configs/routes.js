@@ -1,6 +1,7 @@
 import Home from '../components/Home';
 import MakersPage from '../pages/MakersPage';
-import {getMakersAction} from '../actions/MakersActionCreators';
+import MakerPage from '../pages/MakerPage';
+import {getMakersAction, getMakerAction} from '../actions/MakersActionCreators';
 
 export default {
     home: {
@@ -24,5 +25,13 @@ export default {
         title: 'Makers List',
         handler: MakersPage,
         action: getMakersAction
+    },
+    models: {
+        path: '/makers/:makerId',
+        method: 'get',
+        page: 'makers',
+        title: 'Maker',
+        handler: MakerPage,
+        action:getMakerAction
     }
 };

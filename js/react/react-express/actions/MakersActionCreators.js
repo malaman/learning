@@ -5,15 +5,20 @@ const TIMEOUT = 20000;
 const debug = debugLib('catalog');
 
 const MakersActionCreators = {
-    getMakersAction(actionContext, payload, done) {
-      actionContext.service.read("makers", {}, {timeout: TIMEOUT}, (err, data) => {
-        if (err) {
-          return done(err);
-        }
-        actionContext.dispatch(Actions.LOAD_MAKERS_LIST, data);
-        done();
-      });
-    }
+  getMakersAction(actionContext, payload, done) {
+    actionContext.service.read("makers", {}, {timeout: TIMEOUT}, (err, data) => {
+      if (err) {
+        return done(err);
+      }
+      actionContext.dispatch(Actions.LOAD_MAKERS_LIST, data);
+      done();
+    });
+  },
+  getMakerAction(actionContext, payload, done) {
+    console.log(payload.getIn(['params', 'makerId']));
+    console.log(payload);
+    done();
+  }
 };
 
 export default MakersActionCreators;
