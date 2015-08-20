@@ -29,7 +29,7 @@ export default {
     models: {
         path: '/makers/:makerId',
         method: 'get',
-        page: 'makers',
+        page: 'models',
         title: 'Maker',
         handler: MakerPage,
         action:getMakerAction

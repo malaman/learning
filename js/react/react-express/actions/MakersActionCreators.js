@@ -16,7 +16,6 @@ const MakersActionCreators = {
   },
   getMakerAction(actionContext, payload, done) {
     console.log(payload.getIn(['params', 'makerId']));
-    console.log(payload);
     done();
   }
 };

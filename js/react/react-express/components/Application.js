@@ -38,9 +38,11 @@ export default provideContext(handleHistory(connectToStores(
     function (stores, props) {
         var appStore = stores.ApplicationStore;
         return {
-            currentPageName: appStore.getCurrentPageName(),
-            pageTitle: appStore.getPageTitle(),
-            pages: appStore.getPages(),
+          currentPageName: appStore.getCurrentPageName(),
+          pageTitle: appStore.getPageTitle(),
+          pages: appStore.getPages(),
+          cupage: appStore.getCurrentPage(),
+          path: appStore.getPath()
         };
     }
 )));
