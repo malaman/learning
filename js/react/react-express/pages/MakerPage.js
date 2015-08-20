@@ -4,10 +4,11 @@ import provideContext from 'fluxible/addons/provideContext';
 import connectToStores from 'fluxible/addons/connectToStores';
 import { handleHistory } from 'fluxible-router';
 import debugLib from 'debug';
+import {year} from '../configs/general';
 
 const debug = debugLib('catalog');
 
-var MakersPage = React.createClass({
+let MakersPage = React.createClass({
   displayName: "MakerPage",
 
   contextTypes : {
@@ -15,17 +16,16 @@ var MakersPage = React.createClass({
     getStore: React.PropTypes.func.isRequired
   },
 
-
   propTypes : {
-    maker: React.PropTypes.object.isRequired,
+    models: React.PropTypes.array.isRequired
   },
 
   render() {
-
     return (
       <div>
         <h2>Makers page</h2>
         <p>This is Makers Page.</p>
+      {this.props.models}
       </div>
     );
     }
@@ -34,7 +34,7 @@ var MakersPage = React.createClass({
 
 MakersPage = connectToStores(MakersPage, [CatalogStore], function (stores, props) {
   return {
-    makers: stores.CatalogStore.getMakers()
+    models: stores.CatalogStore.getModels()
   }
 });
 

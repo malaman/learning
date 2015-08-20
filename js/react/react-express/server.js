@@ -28,6 +28,7 @@ server.use(csrf({cookie: true}));
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
 // Register our messages REST service
 fetchrPlugin.registerService(require('./services/getMakers'));
+fetchrPlugin.registerService(require('./services/getModels'));
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 

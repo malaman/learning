@@ -1,5 +1,6 @@
 import Actions from "../configs/Actions";
 import debugLib from 'debug';
+import {year} from '../configs/general';
 
 const TIMEOUT = 20000;
 const debug = debugLib('catalog');
@@ -15,8 +16,16 @@ const MakersActionCreators = {
     });
   },
   getMakerAction(actionContext, payload, done) {
-    console.log(payload.getIn(['params', 'makerId']));
-    done();
+    const manufacturer = payload.getIn(['params', 'makerId']);
+    const params = {manufacturer, year};
+
+    actionContext.service.read("models", params, {timeout: TIMEOUT}, (err, data) => {
+      if (err) {
+        return done(err);
+      }
+      actionContext.dispatch(Actions.LOAD_MODELS_LIST, data);
+      done();
+    });
   }
 };
 

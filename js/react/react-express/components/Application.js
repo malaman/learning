@@ -41,7 +41,7 @@ export default provideContext(handleHistory(connectToStores(
           currentPageName: appStore.getCurrentPageName(),
           pageTitle: appStore.getPageTitle(),
           pages: appStore.getPages(),
-          cupage: appStore.getCurrentPage(),
+          page: appStore.getCurrentPage(),
           path: appStore.getPath()
         };
     }
