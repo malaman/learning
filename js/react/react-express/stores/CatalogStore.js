@@ -7,6 +7,7 @@ class CatalogStore extends BaseStore {
   constructor(dispatcher) {
     super(dispatcher);
     this.makers = [];
+    this.currentMaker = null;
     this.models = [];
 
   }
@@ -19,13 +20,17 @@ class CatalogStore extends BaseStore {
     return this.models;
   }
 
+  getCurrentMaker() {
+    return this.currentMaker;
+  }
+
   handleMakersList(data) {
     this.makers = data;
     this.emitChange();
   }
 
-  handleModelsList(data) {
-    console.log(data);
+  handleModelsList({data, manufacturer}) {
+    this.currentMaker = manufacturer;
     this.models = data;
     this.emitChange();
   }
@@ -33,12 +38,14 @@ class CatalogStore extends BaseStore {
   dehydrate() {
     return {
       makers: this.makers,
-      models: this.models
+      models: this.models,
+      currentMaker: this.currentMaker
     };
   }
   rehydrate(state) {
     this.makers = state.makers;
     this.models = state.models;
+    this.currentMaker = state.currentMaker
   }
 
 }

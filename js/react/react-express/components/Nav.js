@@ -2,11 +2,12 @@
 var React = require('react');
 import { NavLink } from 'fluxible-router';
 
+
 class Nav extends React.Component {
     render() {
         const selected = this.props.selected;
         const links = this.props.links;
-        const excludedLinks = ['models'];
+        const excludedLinks = ['models', 'series'];
 
         const linkHTML = Object.keys(links).map(function (name) {
             var className = '';

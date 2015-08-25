@@ -6,7 +6,7 @@ import provideContext from 'fluxible/addons/provideContext';
 import connectToStores from 'fluxible/addons/connectToStores';
 import { handleHistory } from 'fluxible-router';
 import debugLib from 'debug';
-import Maker from '../components/Maker';
+import CatalogLink from '../components/CatalogLink';
 
 const debug = debugLib('catalog');
 
@@ -25,7 +25,7 @@ var MakersPage = React.createClass({
 
       makers = makers.map(maker => {
         let url = `${path}/${maker.id}`;
-        return (<Maker key={maker.id} maker = {maker} url = {url}/>)
+        return (<CatalogLink key={maker.id} entity = {maker} url = {url}/>)
       });
       return (
           <div>

@@ -22,7 +22,7 @@ class ApplicationStore extends BaseStore {
           if (currentRoute && currentRoute.get('title')) {
             self.pageTitle = currentRoute.get('title');
             self.currentPage = currentRoute.get('page');
-            self.path = currentRoute.get('path')
+            self.path = currentRoute.get('path');
             self.emitChange();
           }
       });

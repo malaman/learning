@@ -23,7 +23,7 @@ const MakersActionCreators = {
       if (err) {
         return done(err);
       }
-      actionContext.dispatch(Actions.LOAD_MODELS_LIST, data);
+      actionContext.dispatch(Actions.LOAD_MODELS_LIST, {data, manufacturer});
       done();
     });
   }
