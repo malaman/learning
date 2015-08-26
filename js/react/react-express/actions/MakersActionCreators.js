@@ -40,6 +40,21 @@ const MakersActionCreators = {
       actionContext.dispatch(Actions.LOAD_SERIES_LIST, {data, manufacturer, model});
       done();
     });
+  },
+  getModificationsList(actionContext, payload, done) {
+
+    const manufacturer = payload.getIn(['params', 'makerId']);
+    const model = payload.getIn(['params', 'modelId']);
+    const seria = payload.getIn(['params', 'seriaId']);
+    const params = {seria};
+
+    actionContext.service.read("modifications", params, {timeout: TIMEOUT}, (err, data) => {
+      if (err) {
+        return done(err);
+      }
+      actionContext.dispatch(Actions.LOAD_SERIES_LIST, {data, manufacturer, model, seria});
+      done();
+    });
   }
 };
 

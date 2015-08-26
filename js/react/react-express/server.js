@@ -22,7 +22,9 @@ const HtmlComponent = React.createFactory(Html);
 const server = express();
 
 server.set('state namespace', 'App');
+server.set("env", process.env.NODE_ENV || "development");
 server.use('/public', express.static(__dirname + '/build'));
+server.use('/style', express.static(__dirname + '/style'));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(csrf({cookie: true}));

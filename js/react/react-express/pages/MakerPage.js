@@ -19,7 +19,8 @@ let MakersPage = React.createClass({
   },
 
   propTypes : {
-    models: React.PropTypes.array.isRequired
+    models: React.PropTypes.array.isRequired,
+    currentMaker: React.PropTypes.string.isRequired
   },
 
   render() {

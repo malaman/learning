@@ -4,9 +4,11 @@ var nodemon = require('gulp-nodemon');
 var webpack = require('gulp-webpack-build');
 var path = require('path');
 var del = require('del');
+var sass = require('gulp-sass');
 var webpackConfigPath = './webpack.config.js';
 
-gulp.task('default', ['clean', 'nodemon:app', 'build-cli-dev']);
+
+gulp.task('default', ['clean', 'nodemon:app', 'watch']);
 
 gulp.task('clean', function (cb) {
     del(['build'], cb);
@@ -25,8 +27,23 @@ gulp.task('webpack:dev', ['clean'], function() {
         .pipe(webpack.run());
 });
 
-
-gulp.task('build-cli-dev', ['webpack:dev'], function() {
-    gulp.watch(['stores/**/*.js', 'components/**/*.js', 'pages/**/*.js', 'actions/**/*.js',
-    'services/**/*.js', 'utils/**/*.js'], ['webpack:dev']);
+gulp.task('sass', function () {
+  gulp.src('style/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('style'));
 });
+
+gulp.task('watch', function() {
+  gulp.watch(['stores/**/*.js', 'components/**/*.js', 'pages/**/*.js', 'actions/**/*.js',
+    'services/**/*.js', 'utils/**/*.js'], ['webpack:dev']);
+  gulp.watch('style/**/*.scss',['sass']);
+
+
+});
+
+
+
+//gulp.task('build-cli-dev', ['webpack:dev'], function() {
+//    gulp.watch(['stores/**/*.js', 'components/**/*.js', 'pages/**/*.js', 'actions/**/*.js',
+//    'services/**/*.js', 'utils/**/*.js', 'style/**/*.scss'], ['webpack:dev', 'sass']);
+//});

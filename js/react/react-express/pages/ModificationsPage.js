@@ -10,8 +10,8 @@ import CatalogLink from '../components/CatalogLink';
 
 const debug = debugLib('catalog');
 
-let SeriesPage = React.createClass({
-  displayName: "MakerPage",
+let ModificationsPage = React.createClass({
+  displayName: "ModificationsPage",
 
   contextTypes : {
     executeAction: React.PropTypes.func.isRequired,
@@ -46,7 +46,7 @@ let SeriesPage = React.createClass({
 });
 
 
-SeriesPage = connectToStores(SeriesPage, [CatalogStore], function (stores, props) {
+ModificationsPage = connectToStores(ModificationsPage, [CatalogStore], function (stores, props) {
   return {
     series: stores.CatalogStore.getSeries(),
     currentMaker: stores.CatalogStore.getCurrentMaker(),
@@ -55,4 +55,4 @@ SeriesPage = connectToStores(SeriesPage, [CatalogStore], function (stores, props
 });
 
 
-export default SeriesPage;
+export default ModificationsPage;

@@ -56,7 +56,8 @@ class CatalogStore extends BaseStore {
       makers: this.makers,
       currentMaker: this.currentMaker,
       models: this.models,
-      currentModel: this.currentModel
+      currentModel: this.currentModel,
+      series: this.series
 
     };
   }
@@ -65,6 +66,7 @@ class CatalogStore extends BaseStore {
     this.models = state.models;
     this.currentMaker = state.currentMaker;
     this.currentModel = state.currentModel;
+    this.series = state.series;
   }
 
 }
