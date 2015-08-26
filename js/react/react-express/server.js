@@ -6,16 +6,21 @@ import express from 'express';
 import serialize from 'serialize-javascript';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-var csrf = require('csurf');
-var debug = require('debug')('Example');
-var React = require('react');
-var app = require('./app');
-var HtmlComponent = React.createFactory(require('./components/Html'));
-var navigateAction = require('fluxible-router').navigateAction;
+import csrf from 'csurf';
+import React from 'react';
+import app from './app';
+import {navigateAction} from 'fluxible-router';
 import {getMakersAction} from './actions/MakersActionCreators';
-//var createElement = require('fluxible-addons-react').createElementWithContext;
+import debugLib from 'debug';
+import Html from './components/Html'
+import getMakers from './services/getMakers';
+import getModels from './services/getModels';
+import getSeries from './services/getSeries';
 
-var server = express();
+const debug = debugLib('Example');
+const HtmlComponent = React.createFactory(Html);
+const server = express();
+
 server.set('state namespace', 'App');
 server.use('/public', express.static(__dirname + '/build'));
 server.use(cookieParser());
@@ -25,9 +30,9 @@ server.use(csrf({cookie: true}));
 // Get access to the fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
 // Register our messages REST service
-fetchrPlugin.registerService(require('./services/getMakers'));
-fetchrPlugin.registerService(require('./services/getModels'));
-fetchrPlugin.registerService(require('./services/getSeries'));
+fetchrPlugin.registerService(getMakers);
+fetchrPlugin.registerService(getModels);
+fetchrPlugin.registerService(getSeries);
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
