@@ -8,7 +8,7 @@ var sass = require('gulp-sass');
 var webpackConfigPath = './webpack.config.js';
 
 
-gulp.task('default', ['clean', 'nodemon:app', 'watch']);
+gulp.task('default', ['clean', 'nodemon:app','build-cli-dev', 'watch']);
 
 gulp.task('clean', function (cb) {
     del(['build'], cb);
@@ -38,12 +38,9 @@ gulp.task('watch', function() {
     'services/**/*.js', 'utils/**/*.js'], ['webpack:dev']);
   gulp.watch('style/**/*.scss',['sass']);
 
-
 });
 
 
 
-//gulp.task('build-cli-dev', ['webpack:dev'], function() {
-//    gulp.watch(['stores/**/*.js', 'components/**/*.js', 'pages/**/*.js', 'actions/**/*.js',
-//    'services/**/*.js', 'utils/**/*.js', 'style/**/*.scss'], ['webpack:dev', 'sass']);
-//});
+gulp.task('build-cli-dev', ['webpack:dev'], function() {
+});
