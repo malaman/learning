@@ -1,7 +1,8 @@
 import Home from '../components/Home';
 import MakersPage from '../pages/MakersPage';
 import MakerPage from '../pages/MakerPage';
-import {getMakersAction, getMakerAction} from '../actions/MakersActionCreators';
+import SeriesPage from '../pages/SeriesPage';
+import {getMakersAction, getMakerAction, getSeriesAction} from '../actions/MakersActionCreators';
 
 export default {
   home: {
@@ -18,16 +19,16 @@ export default {
       title: 'About',
       handler: require('../components/About')
   },
-  makers: {
-      path: '/makers',
+  catalog: {
+      path: '/catalog',
       method: 'get',
-      page: 'makers',
-      title: 'Makers List',
+      page: 'catalog',
+      title: 'Car Catalog',
       handler: MakersPage,
       action: getMakersAction
   },
   models: {
-      path: '/makers/:makerId',
+      path: '/catalog/:makerId',
       method: 'get',
       page: 'models',
       title: 'Models',
@@ -35,7 +36,7 @@ export default {
       action:getMakerAction
   },
   series: {
-    path: '/makers/:makerId/:modelId',
+    path: '/catalog/:makerId/:modelId',
       method: 'get',
       page: 'series',
       title: 'Series',

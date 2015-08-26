@@ -2,12 +2,10 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-require('babel/register');
-var express = require('express');
-var favicon = require('serve-favicon');
-var serialize = require('serialize-javascript');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+import express from 'express';
+import serialize from 'serialize-javascript';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 var csrf = require('csurf');
 var debug = require('debug')('Example');
 var React = require('react');
@@ -29,6 +27,7 @@ var fetchrPlugin = app.getPlugin('FetchrPlugin');
 // Register our messages REST service
 fetchrPlugin.registerService(require('./services/getMakers'));
 fetchrPlugin.registerService(require('./services/getModels'));
+fetchrPlugin.registerService(require('./services/getSeries'));
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 

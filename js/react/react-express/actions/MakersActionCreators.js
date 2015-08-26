@@ -26,6 +26,19 @@ const MakersActionCreators = {
       actionContext.dispatch(Actions.LOAD_MODELS_LIST, {data, manufacturer});
       done();
     });
+  },
+  getSeriesAction(actionContext, payload, done) {
+
+    const manufacturer = payload.getIn(['params', 'makerId']);
+    const params = {manufacturer, year};
+
+    actionContext.service.read("models", params, {timeout: TIMEOUT}, (err, data) => {
+      if (err) {
+        return done(err);
+      }
+      actionContext.dispatch(Actions.LOAD_MODELS_LIST, {data, manufacturer});
+      done();
+    });
   }
 };
 

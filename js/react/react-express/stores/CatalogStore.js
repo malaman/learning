@@ -9,6 +9,7 @@ class CatalogStore extends BaseStore {
     this.makers = [];
     this.currentMaker = null;
     this.models = [];
+    this.currentModel = null
 
   }
 
@@ -38,14 +39,17 @@ class CatalogStore extends BaseStore {
   dehydrate() {
     return {
       makers: this.makers,
+      currentMaker: this.currentMaker,
       models: this.models,
-      currentMaker: this.currentMaker
+      currentModel: this.currentModel
+
     };
   }
   rehydrate(state) {
     this.makers = state.makers;
     this.models = state.models;
-    this.currentMaker = state.currentMaker
+    this.currentMaker = state.currentMaker;
+    this.currentModel = state.currentModel;
   }
 
 }
