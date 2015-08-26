@@ -30,13 +30,14 @@ const MakersActionCreators = {
   getSeriesAction(actionContext, payload, done) {
 
     const manufacturer = payload.getIn(['params', 'makerId']);
-    const params = {manufacturer, year};
+    const model = payload.getIn(['params', 'modelId']);
+    const params = {model, year};
 
-    actionContext.service.read("models", params, {timeout: TIMEOUT}, (err, data) => {
+    actionContext.service.read("series", params, {timeout: TIMEOUT}, (err, data) => {
       if (err) {
         return done(err);
       }
-      actionContext.dispatch(Actions.LOAD_MODELS_LIST, {data, manufacturer});
+      actionContext.dispatch(Actions.LOAD_SERIES_LIST, {data, manufacturer, model});
       done();
     });
   }

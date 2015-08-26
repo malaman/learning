@@ -21,8 +21,16 @@ class CatalogStore extends BaseStore {
     return this.models;
   }
 
+  getSeries() {
+    return this.series;
+  }
+
   getCurrentMaker() {
     return this.currentMaker;
+  }
+
+  getCurrentModel() {
+    return this.currentModel;
   }
 
   handleMakersList(data) {
@@ -33,6 +41,13 @@ class CatalogStore extends BaseStore {
   handleModelsList({data, manufacturer}) {
     this.currentMaker = manufacturer;
     this.models = data;
+    this.emitChange();
+  }
+
+  handleSeriesList({data, manufacturer, model}) {
+    this.currentMaker = manufacturer;
+    this.currentModel = model;
+    this.series = data;
     this.emitChange();
   }
 
@@ -57,7 +72,8 @@ class CatalogStore extends BaseStore {
 CatalogStore.storeName = 'CatalogStore';
 CatalogStore.handlers = {
   'LOAD_MAKERS_LIST': 'handleMakersList',
-  'LOAD_MODELS_LIST': 'handleModelsList'
+  'LOAD_MODELS_LIST': 'handleModelsList',
+  'LOAD_SERIES_LIST': 'handleSeriesList'
 };
 
 export default CatalogStore;

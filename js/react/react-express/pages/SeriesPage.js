@@ -23,21 +23,20 @@ let SeriesPage = React.createClass({
   },
 
   render() {
-    //let {models} = this.props;
-    //let path = this.context.getStore(ApplicationStore).getPath();
-    //path = path.replace(':makerId', this.props.currentMaker);
-    //console.log(this.props.currentMaker);
-    //models = models.map(model => {
-    //  let url = `${path}/${model.id}`;
-    //  return (<CatalogLink key={model.id} entity = {model} url = {url}/>)
-    //});
+    let {series} = this.props;
+    let path = this.context.getStore(ApplicationStore).getPath();
+    path = path.replace(':makerId', this.props.currentMaker).replace(':modelId', this.props.currentModel);
+    series = series.map(seria => {
+      let url = `${path}/${seria.id}`;
+      return (<CatalogLink key={seria.id} entity = {seria} url = {url}/>)
+    });
 
     return (
       <div>
-        <h2>Models page</h2>
-        <p>This is a Models Page.</p>
+        <h2>Series page</h2>
+        <p>This is a Series Page.</p>
         <ul>
-        //{models}
+        {series}
         </ul>
       </div>
     );
@@ -47,10 +46,9 @@ let SeriesPage = React.createClass({
 
 SeriesPage = connectToStores(SeriesPage, [CatalogStore], function (stores, props) {
   return {
-    series: stores.CatalogStore.getModels(),
+    series: stores.CatalogStore.getSeries(),
     currentMaker: stores.CatalogStore.getCurrentMaker(),
     currentModel: stores.CatalogStore.getCurrentModel()
-
   }
 });
 
