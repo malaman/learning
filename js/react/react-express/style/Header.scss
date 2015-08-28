@@ -1,15 +1,23 @@
 @import 'constants/colors';
 @import 'Nav';
 
+
 .header {
+  display: flex;
+  flex-direction: column;
 }
 
-.header__logo {
-
+.header_logo {
+  align-self: center;
+  background: url('http://www.etachki.com/++theme++theme.etachka/images/logo.svg') #fff center -1px no-repeat;
+  background-size: 84%;
+  width: 260px;
+  height: 82px;
+  margin: 0 0 10px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 8px 19px 0px rgba(50, 50, 50, 0.82);
+  margin-bottom: 5rem;
 }
 
-.header__phone {
-
-}
 
 

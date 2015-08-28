@@ -11,6 +11,7 @@ class Page extends Component {
     return (
       <div className="page">
         <div className="header">
+          <a className="header_logo" href="http://www.etachki.com"></a>
           <Nav selected={this.props.selected} links={this.props.links} />
         </div>
 
