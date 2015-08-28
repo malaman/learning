@@ -46,7 +46,7 @@ export default {
     action:getSeriesAction
   },
   modifications: {
-    path: '/catalog/:makerId/:modelId',
+    path: '/catalog/:makerId/:modelId/:seriaId',
     method: 'get',
     page: 'modifications',
     title: 'Modifications',

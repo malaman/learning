@@ -9,7 +9,9 @@ class CatalogStore extends BaseStore {
     this.makers = [];
     this.currentMaker = null;
     this.models = [];
-    this.currentModel = null
+    this.currentModel = null;
+    this.series = [];
+    this.currentSeria = null;
 
   }
 
@@ -25,12 +27,24 @@ class CatalogStore extends BaseStore {
     return this.series;
   }
 
+  getModifications() {
+    return this.modifications;
+  }
+
   getCurrentMaker() {
     return this.currentMaker;
   }
 
   getCurrentModel() {
     return this.currentModel;
+  }
+
+  getCurrentSeria() {
+    return this.currentSeria;
+  }
+
+  getCurrentModification() {
+    return this.currentModification;
   }
 
   handleMakersList(data) {
@@ -51,14 +65,25 @@ class CatalogStore extends BaseStore {
     this.emitChange();
   }
 
+  handleModificationsList({data, manufacturer, model, seria}) {
+    this.currentMaker = manufacturer;
+    this.currentModel = model;
+    this.currentSeria = seria;
+    this.modifications = data;
+    this.emitChange()
+  }
+
+
   dehydrate() {
     return {
       makers: this.makers,
       currentMaker: this.currentMaker,
       models: this.models,
       currentModel: this.currentModel,
-      series: this.series
-
+      series: this.series,
+      currentSeria: this.currentSeria,
+      modifications: this.modifications,
+      currentModifiction: this.currentModification
     };
   }
   rehydrate(state) {
@@ -67,6 +92,9 @@ class CatalogStore extends BaseStore {
     this.currentMaker = state.currentMaker;
     this.currentModel = state.currentModel;
     this.series = state.series;
+    this.currentSeria = state.currentSeria;
+    this.modifications = state.modifications;
+    this.currentModification = state.currentModification;
   }
 
 }
@@ -75,7 +103,8 @@ CatalogStore.storeName = 'CatalogStore';
 CatalogStore.handlers = {
   'LOAD_MAKERS_LIST': 'handleMakersList',
   'LOAD_MODELS_LIST': 'handleModelsList',
-  'LOAD_SERIES_LIST': 'handleSeriesList'
+  'LOAD_SERIES_LIST': 'handleSeriesList',
+  'LOAD_MODIFICATIONS_LIST': 'handleModificationsList'
 };
 
 export default CatalogStore;

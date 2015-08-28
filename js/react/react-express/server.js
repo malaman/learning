@@ -16,13 +16,13 @@ import Html from './components/Html'
 import getMakers from './services/getMakers';
 import getModels from './services/getModels';
 import getSeries from './services/getSeries';
+import getModifications from './services/getModifications';
 
 const debug = debugLib('Example');
 const HtmlComponent = React.createFactory(Html);
 const server = express();
 
 server.set('state namespace', 'App');
-server.set("env", process.env.NODE_ENV || "development");
 server.use('/public', express.static(__dirname + '/build'));
 server.use('/style', express.static(__dirname + '/style'));
 server.use(cookieParser());
@@ -35,6 +35,7 @@ var fetchrPlugin = app.getPlugin('FetchrPlugin');
 fetchrPlugin.registerService(getMakers);
 fetchrPlugin.registerService(getModels);
 fetchrPlugin.registerService(getSeries);
+fetchrPlugin.registerService(getModifications);
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 

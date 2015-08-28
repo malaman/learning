@@ -41,7 +41,7 @@ const MakersActionCreators = {
       done();
     });
   },
-  getModificationsList(actionContext, payload, done) {
+  getModificationsAction(actionContext, payload, done) {
 
     const manufacturer = payload.getIn(['params', 'makerId']);
     const model = payload.getIn(['params', 'modelId']);
@@ -52,7 +52,7 @@ const MakersActionCreators = {
       if (err) {
         return done(err);
       }
-      actionContext.dispatch(Actions.LOAD_SERIES_LIST, {data, manufacturer, model, seria});
+      actionContext.dispatch(Actions.LOAD_MODIFICATIONS_LIST, {data, manufacturer, model, seria});
       done();
     });
   }

@@ -19,26 +19,27 @@ let ModificationsPage = React.createClass({
   },
 
   propTypes : {
-    series: React.PropTypes.array.isRequired,
+    modifications: React.PropTypes.array.isRequired,
     currentMaker: React.PropTypes.string.isRequired,
     currentModel: React.PropTypes.string.isRequired
   },
 
   render() {
-    let {series} = this.props;
+    let {modifications} = this.props;
     let path = this.context.getStore(ApplicationStore).getPath();
-    path = path.replace(':makerId', this.props.currentMaker).replace(':modelId', this.props.currentModel);
-    series = series.map(seria => {
-      let url = `${path}/${seria.id}`;
-      return (<CatalogLink key={seria.id} entity = {seria} url = {url}/>)
+    path = path.replace(':makerId', this.props.currentMaker).replace(':modelId', this.props.currentModel)
+      .replace(':seriaId', this.props.currentSeria);
+    modifications = modifications.map(modification => {
+      let url = `${path}/${modification.id}`;
+      return (<CatalogLink key={modification.id} entity = {modification} url = {url}/>)
     });
 
     return (
       <div>
-        <h2>Series page</h2>
+        <h2>Modifications page</h2>
         <p>This is a Series Page.</p>
         <ul>
-        {series}
+        {modifications}
         </ul>
       </div>
     );
@@ -48,11 +49,11 @@ let ModificationsPage = React.createClass({
 
 ModificationsPage = connectToStores(ModificationsPage, [CatalogStore], function (stores, props) {
   return {
-    series: stores.CatalogStore.getSeries(),
+    modifications: stores.CatalogStore.getModifications(),
     currentMaker: stores.CatalogStore.getCurrentMaker(),
-    currentModel: stores.CatalogStore.getCurrentModel()
+    currentModel: stores.CatalogStore.getCurrentModel(),
+    currentSeria: stores.CatalogStore.getCurrentSeria()
   }
 });
-
 
 export default ModificationsPage;
