@@ -1,20 +1,15 @@
 @import 'constants/colors';
 @import 'constants/typography';
+@import 'content';
 
 
 body {
   font-size: $font-size;
-
-
-
-
-
-
-
-
-  
 }
 .page {
-  background: $page-background;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  padding: 0 5rem;
+  background: $page-background;
 }

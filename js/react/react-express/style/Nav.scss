@@ -29,12 +29,12 @@
 
 .navigation_item--selected {
   background-color: $navlink-selected;
-  color: $font-color;
+  color: $font-color-primary;
 }
 
 .navigation_item__href {
   text-decoration: none;
-  color: $font-color;
+  color: $font-color-primary;
   font-weight: bold;
 }
 
@@ -42,7 +42,7 @@
 .navigation_item__href:visited,
 .navigation_item__href:hover {
   text-decoration: none;
-  color: $font-color;
+  color: $font-color-primary;
   font-weight: bold;
 }
 

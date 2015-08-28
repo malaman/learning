@@ -5,11 +5,9 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="Footer-disclaimer">
+        <div className="footer">
           This is footer
         </div>
-      </div>
     );
   }
 

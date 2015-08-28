@@ -1,0 +1,11 @@
+@import 'constants/typography';
+@import 'constants/colors';
+
+.content {
+  display: flex;
+  background: #f2f2f2;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 2px 2px 20px 2px #4c4b4b;
+  padding: 4rem;
+  flex: 1;
+}

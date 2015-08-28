@@ -7,12 +7,20 @@ import {getMakersAction, getMakerAction, getSeriesAction,
   getModificationsAction} from '../actions/MakersActionCreators';
 
 export default {
-  home: {
+  //home: {
+  //  path: '/',
+  //  method: 'get',
+  //  page: 'home',
+  //  title: 'Home',
+  //  handler: Home
+  //},
+  catalog: {
     path: '/',
     method: 'get',
-    page: 'home',
-    title: 'Home',
-    handler: Home
+    page: 'catalog',
+    title: 'Car Catalog',
+    handler: MakersPage,
+    action: getMakersAction
   },
   about: {
     path: '/about',
@@ -20,14 +28,6 @@ export default {
     page: 'about',
     title: 'About',
     handler: require('../components/About')
-  },
-  catalog: {
-    path: '/catalog',
-    method: 'get',
-    page: 'catalog',
-    title: 'Car Catalog',
-    handler: MakersPage,
-    action: getMakersAction
   },
   models: {
     path: '/catalog/:makerId',
