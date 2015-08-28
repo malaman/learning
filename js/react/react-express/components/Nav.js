@@ -10,17 +10,17 @@ class Nav extends React.Component {
       const links = this.props.links;
 
       const linkHTML = Object.keys(links).map(function (name) {
-        var className = '';
+        var className = 'navigation_item';
         var link = links[name];
 
         if (selected === name) {
-            className = 'pure-menu-selected';
+          className = className + ' ' + 'navigation_item--selected';
         }
 
         if (excludedLinksFromNav.indexOf(name) === -1 ) {
           return (
             <li className={className} key={link.path}>
-                <NavLink routeName={link.page} activeStyle={{backgroundColor: '#eee'}}>{link.title}</NavLink>
+                <NavLink className="navigation_item__href" routeName={link.page}>{link.title}</NavLink>
             </li>
           );
         }
@@ -28,7 +28,7 @@ class Nav extends React.Component {
       });
 
       return (
-          <ul className="pure-menu pure-menu-open pure-menu-horizontal">
+          <ul className="navigation">
               {linkHTML}
           </ul>
       );

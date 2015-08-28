@@ -1,0 +1,11 @@
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype");
+}
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype");
+}
+
+$font-family: 'Fregat', sans-serif;

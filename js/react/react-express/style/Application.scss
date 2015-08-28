@@ -1,6 +1,6 @@
 @import 'constants/colors';
 
-body {
+.page {
   background: $page-background;
-  display: flex;
+  min-height: 100rem;
 }

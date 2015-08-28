@@ -9,17 +9,17 @@ class Page extends Component {
     const { footer } = this.props;
 
     return (
-      <div className="Page">
-        <div className="Page-header">
+      <div className="page">
+        <div className="header">
           <Nav selected={this.props.selected} links={this.props.links} />
         </div>
 
-        <div className="container">
+        <div className="content container">
           { this.props.children }
         </div>
 
         { footer &&
-          <div className="Page-footer">
+          <div className="footer">
             <Footer />
           </div> }
 

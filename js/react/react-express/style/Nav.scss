@@ -1,0 +1,35 @@
+@import 'constants/colors';
+@import 'constants/typography';
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1rem;
+
+  font-family: $font-family;
+
+  list-style-type: none
+
+}
+
+.navigation_item {
+  margin: 0 2rem;
+  background-color: $navlink;
+  width: 12rem;
+  height: 3rem;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  overflow: hidden
+}
+
+.navigation_item--selected {
+  background-color: $navlink-selected;
+  color: $font-color;
+}
+
+.navigation_item__href {
+  text-decoration: none;
+}
+
