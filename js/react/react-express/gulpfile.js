@@ -6,9 +6,10 @@ var path = require('path');
 var del = require('del');
 var sass = require('gulp-sass');
 var webpackConfigPath = './webpack.config.js';
+var autoprefixer = require('gulp-autoprefixer');
 
 
-gulp.task('default', ['clean', 'nodemon:app','build-cli-dev', 'watch']);
+gulp.task('default', ['clean', 'nodemon:app','build-cli-dev', 'sass', 'watch']);
 
 gulp.task('clean', function (cb) {
     del(['build'], cb);
@@ -30,6 +31,7 @@ gulp.task('webpack:dev', ['clean'], function() {
 gulp.task('sass', function () {
   gulp.src('style/**/*.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest('style'));
 });
 
