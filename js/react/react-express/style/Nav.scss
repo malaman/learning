@@ -1,29 +1,34 @@
 @import 'constants/colors';
 @import 'constants/typography';
+@import 'mixins/breakpoint';
 
 .navigation {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 1rem;
   font-family: $font-family;
   align-self: center;
   list-style-type: none
 }
 
 .navigation_item {
-  width: 12rem;
+  width: 10rem;
+  @include breakpoint(mobile) {
+    width: 7rem;
+  }
   height: 3rem;
   display: flex;
-  margin: 2rem 2rem;
   background-color: $navlink;
   border: none;
   border-radius: 5px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  margin: 2rem 2rem;
+  @include breakpoint(mobile) {
+    margin: 1rem 1rem;
+  }
 
 }
 
