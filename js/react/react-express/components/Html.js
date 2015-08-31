@@ -10,7 +10,7 @@ class Html extends React.Component {
                 <meta charSet="utf-8" />
                 <title>{this.props.context.getStore(ApplicationStore).getPageTitle()}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
-                <link rel="stylesheet" href="/style/main.css"/>
+                <link rel="stylesheet" href="/style/css/main.css"/>
             </head>
             <body>
                 <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
