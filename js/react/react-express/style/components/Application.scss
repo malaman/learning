@@ -1,8 +1,7 @@
-@import 'constants/colors';
-@import 'constants/typography';
-@import 'content';
-@import 'mixins/breakpoint';
-
+@import '../constants/colors';
+@import '../constants/typography';
+@import 'Content';
+@import '../mixins/breakpoint';
 
 body {
   font-size: $font-size;

@@ -1,6 +1,6 @@
-@import 'constants/colors';
-@import 'constants/typography';
-@import 'mixins/breakpoint';
+@import '../constants/colors';
+@import '../constants/typography';
+@import '../mixins/breakpoint';
 
 .navigation {
   display: flex;
@@ -14,9 +14,6 @@
 
 .navigation_item {
   width: 10rem;
-  @include breakpoint(mobile) {
-    width: 7rem;
-  }
   height: 3rem;
   display: flex;
   background-color: $navlink;
@@ -27,6 +24,7 @@
   justify-content: center;
   margin: 2rem 2rem;
   @include breakpoint(mobile) {
+    width: 7rem;
     margin: 1rem 1rem;
   }
 

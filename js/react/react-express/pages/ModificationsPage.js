@@ -7,6 +7,8 @@ import { handleHistory } from 'fluxible-router';
 import debugLib from 'debug';
 import {year} from '../configs/general';
 import CatalogLink from '../components/CatalogLink';
+import Modification from '../components/Modification';
+import {imgRoot} from '../configs/general';
 
 const debug = debugLib('catalog');
 
@@ -26,21 +28,17 @@ let ModificationsPage = React.createClass({
 
   render() {
     let {modifications} = this.props;
-    let path = this.context.getStore(ApplicationStore).getPath();
-    path = path.replace(':makerId', this.props.currentMaker).replace(':modelId', this.props.currentModel)
-      .replace(':seriaId', this.props.currentSeria);
     modifications = modifications.map(modification => {
-      let url = `${path}/${modification.id}`;
-      return (<CatalogLink key={modification.id} entity = {modification} url = {url}/>)
+      let imgUrl = `${imgRoot}${modification.src}`;
+      return (<Modification key={modification.id} info = {modification.ru_name}
+        imgUrl = {imgUrl} alt={modification.alt}/>)
     });
 
     return (
       <div>
         <h2>Modifications page</h2>
-        <p>This is a Series Page.</p>
-        <ul>
+        <p>This is a Modification Page.</p>
         {modifications}
-        </ul>
       </div>
     );
     }
