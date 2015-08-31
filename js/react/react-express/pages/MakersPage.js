@@ -24,7 +24,7 @@ var MakersPage = React.createClass({
       let path = this.context.getStore(ApplicationStore).getPath();
 
       makers = makers.map(maker => {
-        let url = `${path}/${maker.id}`;
+        let url = `catalog/${maker.id}`;
         return (<CatalogLink key={maker.id} entity = {maker} url = {url}/>)
       });
       return (

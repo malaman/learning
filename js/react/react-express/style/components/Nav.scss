@@ -1,40 +1,43 @@
-@import 'constants/colors';
-@import 'constants/typography';
+@import '../constants/colors';
+@import '../constants/typography';
+@import '../mixins/breakpoint';
 
 .navigation {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 1rem;
   font-family: $font-family;
   align-self: center;
   list-style-type: none
 }
 
 .navigation_item {
-  width: 12rem;
+  width: 10rem;
   height: 3rem;
   display: flex;
-  margin: 2rem 2rem;
   background-color: $navlink;
   border: none;
   border-radius: 5px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  margin: 2rem 2rem;
+  @include breakpoint(mobile) {
+    width: 7rem;
+    margin: 1rem 1rem;
+  }
 
 }
 
 .navigation_item--selected {
   background-color: $navlink-selected;
-  color: $font-color;
+  color: $font-color-primary;
 }
 
 .navigation_item__href {
   text-decoration: none;
-  color: $font-color;
+  color: $font-color-primary;
   font-weight: bold;
 }
 
@@ -42,7 +45,7 @@
 .navigation_item__href:visited,
 .navigation_item__href:hover {
   text-decoration: none;
-  color: $font-color;
+  color: $font-color-primary;
   font-weight: bold;
 }
 
