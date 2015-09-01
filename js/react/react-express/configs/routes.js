@@ -7,13 +7,6 @@ import {getMakersAction, getMakerAction, getSeriesAction,
   getModificationsAction} from '../actions/MakersActionCreators';
 
 export default {
-  //home: {
-  //  path: '/',
-  //  method: 'get',
-  //  page: 'home',
-  //  title: 'Home',
-  //  handler: Home
-  //},
   catalog: {
     path: '/',
     method: 'get',

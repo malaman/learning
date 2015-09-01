@@ -3,5 +3,11 @@
 
 .footer {
   display: flex;
-  margin-top: 1rem;
+  margin: 0.5rem;
+  color: $font-color-primary;
+}
+
+.footer__href,
+.footer__href:visited {
+  color: $font-color-primary
 }
