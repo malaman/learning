@@ -8,7 +8,7 @@ class Footer extends Component {
         <div className="footer">
           <p>
           Simple react/express catalog application for etachki.com public API.
-          Read more on <a href="/about">About</a> page.
+          Read more on <a className="footer__href" href="/about">About</a> page.
           </p>
         </div>
     );

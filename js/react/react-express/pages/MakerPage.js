@@ -27,7 +27,6 @@ let MakersPage = React.createClass({
     let {models} = this.props;
     let path = this.context.getStore(ApplicationStore).getPath();
     path = path.replace(':makerId', this.props.currentMaker);
-    console.log(this.props.currentMaker);
     models = models.map(model => {
       let url = `${path}/${model.id}`;
       return (<CatalogLink key={model.id} entity = {model} url = {url}/>)
