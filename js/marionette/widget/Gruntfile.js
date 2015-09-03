@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     /**
      * Serves the application from localhost:9001
      */
-    grunt.registerTask('serve', [ 'jshint', 'build', 'connect', 'watch']);
+    grunt.registerTask('serve', [ 'jshint', 'build', 'sass', 'connect', 'watch']);
 
     /**
      * Runs the tests
