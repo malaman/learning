@@ -25,11 +25,13 @@ module.exports = function (grunt) {
     grunt.loadTasks('build/tasks');
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-postcss');
+
 
     /**
      * Serves the application from localhost:9001
      */
-    grunt.registerTask('serve', [ 'jshint', 'build', 'sass', 'connect', 'watch']);
+    grunt.registerTask('serve', [ 'jshint', 'build', 'sass','postcss', 'connect', 'watch']);
 
     /**
      * Runs the tests

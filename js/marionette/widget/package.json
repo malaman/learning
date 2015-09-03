@@ -12,6 +12,7 @@
     "grunt-contrib-requirejs": "0.4.3",
     "grunt-contrib-watch": "0.6.1",
     "grunt-karma": "0.8.3",
+    "grunt-postcss": "^0.6.0",
     "grunt-sass": "^1.0.0",
     "karma": "0.12.16",
     "karma-jasmine": "0.1.5",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "autoprefixer": "^5.2.0",
+    "autoprefixer-core": "^5.2.1",
     "postcss-cli": "^2.1.0"
   }
 }
