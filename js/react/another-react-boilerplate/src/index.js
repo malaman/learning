@@ -1,6 +1,3 @@
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.scss';

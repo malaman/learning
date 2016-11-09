@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Glyphicon, MenuItem, Nav, Navbar, NavDropdown, NavItem} from 'react-bootstrap';
-import {Link} from 'react-router';
+import {Nav, Navbar, NavItem} from 'react-bootstrap';
 
 class Header extends React.Component {
 
@@ -16,7 +15,6 @@ class Header extends React.Component {
 
   render() {
     const {pathname, location} = this.props;
-    console.log('this.props', this.props);
     return (
       <Navbar>
         <Nav bsStyle='tabs' activeKey={location.pathname}>
