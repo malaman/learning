@@ -1,0 +1,28 @@
+.media {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  border-radius: 5px 5px 5px 5px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 2px 2px 20px 2px #4c4b4b; }
+
+.media__figure {
+  width: 15rem;
+  height: 10rem;
+  margin-right: 1rem; }
+  @media (max-width: 37.5rem) {
+    .media__figure {
+      width: 8rem;
+      height: 5rem; } }
+
+.media__body {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }

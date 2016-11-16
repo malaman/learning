@@ -1,0 +1,20 @@
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype"); }
+
+.footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0.5rem;
+  color: white; }
+
+.footer__href,
+.footer__href:visited {
+  color: white; }

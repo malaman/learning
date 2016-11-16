@@ -1,0 +1,202 @@
+@import url(utils/normalize.css);
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype"); }
+
+.media {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  border-radius: 5px 5px 5px 5px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 2px 2px 20px 2px #4c4b4b; }
+
+.media__figure {
+  width: 15rem;
+  height: 10rem;
+  margin-right: 1rem; }
+  @media (max-width: 37.5rem) {
+    .media__figure {
+      width: 8rem;
+      height: 5rem; } }
+
+.media__body {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background: #f2f2f2;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 2px 2px 20px 2px #4c4b4b;
+  padding: 4rem;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+  @media (max-width: 37.5rem) {
+    .content {
+      padding: 1rem; } }
+
+body {
+  font-size: 15px; }
+
+.page {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+  padding: 0 5rem;
+  background: -webkit-linear-gradient(right, #00873a 0%, #0db14d 42%, #0db14d 58%, #00873a 100%);
+  background: linear-gradient(to left, #00873a 0%, #0db14d 42%, #0db14d 58%, #00873a 100%); }
+  @media (max-width: 37.5rem) {
+    .page {
+      padding: 0 1rem; } }
+
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype"); }
+
+.navigation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font-family: "Fregat", sans-serif;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  list-style-type: none; }
+
+.navigation_item {
+  width: 10rem;
+  height: 3rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 2rem 2rem; }
+  @media (max-width: 37.5rem) {
+    .navigation_item {
+      width: 7rem;
+      margin: 1rem 1rem; } }
+
+.navigation_item--selected {
+  background-color: #0F1000;
+  color: white; }
+
+.navigation_item__href {
+  text-decoration: none;
+  color: white;
+  font-weight: bold; }
+
+.navigation_item__href:active,
+.navigation_item__href:visited,
+.navigation_item__href:hover {
+  text-decoration: none;
+  color: white;
+  font-weight: bold; }
+
+.header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.header_logo {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  background: url("http://www.etachki.com/++theme++theme.etachka/images/logo.svg") #fff center -1px no-repeat;
+  background-size: 84%;
+  width: 260px;
+  height: 82px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 8px 19px 0px rgba(50, 50, 50, 0.82);
+  margin-bottom: 3rem; }
+
+@font-face {
+  font-family: Fregat;
+  src: url("/style/fonts/Fregat_regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: Fregat;
+  font-weight: bold;
+  src: url("/style/fonts/Fregat_bold.otf") format("opentype"); }
+
+.footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0.5rem;
+  color: white; }
+
+.footer__href,
+.footer__href:visited {
+  color: white; }
