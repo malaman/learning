@@ -1,13 +1,17 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as classnames from 'classnames';
+import './styles/main.scss';
+import { Root } from './containers/Root';
+
+import { configureStore } from './store/configureStore';
+
+const store: Object = configureStore({});
 
 const Demo = ({name} : {name: string}) => {
-    const cssClass: any = classnames('some-class');
-    return <div className='cssClass'>Hello {name}!</div>;
+    return <div>Hello {name}!</div>;
 };
 
 ReactDOM.render(
-    <Demo name="World" />,
+    <Root store={store} />,
     document.getElementById("root")
 );
