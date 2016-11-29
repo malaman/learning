@@ -1,0 +1,16 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts"
+  },
+  "dependencies": {
+    "faker": "*",
+    "mongoose": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "0.0.0",
+    "ts-node": "^1.7.0",
+    "typescript": "^2.0.10"
+  }
+}

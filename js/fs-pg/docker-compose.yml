@@ -1,0 +1,35 @@
+web:
+  build: ./web
+  ports:
+    - "3020:3020"
+  volumes:
+    - ./code/web:/srv/www/
+  command: bash -c "cd /srv/www && npm install && npm rebuild node-sass && npm run dev"
+  links:
+    - api
+    - mongodb
+    # - redis
+    # - elasticsearch
+
+api:
+  build: ./api
+  ports:
+    - "3030:3030"
+  volumes:
+    - ./code/api:/srv/www/
+  command: bash -c "cd /srv/www && npm install -g nodemon && npm install && npm run dev"
+
+mongodb:
+  image: tutum/mongodb
+  ports:
+    - "27017:27017"
+  environment:
+    MONGODB_PASS: password
+
+# redis:
+#   image: redis
+# elasticsearch:
+#   image: elasticsearch
+#   ports:
+#     - "9200:9200"
+#     - "9300:9300"

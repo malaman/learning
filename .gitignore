@@ -89,3 +89,4 @@ js/marionette/widget/scripts/vendor
 node_modules
 bower_components
 build
+ts-node
