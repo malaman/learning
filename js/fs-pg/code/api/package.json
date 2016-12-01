@@ -15,7 +15,12 @@
     "@types/body-parser": "0.0.33",
     "@types/mongoose": "^4.6.2",
     "@types/node": "0.0.0",
+    "eslint-plugin-react": "^6.7.1",
+    "mongoose-fixtures": "0.0.1",
+    "pow-mongodb-fixtures": "^0.14.0",
+    "pow-mongoose-fixtures": "^0.3.0",
     "ts-node": "^1.7.0",
+    "tslint": "^4.0.2",
     "typescript": "^2.0.10"
   }
 }
