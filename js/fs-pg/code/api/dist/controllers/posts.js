@@ -7,7 +7,6 @@ router.get('/', function (req, res) {
     post_1.Post.find({}, function (err, posts) {
         if (err) {
             return res.json(response);
-            ;
         }
         res.json(posts);
     });
@@ -36,7 +35,6 @@ router.get('/:id', function (req, res) {
         .exec(function (err, user) {
         if (err) {
             return res.json(response);
-            ;
         }
         res.json(user);
     });

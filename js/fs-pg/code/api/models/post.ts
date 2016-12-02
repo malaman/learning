@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-var postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
     _creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     title: String,
     body: String

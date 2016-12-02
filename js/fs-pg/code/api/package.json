@@ -2,18 +2,23 @@
   "name": "app",
   "version": "0.0.0",
   "scripts": {
-    "dev": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts"
+    "dev": "rm -rf ts-node && nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts",
+    "populate-db": "./node_modules/.bin/ts-node ./scripts/pupulateDB.ts"
   },
   "dependencies": {
     "@types/express": "^4.0.34",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "faker": "*",
-    "mongoose": "^4.7.0"
+    "mongoose": "^4.7.0",
+    "mongoose-sequence": "^3.1.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.0.36",
     "@types/body-parser": "0.0.33",
     "@types/mongoose": "^4.6.2",
+    "@types/mongoose-sequence": "^3.0.1",
     "@types/node": "0.0.0",
     "eslint-plugin-react": "^6.7.1",
     "mongoose-fixtures": "0.0.1",
