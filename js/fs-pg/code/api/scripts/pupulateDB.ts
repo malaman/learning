@@ -28,7 +28,7 @@ const userPromises = users
 
 // create posts collection and comments collection after user collection is created
 Promise.all(userPromises).then(() => {
-    const commentPromises = posts.map(post => {
+    const postPromises = posts.map(post => {
         const {userId, title, body} = post;
         return User.findOne({id: userId})
             .then(user => {
@@ -43,9 +43,8 @@ Promise.all(userPromises).then(() => {
                 });
             });
     });
-    // exit from script after all tasks is completed
-    Promise.all(commentPromises).then(() => {
-        console.log('length', commentPromises.length);
+    // exit from script after all tasks are completed
+    Promise.all(postPromises).then(() => {
         console.log('DB population is completed!');
         process.exit();
     });

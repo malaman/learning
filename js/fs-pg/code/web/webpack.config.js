@@ -18,6 +18,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
+    new webpack.ProvidePlugin({
+        'Promise': 'es6-promise',
+        'fetch': 'exports?self.fetch!whatwg-fetch'
+    }),
  ],
   resolve: {
     extensions: ['', '.js', '.ts', '.tsx', '.scss']

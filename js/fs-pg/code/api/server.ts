@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {controllers} from './controllers/index';
+import * as cors from 'cors';
 
 //models
 import {User} from './models/user';
@@ -11,6 +12,7 @@ const port = 3030;
 
 var app = express();
 
+app.use(cors());
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', controllers);

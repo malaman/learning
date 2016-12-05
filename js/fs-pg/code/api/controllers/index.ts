@@ -5,6 +5,7 @@ import {comments} from './comments';
 
 const router = express.Router();
 
+
 router.use('/users', users);
 router.use('/posts', posts);
 router.use('/comments', comments);

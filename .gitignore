@@ -90,3 +90,5 @@ node_modules
 bower_components
 build
 ts-node
+js/fs-pg/code/api/dist
+js/fs-pg/code/web/dist

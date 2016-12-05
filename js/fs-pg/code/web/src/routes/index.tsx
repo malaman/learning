@@ -5,6 +5,7 @@ import Match from 'react-router/Match';
 import App from '../components/App';
 import Home from '../pages/Home';
 import About from '../pages/About';
+import User from '../pages/User';
 
 /**
  * global routing configuration
@@ -14,8 +15,10 @@ const routes = [
         component: App,
         routes: [
             { pattern: '/',
-                component: Home,
-                exactly: true
+                component: User,
+                exactly: true,
+                routes: [
+                ]
             },
             { pattern: '/about',
                 component: About,

@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import {Post} from '../models/post';
 import {User} from '../models/user';
+import {Comment} from '../models/comment';
 
 const router = express.Router();
 
@@ -15,8 +16,6 @@ router.get('/', function(req, res) {
     });
 });
 
-
-// curl --data "_creator=58413f7f79a81700b2f7123e&title=My new post&body=sdfv -wevsdfnrc 0adfvdfvldc dflvnvke" http://localhost:3030/api/posts
 router.post('/', function(req, res) {
     const {_creator, title, body} = req.body;
     console.log('req.body', req.body);
@@ -45,5 +44,18 @@ router.get('/:id', function(req, res) {
         res.json(user);
     });
 });
+
+router.get('/:id/comments', function(req, res) {
+    let response = [];
+    Comment
+    .find({_post: req.params.id})
+    .exec((err, comments) => {
+        if (err) {
+            return res.json(response);
+        }
+        return res.json(comments);
+    });
+});
+
 
 export var posts = router;

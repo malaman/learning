@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
     });
 });
 
-// curl --data "name=Elvis&email=elvis@example.com" http://localhost:3030/api/users
+
 router.post('/', function(req, res) {
     const {name, email} = req.body;
     if (name && email) {
@@ -44,7 +44,9 @@ router.get('/:id', function(req, res) {
 
 router.get('/:id/posts', function(req, res) {
     let response = [];
-    Post.find({_creator: req.params.id}, (err, posts) => {
+    Post
+    .find({_creator: req.params.id})
+    .exec((err, posts) => {
         if (err) {
             return res.json(response);
         }

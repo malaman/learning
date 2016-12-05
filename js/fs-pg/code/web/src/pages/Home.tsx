@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Row, Button, Label} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import {increment} from '../actions/actions';
+import {increment} from '../actions/userActions';
 
 interface HomeProps {
     counter: number;
@@ -10,8 +10,6 @@ interface HomeProps {
 }
 
 class Home extends React.Component<HomeProps, {}> {
-
-
     handleBtnClick() {
         this.props.increment();
     };
