@@ -6,11 +6,12 @@ import App from '../components/App';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import User from '../pages/User';
+import AccountData from '../pages/User/AccountData';
 
 /**
  * global routing configuration
  */
-const routes = [
+const routes: Array<any> = [
     { pattern: '/',
         component: App,
         routes: [
@@ -18,6 +19,9 @@ const routes = [
                 component: User,
                 exactly: true,
                 routes: [
+                    { pattern: '/user/info',
+                      component: AccountData,
+                    },
                 ]
             },
             { pattern: '/about',
