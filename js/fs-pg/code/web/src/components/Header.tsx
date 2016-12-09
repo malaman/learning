@@ -6,7 +6,7 @@ interface HeaderProps {
     location: any;
 }
 
-class Header extends React.Component<HeaderProps, {}> {
+export class Header extends React.Component<HeaderProps, {}> {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
@@ -21,7 +21,7 @@ class Header extends React.Component<HeaderProps, {}> {
         return (
             <Navbar>
                 <Nav bsStyle='tabs' activeKey={location.pathname}>
-                    <NavItem eventKey='/' onClick={this.handleNavSelect('/')}>
+                    <NavItem eventKey='/' onClick={this.handleNavSelect('/user')}>
                         Home
                     </NavItem>
                     <NavItem eventKey='/about' onClick={this.handleNavSelect('/about')}>
@@ -32,5 +32,3 @@ class Header extends React.Component<HeaderProps, {}> {
         );
     }
 }
-
-export default Header;

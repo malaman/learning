@@ -9,7 +9,7 @@ interface HomeProps {
     increment: Function;
 }
 
-class Home extends React.Component<HomeProps, {}> {
+class HomeClass extends React.Component<HomeProps, {}> {
     handleBtnClick() {
         this.props.increment();
     };
@@ -43,7 +43,7 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(
+export const Home =  connect(
     mapStateToProps,
     {increment}
-)(Home);
+)(HomeClass);

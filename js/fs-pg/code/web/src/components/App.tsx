@@ -2,23 +2,29 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Miss from 'react-router/Miss';
 
- import Header from '../components/Header';
-// import Footer from '../components/Footer';
-// import NotFound from '../components/NotFound';
+ import {Header} from '../components/Header';
 import {MatchWithSubRoutes} from '../routes';
 
 
 interface AppProps {
     routes: any;
     pathname: any;
-    location: Object;
+    location: {
+        pathname: string
+    };
 }
 
-class App extends React.Component<AppProps, {}> {
+class AppClass extends React.Component<AppProps, {}> {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
     };
+
+    componentDidMount() {
+        if (this.props.location.pathname === '/') {
+          this.context.router.transitionTo('/user');
+        }
+    }
 
     render() {
         const {routes} : any = this.props;
@@ -37,6 +43,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(
+export const App = connect(
     mapStateToProps
-)(App);
+)(AppClass);

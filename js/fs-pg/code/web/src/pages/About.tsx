@@ -7,7 +7,7 @@ interface AboutProps {
     about: string;
 }
 
-export class About extends React.Component<AboutProps, {}> {
+export class AboutClass extends React.Component<AboutProps, {}> {
     render () {
         return (
             <Grid>
@@ -26,6 +26,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(
+export const About = connect(
     mapStateToProps,
-)(About);
+)(AboutClass);

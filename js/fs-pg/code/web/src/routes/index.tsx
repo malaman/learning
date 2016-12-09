@@ -2,11 +2,11 @@ import * as React from 'react';
 import Router from 'react-router/BrowserRouter';
 import Match from 'react-router/Match';
 
-import App from '../components/App';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import User from '../pages/User';
-import AccountData from '../pages/User/AccountData';
+import {App} from '../components/App';
+import {Home} from '../pages/Home';
+import {About} from '../pages/About';
+import {User} from '../pages/User';
+import {AccountData} from '../pages/User/AccountData';
 
 /**
  * global routing configuration
@@ -15,9 +15,8 @@ const routes: Array<any> = [
     { pattern: '/',
         component: App,
         routes: [
-            { pattern: '/',
+            { pattern: '/user',
                 component: User,
-                exactly: true,
                 routes: [
                     { pattern: '/user/info',
                       component: AccountData,

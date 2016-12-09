@@ -22,7 +22,7 @@ interface AccountDataProps {
     };
 };
 
-export class AccountData extends React.Component<AccountDataProps, {}> {
+export class AccountDataClass extends React.Component<AccountDataProps, {}> {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
@@ -46,10 +46,10 @@ export class AccountData extends React.Component<AccountDataProps, {}> {
 
 function mapStateToProps(state) {
     return {
-        info: state.ui.info
+        info: state.user.info
     };
 }
 
-export default connect(
+export const AccountData = connect(
     mapStateToProps
-)(AccountData);
+)(AccountDataClass);

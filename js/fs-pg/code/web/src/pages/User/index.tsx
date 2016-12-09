@@ -8,7 +8,7 @@ import {Grid, Row} from 'react-bootstrap';
 import {getPosts} from '../../actions/userActions'
 
 interface UserProps {
-    routes: Array<any>;
+    routes: any[];
     params: Object;
     pathname: String;
     location: {
@@ -17,7 +17,7 @@ interface UserProps {
     getPosts: Function;
 };
 
-export class User extends React.Component<UserProps, {}> {
+export class UserClass extends React.Component<UserProps, {}> {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
@@ -59,7 +59,7 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(
+export const User = connect(
     mapStateToProps,
     {getPosts}
-)(User);
+)(UserClass);
