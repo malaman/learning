@@ -52,7 +52,9 @@
     "webpack-hot-middleware": "^2.13.2"
   },
   "dependencies": {
+    "@reactivex/rxjs": "^5.0.0-rc.5",
     "@types/react-redux": "^4.4.32",
+    "@types/universal-router": "0.0.2",
     "classnames": "^2.2.5",
     "es6-promise": "^4.0.5",
     "isomorphic-fetch": "^2.2.1",
@@ -65,6 +67,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-promise-middleware": "^4.1.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "universal-router": "^2.0.0"
   }
 }

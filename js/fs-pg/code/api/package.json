@@ -6,8 +6,8 @@
     "populate-db": "./node_modules/.bin/ts-node ./scripts/pupulateDB.ts"
   },
   "dependencies": {
+    "@reactivex/rxjs": "^5.0.0-rc.5",
     "@types/express": "^4.0.34",
-    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
@@ -16,7 +16,6 @@
     "mongoose-sequence": "^3.1.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.0.36",
     "@types/body-parser": "0.0.33",
     "@types/cors": "0.0.33",
     "@types/mongoose": "^4.6.2",
