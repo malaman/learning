@@ -53,7 +53,7 @@ const userSubscription = userSource.subscribe(
                 .forkJoin(postPromises)
                 .subscribe(
                 () => null,
-                () => null,
+                (err) => console.log(`Err: ${err}`),
                 () => {
                     console.log('DB population is completed!');
                     process.exit();

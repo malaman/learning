@@ -24,9 +24,9 @@ interface AccountDataProps {
 
 export class AccountDataClass extends React.Component<AccountDataProps, {}> {
 
-    static contextTypes = {
-        router: React.PropTypes.object.isRequired
-    };
+    // static contextTypes = {
+    //     router: React.PropTypes.object.isRequired
+    // };
 
     render() {
         return (

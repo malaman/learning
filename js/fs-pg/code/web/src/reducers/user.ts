@@ -29,7 +29,7 @@ function getPosts(state, payload) {
 export default function user(state = initialState, action): UserState {
     switch (action.type) {
         case 'LOAD_USER_INFO_FULFILLED':
-            return (Object as any).assign(state, {user: action.payload});
+            return (Object as any).assign(state, {info: action.payload});
         case 'LOAD_USER_POSTS_FULFILLED':
           return getPosts(state, action.payload);
         default:

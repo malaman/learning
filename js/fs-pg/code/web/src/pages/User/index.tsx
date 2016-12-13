@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Nav, NavItem } from 'react-bootstrap';
-import { MatchWithSubRoutes } from '../../routes';
 
 import {Grid, Row} from 'react-bootstrap';
 
@@ -32,7 +31,6 @@ export class UserClass extends React.Component<UserProps, {}> {
     }
 
     render() {
-        console.log('this.props', this.props);
         const { pathname, location, routes } = this.props;
         return (
             <div className='counter-container'>
@@ -47,7 +45,6 @@ export class UserClass extends React.Component<UserProps, {}> {
                   New Post
                 </NavItem>
               </Nav>
-                {routes.map((route, i) => <MatchWithSubRoutes key={i} {...route} />)}
             </div>
         );
     }
