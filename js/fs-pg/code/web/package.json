@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate project with Typescript, ES6 compilation and hot code reloading",
   "scripts": {
-    "dev": "babel-node server.js"
+    "dev": "rm -rf ts-node && nodemon --exec ./node_modules/.bin/ts-node -- ./server.tsx"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "@types/es6-promise": "0.0.32",
     "@types/history": "^2.0.41",
     "@types/isomorphic-fetch": "0.0.31",
+    "@types/node": "^6.0.52",
     "@types/react": "^0.14.48",
     "@types/react-bootstrap": "0.0.37",
     "@types/react-dom": "^0.14.18",
@@ -41,6 +42,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "css-loader": "^0.25.0",
+    "exports-loader": "^0.6.3",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.1.1",
@@ -71,6 +73,8 @@
     "redux-logger": "^2.7.4",
     "redux-promise-middleware": "^4.1.0",
     "redux-thunk": "^2.1.0",
+    "ts-node": "^1.7.2",
+    "universal-fetch": "^1.0.0",
     "universal-router": "^2.0.0"
   }
 }

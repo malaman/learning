@@ -4,11 +4,10 @@ import {Link} from './Link';
 import {history} from '../routes/history';
 
 interface HeaderProps {
-    pathname: any;
-    location: any;
+    location?: any;
 }
 
-export class Header extends React.Component<{}, {}> {
+export class Header extends React.Component<HeaderProps, {}> {
     clickHandler(url) {
         return () => history.push(url);
     }
@@ -16,7 +15,7 @@ export class Header extends React.Component<{}, {}> {
     render() {
         return (
             <Navbar>
-                <Nav bsStyle='tabs' activeKey={history.location.pathname}>
+                <Nav bsStyle='tabs' activeKey={this.props.location.pathname}>
                     <NavItem eventKey='/' onClick={this.clickHandler('/')}>
                         Home
                     </NavItem>

@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Router from 'react-router/BrowserRouter';
-import Match from 'react-router/Match';
 
 import {App} from '../components/App';
 import {Home} from '../pages/Home';
@@ -16,22 +14,22 @@ export const routes: any[] = [
     {
       path: '/',
       action: () => {
-          console.log('/');
           return <div />;
       }
     },
     {
       path: '/user',
       action: (args) => {
-          return args.dispatch(getUserInfo('584ed722d1cdc6034b0f0e9b'))
-            .then(() => <AccountData />)
+          return args.dispatch(getUserInfo('5852c646d76bdb0063dc8d84'))
+            .then(() => {
+                return <AccountData />
+            })
             .catch((err) => console.log(`err ${err}`));
       }
     },
     {
       path: '/about',
       action: () => {
-          console.log('about');
           return <About />;
       }
     }
@@ -72,7 +70,6 @@ class RoutesClass extends React.Component<RoutesClassProps, {}> {
     }
 
     render() {
-        if (this.state.isRouteResolved) {
             return (
                 <div>
                     <Header />
@@ -80,8 +77,6 @@ class RoutesClass extends React.Component<RoutesClassProps, {}> {
                 </div>
             );
         }
-        return null;
-    }
 }
 
 export const Routes = RoutesClass;

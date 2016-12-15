@@ -1,6 +1,10 @@
-var React = require('react');
+import * as React from 'react';
 
-export default function Html() {
+interface HtmlProps {
+    content?: any;
+};
+
+export function Html(props: HtmlProps) {
     return (
         <html>
           <head>
@@ -10,7 +14,9 @@ export default function Html() {
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css" />
           </head>
           <body>
-            <div id="root"></div>
+            <div id="root">
+            <div dangerouslySetInnerHTML={{__html: props.content}} />
+            </div>
             <script src="/static/bundle.js"></script>
           </body>
         </html>

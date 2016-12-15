@@ -13,9 +13,9 @@ const last = comments.length;
 const conn = mongoose.connect('mongodb://172.18.0.2:27017/test');
 // drop db collections if any
 try {
-    conn.connection.collections['users'].drop();
-    conn.connection.collections['posts'].drop();
-    conn.connection.collections['comments'].drop();
+    // conn.connection.collections['users'].drop();
+    // conn.connection.collections['posts'].drop();
+    // conn.connection.collections['comments'].drop();
 } catch (e) {
     console.log(`Error dropping tables: ${e}`);
 }

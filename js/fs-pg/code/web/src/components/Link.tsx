@@ -5,6 +5,7 @@ import {history} from '../routes/history';
 
 function navigate(path) {
     history.push(path);
+    console.log('hi');
 }
 
 export function Link({href, children}: {href: string, children?: any}) {

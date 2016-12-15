@@ -3,7 +3,7 @@ import rootReducer from '../reducers/index';
 import * as createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { DevTools } from '../containers/DevTools.js';
+// import { DevTools } from '../containers/DevTools.js';
 
 const logger: any = createLogger();
 /**
@@ -12,8 +12,8 @@ const logger: any = createLogger();
  * uncomment logger to receive debug information in browser console
  */
 const finalCreateStore = compose(
-    applyMiddleware(logger, thunk, promiseMiddleware()),
-    DevTools.instrument()
+    applyMiddleware(logger, thunk, promiseMiddleware())
+    // DevTools.instrument()
 )(createStore);
 
 export function configureStore(initialState) {

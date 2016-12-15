@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Miss from 'react-router/Miss';
 
 import {Header} from '../components/Header';
-
 
 interface AppProps {
     routes: any;
