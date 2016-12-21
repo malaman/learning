@@ -3,20 +3,15 @@ import {resolve} from 'universal-router';
 import {Routes} from '../routes';
 import {history} from '../routes/history';
 
-function navigate(path) {
-    history.push(path);
-    console.log('hi');
-}
-
-export function Link({href, children}: {href: string, children?: any}) {
+export function Link(props: {href: string, children?: any}) {
     const click = (e) => {
         e.preventDefault();
-        navigate(href);
+        history.push(props.href);
     };
-
+    console.log('this.props', props.href);
     return (
-        <a href={href} onClick={click}>
-            {children}
+        <a role='button' href={props.href} onClick={click}>
+            {props.children}
         </a>
     );
 }

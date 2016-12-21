@@ -16,7 +16,7 @@ const webpack: any = require('webpack');
 const webpackMiddleware: any = require('webpack-dev-middleware');
 const app = express();
 const compiler: any = webpack(config);
-const store: {dispatch: Function} = configureStore({});
+const store: {dispatch: Function, getState: Function} = configureStore({});
 
 
 app.use(require('webpack-dev-middleware')(compiler, {
@@ -25,6 +25,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
+server.use('/assets', express.static(__dirname + '/../assets'))
 
 app.get('*', (req, res, next) => {
     if (res.url === '/static/bundle.js' || res.url === '/favicon.ico') {
@@ -34,9 +35,10 @@ app.get('*', (req, res, next) => {
     UniversalRouter
     .resolve(routes, {path: req.url, dispatch: store.dispatch})
     .then((component) => {
-        const ReactComp = (component as React.ReactNode);
+        const ReactComp = (component as React.Component<any, any>);
         const content =  ReactDOM.renderToString(<Root store={store} location={{pathname: req.url}} component={ReactComp}/>);
-        const html = ReactDOM.renderToString(<Html content={content} />);
+        const storeState = store.getState();
+        const html = ReactDOM.renderToString(<Html content={content} storeState={storeState} />);
         res.set('Content-Type', 'text/html');
         res.send(html);
         res.end();

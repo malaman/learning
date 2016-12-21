@@ -22,7 +22,7 @@ export const routes: any[] = [
       action: (args) => {
           return args.dispatch(getUserInfo('5852c646d76bdb0063dc8d84'))
             .then(() => {
-                return <AccountData />
+                return <AccountData />;
             })
             .catch((err) => console.log(`err ${err}`));
       }
