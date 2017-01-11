@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import {Routes} from '../routes';
-import {Header} from '../components/Header';
+import {Header} from '../components/Header/index';
 
 interface RootProps {
     location: {pathname: string};

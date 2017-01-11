@@ -16,7 +16,7 @@ interface UserProps {
     getPosts: Function;
 };
 
-export class UserClass extends React.Component<UserProps, {}> {
+export class UserClass extends React.Component<any, {}> {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired

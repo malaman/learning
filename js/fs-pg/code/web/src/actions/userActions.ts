@@ -5,9 +5,9 @@ export const increment = (userId: string|number) => ({
     payload: undefined
 });
 
-export const getUserInfo = (userId: string|number) => ({
+export const getUserInfo = (username: string) => ({
   type: 'LOAD_USER_INFO',
-  payload: http({ uri: `/api/users/${userId}` })
+  payload: http({ uri: `/api/users/${username}` })
 });
 
 export const getPosts = (userId: string|number) => ({

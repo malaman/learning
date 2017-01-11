@@ -32,9 +32,9 @@ router.post('/', function(req, res) {
     }
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:username', function(req, res) {
     let response = {};
-    User.findOne({_id: req.params.id}, (err, user) => {
+    User.findOne({username: req.params.username}, (err, user) => {
         if (err) {
             return res.json(response);
         }

@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import './styles/main.scss';
 import { Root } from './containers/Root';
+import './components/Header/style.scss';
 
 import { configureStore } from './store/configureStore';
 import {history} from './routes/history';

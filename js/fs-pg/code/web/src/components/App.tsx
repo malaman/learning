@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-
-import {Header} from '../components/Header';
+import {Header} from './Header';
 
 interface AppProps {
     routes: any;
@@ -15,7 +14,7 @@ class AppClass extends React.Component<AppProps, {}> {
     render() {
         const {routes}: any = this.props;
         return (
-            <div>
+            <div className='app'>
                 <Header {...this.props} />
             </div>
         );

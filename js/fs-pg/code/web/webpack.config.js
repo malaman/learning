@@ -21,7 +21,7 @@ module.exports = {
     new webpack.ProvidePlugin({
         'Promise': 'es6-promise',
         'fetch': 'exports?self.fetch!whatwg-fetch'
-    }),
+    })
  ],
   resolve: {
     extensions: ['', '.js', '.ts', '.tsx', '.scss']
@@ -41,7 +41,9 @@ module.exports = {
         },
         {
             test: /\.scss$/,
-            loader: 'style!css!sass'
+            loader: 'style!css!sass',
+            include: path.join(__dirname, 'src')
+
         }
     ]
   }

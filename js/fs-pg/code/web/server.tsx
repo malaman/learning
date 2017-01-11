@@ -25,7 +25,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-server.use('/assets', express.static(__dirname + '/../assets'))
+app.use('/assets', express.static(__dirname + '/../assets'));
 
 app.get('*', (req, res, next) => {
     if (res.url === '/static/bundle.js' || res.url === '/favicon.ico') {
