@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-rc.5",
+    "@types/react": "^0.14.57",
     "@types/react-redux": "^4.4.32",
     "@types/universal-router": "0.0.2",
     "classnames": "^2.2.5",
