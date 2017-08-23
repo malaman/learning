@@ -1,5 +1,3 @@
-declare var require: any;
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import './styles/main.scss';
@@ -11,9 +9,10 @@ import {history} from './routes/history';
 import {routes} from './routes';
 const Router = require('universal-router');
 
-const router = new Router(routes);
+
 const storeState: any = (window as any).__CONTEXT__;
 const store: {dispatch: Function} = configureStore(storeState);
+const router = new Router(routes);
 
 function render(location: any) {
     router

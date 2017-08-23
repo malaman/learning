@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers/index';
+const createLogger = require('redux-logger');
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-const createLogger = require('redux-logger');
 // import { DevTools } from '../containers/DevTools.js';
 
 const logger: any = createLogger();

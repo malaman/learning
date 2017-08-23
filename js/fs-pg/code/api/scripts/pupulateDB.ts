@@ -10,7 +10,7 @@ const comments = require('../fixtures/comments.json');
 let i = 0;
 const last = comments.length;
 
-const conn = mongoose.connect('mongodb://172.18.0.2:27017/test');
+const conn = mongoose.connect('mongodb://db:27017/test');
 // drop db collections if any
 try {
     // conn.connection.collections['users'].drop();

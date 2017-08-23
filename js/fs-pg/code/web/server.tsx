@@ -2,7 +2,6 @@ declare const require: any;
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/server';
-import * as UniversalRouter from 'universal-router';
 
 import {Html} from './src/components/Html';
 import {Root} from './src/containers/Root';
@@ -17,7 +16,9 @@ const webpackMiddleware: any = require('webpack-dev-middleware');
 const app = express();
 const compiler: any = webpack(config);
 const store: {dispatch: Function, getState: Function} = configureStore({});
+const Router = require('universal-router');
 
+const router = new Router(routes);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: false,
@@ -31,9 +32,8 @@ app.get('*', (req, res, next) => {
     if (res.url === '/static/bundle.js' || res.url === '/favicon.ico') {
         return next();
     }
-    console.log('req.url: ', req.url);
-    UniversalRouter
-    .resolve(routes, {path: req.url, dispatch: store.dispatch})
+  router
+    .resolve({path: req.url, dispatch: store.dispatch})
     .then((component) => {
         const ReactComp = (component as React.Component<any, any>);
         const content =  ReactDOM.renderToString(<Root store={store} location={{pathname: req.url}} component={ReactComp}/>);
