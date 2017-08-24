@@ -10,26 +10,26 @@ import {Header} from '../components/Header/index';
 import {getUserInfo} from '../actions/userActions';
 
 export const routes: any[] = [
-    {
-      path: '/',
-      action: () => {
-          return <div />;
-      }
-    },
-    {
-      path: '/user',
-      action: (args) => {
-          return args.dispatch(getUserInfo('Bret'))
-            .then(() => {
-                return <AccountData />;
-            })
-            .catch((err) => console.log(`err ${err}`));
-      }
-    },
-    {
-      path: '/about',
-      action: () => {
-          return <About />;
-      }
+  {
+    path: '/',
+    action: () => {
+      return <Home />;
     }
+  },
+  {
+    path: '/user',
+    action: (args) => {
+      return args.dispatch(getUserInfo('Bret'))
+        .then(() => {
+          return <AccountData />;
+        })
+        .catch((err) => console.log(`err ${err}`));
+    }
+  },
+  {
+    path: '/about',
+    action: () => {
+      return <About />;
+    }
+  }
 ];

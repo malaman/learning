@@ -1,49 +1,54 @@
 import * as React from 'react';
 import {Row, Button, Label} from 'react-bootstrap';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {increment} from '../actions/userActions';
 
-interface HomeProps {
-    counter: number;
-    home; string;
-    increment: Function;
+interface StateProps {
+  counter: number;
+  home: string;
 }
 
-class HomeClass extends React.Component<HomeProps, {}> {
-    handleBtnClick() {
-        this.props.increment();
-    };
-
-    render() {
-        return (
-            <div>
-                <Row>
-                    <h2>Home Page</h2>
-                    {this.props.home}
-                </Row>
-                <Row>
-                    <div style={{marginBottom: 15, marginTop: 15}}>
-                        <Label id='counter-value'>
-                            {this.props.counter}
-                        </Label>
-                    </div>
-                    <Button onClick={this.handleBtnClick.bind(this)}>
-                        Increment
-                    </Button>
-                </Row>
-            </div>
-        );
-    }
+interface DispatchProps {
+  increment: Function;
 }
 
-function mapStateToProps(state) {
-    return {
-        home: state.ui.home,
-        counter: state.ui.counter
-    };
+type Props = StateProps & DispatchProps;
+
+class HomeClass extends React.Component<Props, {}> {
+  handleBtnClick() {
+    this.props.increment();
+  };
+
+  render() {
+    return (
+      <div>
+        <Row>
+          <h2>Home Page</h2>
+          {this.props.home}
+        </Row>
+        <Row>
+          <div style={{marginBottom: 15, marginTop: 15}}>
+            <Label id='counter-value'>
+              {this.props.counter}
+            </Label>
+          </div>
+          <Button onClick={this.handleBtnClick.bind(this)}>
+            Increment
+          </Button>
+        </Row>
+      </div>
+    );
+  }
 }
 
-export const Home =  connect(
-    mapStateToProps,
-    {increment}
+function mapStateToProps(state): StateProps {
+  return {
+    home: state.ui.home,
+    counter: state.ui.counter
+  };
+}
+
+export const Home = connect<StateProps, DispatchProps, any>(
+  mapStateToProps,
+  {increment}
 )(HomeClass);

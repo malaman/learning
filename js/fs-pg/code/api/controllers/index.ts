@@ -10,7 +10,7 @@ router.use('/users', users);
 router.use('/posts', posts);
 router.use('/comments', comments);
 
-router.get('*', function(req, res) {
+router.get('*', function (req, res) {
   res.json({info: 'empty'});
 });
 
