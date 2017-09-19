@@ -1,0 +1,7 @@
+# ide
+*.*~
+
+# sbt
+target
+project/target
+docs
