@@ -1,0 +1,8 @@
+version: '2'
+services:
+  mongodb:
+    build: ./mongodb
+    ports:
+      - "27020:27017"
+    environment:
+      MONGODB_PASS: password

@@ -1,4 +1,4 @@
-name          := "user-service"
+name          := "akka-demos"
 version       := "0.1.0"
 scalaVersion  := "2.12.2"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
@@ -18,7 +18,8 @@ libraryDependencies ++= {
 
     "org.typelevel" %% "cats-core" % "0.9.0" % Compile,
 
-    "org.rogach" %% "scallop" % "3.1.0" % Compile
+    "org.rogach" %% "scallop" % "3.1.0" % Compile,
+    "org.mongodb.scala" %% "mongo-scala-driver" % "2.1.0" % Compile
   )
 }
 

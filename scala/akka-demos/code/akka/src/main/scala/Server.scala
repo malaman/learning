@@ -4,6 +4,11 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 import de.heikoseeberger.akkahttpplayjson.PlayJsonSupport._
+import workers.weather.WeatherWorker
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
+import helpers.MongoHelpers._
+import repository.MongoRepository
 
 object Server {
 
@@ -21,6 +26,9 @@ object Server {
 
     implicit val system       = ActorSystem("actor_service")
     implicit val materializer = ActorMaterializer()
+
+    val weatherActor = system.actorOf(WeatherWorker.props, "weather-actor")
+    system.scheduler.schedule(0.seconds, 5.seconds, weatherActor, WeatherWorker.GetWeather("Hamburg"))
 
     import system.dispatcher
 
