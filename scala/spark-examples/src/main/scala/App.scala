@@ -1,8 +1,6 @@
-package sparkexamples
-
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkConf
-import scala.io.Source
+import techcrunch.{Jobs => TechCrunchJobs}
 
 object App {
 
@@ -14,11 +12,8 @@ object App {
       .config(conf)
       .getOrCreate()
 
-    val salesData = spark.read
-      .option("header", true)
-      .csv("src/main/resources/SalesJan2009.csv")
+    TechCrunchJobs.getTotalInvestmentByCompany(spark)
 
-    salesData.printSchema()
     spark.stop()
   }
 }
